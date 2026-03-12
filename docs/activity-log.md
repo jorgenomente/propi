@@ -76,3 +76,10 @@
 - Archivos afectados: app/globals.css, app/(auth)/_, app/(private)/_, components/auth/\_, components/ui/button-variants.ts, components/ui/card.tsx, components/ui/input.tsx, tsconfig.json, eslint.config.mjs, e2e/auth.smoke.spec.ts, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx playwright test` OK. `diseno/` se excluyo de lint/build para conservarlo como referencia y no como parte ejecutable del producto.
 - Commit hash: 9e4baf5
+
+## 2026-03-12 12:39:51 -0300 | Lote: 2026-03-12-redesign-close-01 | Tipo: infra
+
+- Descripcion: cierre en git y despliegue productivo de la iteracion visual del MVP con la nueva direccion UI.
+- Archivos afectados: docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `git push origin main` OK; `npx vercel --prod` OK; alias productivo actualizado a `https://propi-jade.vercel.app`.
+- Commit hash: pendiente
