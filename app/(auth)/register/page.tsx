@@ -29,6 +29,7 @@ export default async function RegisterPage() {
       submitLabel="Crear cuenta"
       alternateHref="/login"
       alternateLabel="Ya tengo cuenta. Iniciar sesion"
+      passwordAutoComplete="new-password"
     />
   );
 }

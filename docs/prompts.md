@@ -71,3 +71,12 @@ npx vercel --prod
 ```text
 hagamos eso comit y push, despues pulir el warning y desplegar a prod
 ```
+
+## 2026-03-12 11:58:42 -0300 | Lote: 2026-03-12-polish-01
+
+- Objetivo: cerrar Lote 7 de pulido del MVP con estados de carga, error recuperable y feedback consistente en formularios y smoke E2E.
+- Prompt completo:
+
+```text
+si avancemos
+```

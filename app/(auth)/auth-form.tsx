@@ -28,6 +28,7 @@ type AuthFormProps = {
   alternateHref: string;
   alternateLabel: string;
   initialEmail?: string;
+  passwordAutoComplete?: 'current-password' | 'new-password';
 };
 
 const initialState: AuthFormState = {};
@@ -50,12 +51,14 @@ export function AuthForm({
   alternateHref,
   alternateLabel,
   initialEmail,
+  passwordAutoComplete = 'current-password',
 }: AuthFormProps) {
   const [state, formAction] = useActionState(action, {
     ...initialState,
     email: initialEmail,
   });
   const formState = state ?? initialState;
+  const errorId = formState.error ? 'auth-form-error' : undefined;
 
   return (
     <Card className="border-border/60 bg-background/95 shadow-xl backdrop-blur">
@@ -68,7 +71,7 @@ export function AuthForm({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form action={formAction} className="space-y-5">
+        <form action={formAction} className="space-y-5" noValidate>
           <div className="space-y-2">
             <Label htmlFor="email">Correo electronico</Label>
             <Input
@@ -78,6 +81,8 @@ export function AuthForm({
               autoComplete="email"
               defaultValue={formState.email}
               placeholder="tu@correo.com"
+              aria-invalid={Boolean(formState.error)}
+              aria-describedby={errorId}
               required
             />
           </div>
@@ -88,14 +93,20 @@ export function AuthForm({
               id="password"
               name="password"
               type="password"
-              autoComplete="current-password"
+              autoComplete={passwordAutoComplete}
               placeholder="Minimo 6 caracteres"
+              aria-invalid={Boolean(formState.error)}
+              aria-describedby={errorId}
               required
             />
           </div>
 
           {formState.error ? (
-            <p className="border-destructive/30 bg-destructive/10 text-destructive rounded-lg border px-3 py-2 text-sm">
+            <p
+              id={errorId}
+              role="alert"
+              className="border-destructive/30 bg-destructive/10 text-destructive rounded-lg border px-3 py-2 text-sm"
+            >
               {formState.error}
             </p>
           ) : null}

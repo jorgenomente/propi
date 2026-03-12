@@ -55,3 +55,10 @@
 - Archivos afectados: next.config.ts, app/globals.css, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK sin warning de lockfiles; `npx vercel --prod` OK; alias productivo asignado a `https://propi-jade.vercel.app`; verificacion manual del usuario OK en local y prod luego de quitar imports CSS de paquetes.
 - Commit hash: 3bf797d
+
+## 2026-03-12 11:58:42 -0300 | Lote: 2026-03-12-polish-01 | Tipo: ui
+
+- Descripcion: cierre del pulido MVP con estados `loading` para auth y privadas, error boundary recuperable en privadas, feedback accesible en formularios, empty state reforzado en dashboard y smoke E2E ampliada con escenarios de error.
+- Archivos afectados: app/(auth)/auth-form.tsx, app/(auth)/login/page.tsx, app/(auth)/register/page.tsx, app/(auth)/loading.tsx, app/(private)/page.tsx, app/(private)/add/tip-form.tsx, app/(private)/loading.tsx, app/(private)/error.tsx, e2e/auth.smoke.spec.ts, docs/prompts.md, docs/06-implementation-roadmap.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx playwright test` OK.
+- Commit hash: pendiente

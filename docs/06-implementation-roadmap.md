@@ -311,6 +311,10 @@ Mejorar experiencia y estabilidad del sistema.
 5. Ajustes visuales
 6. Pruebas de flujo completo
 
+## Estado
+
+Completado. El MVP ya incluye estados `loading`, error boundary recuperable en rutas privadas, feedback visible de validacion y smoke E2E ampliada con escenarios de error.
+
 ---
 
 # 11. Criterios de MVP Terminado

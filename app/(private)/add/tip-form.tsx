@@ -31,9 +31,10 @@ function SubmitButton() {
 export function TipForm({ action }: TipFormProps) {
   const [state, formAction] = useActionState(action, initialState);
   const formState = state ?? initialState;
+  const errorId = formState.error ? 'tip-form-error' : undefined;
 
   return (
-    <form action={formAction} className="space-y-5">
+    <form action={formAction} className="space-y-5" noValidate>
       <div className="space-y-2">
         <Label htmlFor="amount">Monto</Label>
         <Input
@@ -45,12 +46,21 @@ export function TipForm({ action }: TipFormProps) {
           inputMode="decimal"
           defaultValue={formState.amount}
           placeholder="20"
+          aria-invalid={Boolean(formState.error)}
+          aria-describedby={errorId ?? 'tip-form-help'}
           required
         />
+        <p id="tip-form-help" className="text-muted-foreground text-sm">
+          Usa un monto mayor a 0. Se guarda directamente en tu historial.
+        </p>
       </div>
 
       {formState.error ? (
-        <p className="border-destructive/30 bg-destructive/10 text-destructive rounded-lg border px-3 py-2 text-sm">
+        <p
+          id={errorId}
+          role="alert"
+          className="border-destructive/30 bg-destructive/10 text-destructive rounded-lg border px-3 py-2 text-sm"
+        >
           {formState.error}
         </p>
       ) : null}

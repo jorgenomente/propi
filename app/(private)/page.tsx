@@ -63,6 +63,24 @@ export default async function DashboardPage() {
         ))}
       </section>
 
+      {tips.length === 0 ? (
+        <section className="border-border/60 bg-background/90 mt-6 rounded-3xl border border-dashed p-6">
+          <p className="text-lg font-medium">
+            Todavia no registraste propinas.
+          </p>
+          <p className="text-muted-foreground mt-2 max-w-xl text-sm leading-6">
+            El primer registro tarda segundos. En cuanto guardes uno, este panel
+            se actualiza con tus totales del dia, la semana y el mes.
+          </p>
+          <Link
+            href="/add"
+            className="bg-primary text-primary-foreground mt-4 inline-flex h-11 items-center justify-center rounded-2xl px-4 text-sm font-medium transition-opacity hover:opacity-90"
+          >
+            Registrar primera propina
+          </Link>
+        </section>
+      ) : null}
+
       <section className="mt-6 grid gap-4 md:grid-cols-2">
         <Link
           href="/add"

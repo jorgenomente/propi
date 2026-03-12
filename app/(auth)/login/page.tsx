@@ -29,6 +29,7 @@ export default async function LoginPage() {
       submitLabel="Iniciar sesion"
       alternateHref="/register"
       alternateLabel="Crear cuenta"
+      passwordAutoComplete="current-password"
     />
   );
 }
