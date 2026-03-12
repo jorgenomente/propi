@@ -68,4 +68,4 @@
 - Descripcion: cierre formal del MVP en la documentacion del repo y explicitacion de la fase siguiente como iteracion sobre la base ya implementada.
 - Archivos afectados: docs/01-product-brief.md, docs/06-implementation-roadmap.md, docs/11-mvp-release-checklist.md, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: no aplica por tratarse de un lote solo de documentacion.
-- Commit hash: pendiente
+- Commit hash: 118b2b8
