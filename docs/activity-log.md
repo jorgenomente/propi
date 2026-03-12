@@ -5,4 +5,4 @@
 - Descripcion: validacion previa al cierre del lote, registro operativo obligatorio y preparacion de commit/push de todos los cambios pendientes.
 - Archivos afectados: docs/prompts.md, docs/activity-log.md, repositorio completo segun `git status --short`.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK.
-- Commit hash: pendiente
+- Commit hash: `de9ba7c`
