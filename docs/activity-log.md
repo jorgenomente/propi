@@ -40,7 +40,7 @@
 - Descripcion: implementacion de registro real de propinas en `/add`, conexion del dashboard a totales de `tips`, historial real por fecha y ampliacion de la smoke E2E para cubrir alta de propina.
 - Archivos afectados: app/(private)/add/\*, app/(private)/page.tsx, app/(private)/history/page.tsx, lib/tips.ts, e2e/auth.smoke.spec.ts, docs/06-implementation-roadmap.md, docs/07-repo-structure.md, docs/prompts.md.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx playwright test` OK.
-- Commit hash: pendiente
+- Commit hash: `7f740bb`
 
 ## 2026-03-12 09:59:38 -0300 | Lote: 2026-03-12-deploy-prod-01 | Tipo: infra
 
