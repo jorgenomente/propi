@@ -12,6 +12,8 @@
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest --passWithNoTests",
     "test:e2e": "playwright test",
+    "db:seed:auth-demo": "node scripts/seed-demo-auth.mjs",
+    "db:reset:demo": "npx supabase db reset && npm run db:seed:auth-demo",
     "prepare": "husky"
   },
   "dependencies": {

@@ -37,8 +37,9 @@ export default function AddTipPage() {
             Registrar propina
           </CardTitle>
           <CardDescription className="leading-6">
-            Guarda el monto en segundos y vuelve al dashboard para ver los
-            totales actualizados.
+            Guarda el monto y, si hace falta, asignalo al dia real en que lo
+            recibiste para que dashboard, historial y estadisticas queden
+            correctos.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -50,8 +51,8 @@ export default function AddTipPage() {
               <div className="space-y-1">
                 <p className="text-sm font-semibold">Registro directo</p>
                 <p className="text-muted-foreground text-sm leading-6">
-                  El monto se guarda en tu cuenta y actualiza dashboard e
-                  historial automaticamente.
+                  Puedes registrar una propina de hoy o cargar una atrasada con
+                  su fecha real para no distorsionar tus totales.
                 </p>
               </div>
             </div>

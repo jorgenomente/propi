@@ -1,5 +1,11 @@
 import Link from 'next/link';
-import { ArrowRight, CalendarDays, ChartColumnBig, Coins } from 'lucide-react';
+import {
+  ArrowRight,
+  CalendarDays,
+  ChartColumnBig,
+  Coins,
+  TrendingUp,
+} from 'lucide-react';
 
 import { LogoutForm } from '@/components/auth/logout-form';
 import {
@@ -201,12 +207,19 @@ export default async function DashboardPage() {
                 Ver historial
                 <ArrowRight className="size-4" />
               </Link>
+              <Link
+                href="/stats"
+                className="border-border/80 bg-card/75 text-foreground hover:bg-secondary/70 inline-flex h-12 w-full items-center justify-between rounded-2xl border px-4 text-sm font-semibold transition-colors"
+              >
+                Ver estadisticas
+                <ArrowRight className="size-4" />
+              </Link>
             </CardContent>
           </Card>
         </section>
       )}
 
-      <section className="mt-6 grid gap-4 md:grid-cols-2">
+      <section className="mt-6 grid gap-4 md:grid-cols-3">
         <Link
           href="/add"
           className="bg-card/88 border-border/70 hover:bg-card inline-flex h-16 items-center justify-between rounded-[28px] border px-5 text-base font-semibold shadow-[0_12px_32px_-24px_rgba(15,23,42,0.3)] transition-colors"
@@ -219,6 +232,16 @@ export default async function DashboardPage() {
           className="bg-card/72 border-border/70 hover:bg-secondary/60 inline-flex h-16 items-center justify-between rounded-[28px] border px-5 text-base font-semibold shadow-[0_12px_32px_-24px_rgba(15,23,42,0.22)] transition-colors"
         >
           <span>Historial</span>
+          <ArrowRight className="text-primary size-5" />
+        </Link>
+        <Link
+          href="/stats"
+          className="bg-card/72 border-border/70 hover:bg-secondary/60 inline-flex h-16 items-center justify-between rounded-[28px] border px-5 text-base font-semibold shadow-[0_12px_32px_-24px_rgba(15,23,42,0.22)] transition-colors"
+        >
+          <span className="inline-flex items-center gap-2">
+            <TrendingUp className="text-primary size-5" />
+            Estadisticas
+          </span>
           <ArrowRight className="text-primary size-5" />
         </Link>
       </section>

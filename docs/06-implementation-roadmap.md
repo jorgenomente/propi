@@ -33,6 +33,14 @@ Al 2026-03-12 el repositorio ya tiene cerrada la base de proyecto y quedó sanea
 
 Estado general: MVP completado y listo para iteracion controlada sobre la base actual.
 
+## Estado de iteracion actual
+
+Primera iteracion post-MVP ya implementada:
+
+- soporte para `tip_date` como fecha efectiva de la propina
+- pantalla `/stats` con presets y rango personalizado
+- dashboard, historial y estadisticas calculados sobre fecha real de negocio
+
 ---
 
 # 2. Estrategia de Desarrollo

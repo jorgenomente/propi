@@ -84,6 +84,7 @@ Cada propina:
 
 - pertenece a un único usuario
 - tiene un monto
+- tiene una fecha efectiva del negocio
 - tiene fecha/hora de creación
 - forma parte del historial personal del usuario
 
@@ -190,7 +191,29 @@ Reglas:
 
 Observaciones:
 
-- esta columna se utiliza para historial y agregaciones temporales
+- esta columna conserva la fecha y hora tecnica exacta en que se cargo el registro
+
+---
+
+### `tip_date`
+
+Tipo sugerido:
+
+- `date`
+
+Propósito:
+
+- representar el dia real al que corresponde la propina
+
+Reglas:
+
+- obligatorio
+- valor por defecto `current_date`
+
+Observaciones:
+
+- esta columna es la fuente de verdad para dashboard, historial agrupado y estadisticas
+- permite cargar hoy una propina que realmente pertenece a ayer o a otra fecha anterior
 
 ---
 
@@ -220,13 +243,14 @@ Observaciones:
 
 ## Tabla `tips`
 
-| Columna      | Tipo sugerido   | Null | Default  | Descripción                 |
-| ------------ | --------------- | ---- | -------- | --------------------------- |
-| `id`         | `uuid`          | No   | auto-gen | identificador único         |
-| `user_id`    | `uuid`          | No   | none     | dueño del registro          |
-| `amount`     | `numeric(12,2)` | No   | none     | monto de la propina         |
-| `created_at` | `timestamptz`   | No   | `now()`  | fecha/hora de creación      |
-| `updated_at` | `timestamptz`   | No   | `now()`  | fecha/hora de actualización |
+| Columna      | Tipo sugerido   | Null | Default        | Descripción                    |
+| ------------ | --------------- | ---- | -------------- | ------------------------------ |
+| `id`         | `uuid`          | No   | auto-gen       | identificador único            |
+| `user_id`    | `uuid`          | No   | none           | dueño del registro             |
+| `amount`     | `numeric(12,2)` | No   | none           | monto de la propina            |
+| `tip_date`   | `date`          | No   | `current_date` | fecha real de la propina       |
+| `created_at` | `timestamptz`   | No   | `now()`        | fecha/hora técnica de creación |
+| `updated_at` | `timestamptz`   | No   | `now()`        | fecha/hora de actualización    |
 
 ---
 
@@ -270,6 +294,7 @@ Las siguientes columnas deben ser obligatorias:
 
 - `user_id`
 - `amount`
+- `tip_date`
 - `created_at`
 - `updated_at`
 
@@ -349,17 +374,18 @@ Utilidad:
 - listar propinas por usuario
 - reforzar filtros multitenant
 
-## 11.2 Índice compuesto por usuario y fecha
+## 11.2 Índice compuesto por usuario y fecha efectiva
 
 Crear índice compuesto sobre:
 
-- `(user_id, created_at desc)`
+- `(user_id, tip_date desc, created_at desc)`
 
 Utilidad:
 
 - historial personal ordenado por fecha
 - consultas por rango temporal
 - dashboard diario/semanal/mensual
+- estadisticas por rango y por dia
 
 Este índice probablemente será el más importante del MVP.
 
@@ -375,6 +401,7 @@ Crear una nueva fila con:
 
 - `user_id`
 - `amount`
+- `tip_date`
 
 y timestamps automáticos.
 
@@ -385,46 +412,58 @@ y timestamps automáticos.
 Consultar propinas de un usuario:
 
 - filtradas por `user_id`
-- ordenadas por `created_at desc`
+- ordenadas por `tip_date desc` y `created_at desc`
 
 ---
 
 ## 12.3 Calcular total de hoy
 
-Sumar `amount` de propinas del usuario en el día actual.
+Sumar `amount` de propinas del usuario en el día actual usando `tip_date`.
 
 ---
 
 ## 12.4 Calcular total semanal
 
-Sumar `amount` de propinas del usuario en la semana actual.
+Sumar `amount` de propinas del usuario en la semana actual usando `tip_date`.
 
 ---
 
 ## 12.5 Calcular total mensual
 
-Sumar `amount` de propinas del usuario en el mes actual.
+Sumar `amount` de propinas del usuario en el mes actual usando `tip_date`.
+
+---
+
+## 12.6 Consultar estadisticas por rango
+
+Consultar propinas de un usuario:
+
+- filtradas por `tip_date` entre fecha inicial y final
+- agrupadas por dia
+- con detalle individual por jornada
 
 ---
 
 # 13. Consideraciones de Zona Horaria
 
-Como `created_at` usará `timestamptz`, el sistema tendrá información precisa de tiempo.
+Como `created_at` usa `timestamptz`, el sistema conserva información precisa de tiempo.
 
-Sin embargo, las consultas para:
+Sin embargo, las consultas de negocio para:
 
 - hoy
 - semana
 - mes
+- rangos personalizados
 
-deben considerar cuidadosamente la zona horaria del usuario o una zona horaria de aplicación definida.
+deben apoyarse primero en `tip_date`, que ya representa el dia efectivo del registro.
 
 ## Recomendación MVP
 
 En la primera versión, definir una estrategia simple y consistente:
 
 - guardar siempre timestamps reales en UTC
-- convertir y agrupar según la zona horaria de la app en la capa de consulta
+- usar `tip_date` para agregaciones de negocio
+- usar `created_at` para auditoria y hora exacta de carga
 
 Esto deberá documentarse en la implementación SQL y en la capa de aplicación.
 

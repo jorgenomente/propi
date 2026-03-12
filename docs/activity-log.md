@@ -83,3 +83,17 @@
 - Archivos afectados: docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `git push origin main` OK; `npx vercel --prod` OK; alias productivo actualizado a `https://propi-jade.vercel.app`.
 - Commit hash: 60471c5
+
+## 2026-03-12 13:51:25 -0300 | Lote: 2026-03-12-stats-tipdate-01 | Tipo: schema
+
+- Descripcion: incorporacion de `tip_date` como fecha efectiva de negocio, soporte para cargar propinas atrasadas con su dia real, nueva pantalla `/stats` con presets y rango personalizado, y ajuste de dashboard/historial para resumir por fecha efectiva en lugar de `created_at`.
+- Archivos afectados: supabase/migrations/20260312130500_002_add_tip_date.sql, app/(private)/add/\*, app/(private)/page.tsx, app/(private)/history/page.tsx, app/(private)/stats/page.tsx, app/(private)/layout.tsx, components/tips/\*, lib/tips.ts, e2e/auth.smoke.spec.ts, docs/03-database-schema.md, docs/05-pantallas-y-flujos.md, docs/06-implementation-roadmap.md, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx playwright test` OK; `npx supabase db reset` OK.
+- Commit hash: pendiente
+
+## 2026-03-12 14:15:17 -0300 | Lote: 2026-03-12-auth-seed-01 | Tipo: infra
+
+- Descripcion: correccion del warning de `defaultValue` en el formulario de auth mediante remount del campo email y reemplazo del seed SQL roto por un flujo correcto de usuario demo local via Auth admin API (`scripts/seed-demo-auth.mjs`).
+- Archivos afectados: app/(auth)/auth-form.tsx, supabase/seed.sql, scripts/seed-demo-auth.mjs, package.json, docs/09.1-supabase-setup.md, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx supabase db reset` OK; `npm run db:seed:auth-demo` OK; verificacion de login demo OK.
+- Commit hash: pendiente

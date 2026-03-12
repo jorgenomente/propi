@@ -30,7 +30,7 @@ Registrar una propina debe tomar **menos de 5 segundos**.
 
 # 2. Estructura General de Pantallas
 
-El MVP de **Propi** contiene **5 pantallas principales**.
+La base actual de **Propi** contiene **6 pantallas principales**.
 
 ## Pantallas públicas
 
@@ -42,6 +42,7 @@ El MVP de **Propi** contiene **5 pantallas principales**.
 - Dashboard (pantalla principal)
 - Registrar propina
 - Historial de propinas
+- Estadisticas
 
 ---
 
@@ -67,7 +68,13 @@ El MVP de **Propi** contiene **5 pantallas principales**.
         ┌───────▼───┐ ┌─▼─────────┐
         │ Registrar │ │ Historial │
         │ propina   │ │           │
-        └───────────┘ └───────────┘
+        └─────┬─────┘ └─────┬─────┘
+              │             │
+              └──────┬──────┘
+                     │
+              ┌──────▼──────┐
+              │ Estadisticas│
+              └─────────────┘
 ```
 
 El **Dashboard es el centro de la aplicación**.
@@ -421,6 +428,23 @@ Ejemplo:
 20
 ```
 
+Comportamiento:
+
+- acepta numeros enteros
+- formatea miles con punto mientras el usuario escribe
+
+---
+
+### Campo fecha de la propina
+
+Campo tipo fecha.
+
+Comportamiento:
+
+- usa la fecha actual por defecto
+- permite registrar una propina atrasada con su dia real
+- no permite fechas futuras
+
 ---
 
 ### Validaciones
@@ -442,6 +466,7 @@ Guardar propina
 Acción:
 
 - insertar registro en la tabla `tips`
+- persistir `tip_date` como fecha efectiva del negocio
 
 ---
 
@@ -523,10 +548,15 @@ $10 — 20:10
 Ordenadas por:
 
 ```
-created_at DESC
+tip_date DESC, created_at DESC
 ```
 
 Más reciente primero.
+
+Ademas:
+
+- el agrupado principal usa el dia real de la propina
+- la hora visible sigue saliendo de `created_at`
 
 ---
 
@@ -541,6 +571,42 @@ Acción:
 ```
 navegar → /
 ```
+
+---
+
+# 8.3 Pantalla 6 — Estadisticas
+
+## Ruta
+
+```
+/stats
+```
+
+## Objetivo
+
+Permitir al usuario explorar sus propinas por rango de fechas y revisar detalle diario sin salir de su cuenta.
+
+## Elementos
+
+- presets rapidos:
+  - Ultimos 7 dias
+  - Este mes
+  - Mes anterior
+- filtro personalizado:
+  - desde
+  - hasta
+- resumen del rango:
+  - total
+  - cantidad
+  - promedio por dia
+- tabla diaria
+- detalle por jornada
+
+## Contrato funcional
+
+- fuente principal: `tips`
+- filtro de negocio: `tip_date`
+- orden del detalle: `created_at desc`
 
 ---
 
@@ -598,6 +664,20 @@ Dashboard
 Historial
 ↓
 Lista de propinas
+```
+
+---
+
+# 9.5 Flujo — Ver estadisticas
+
+```
+Dashboard o Historial
+↓
+Estadisticas
+↓
+Elegir preset o rango
+↓
+Ver resumen diario y detalle por jornada
 ```
 
 ---
@@ -664,11 +744,12 @@ Botón reutilizable para acciones principales.
 
 # 12. Datos necesarios por pantalla
 
-| Pantalla          | Datos necesarios  |
-| ----------------- | ----------------- |
-| Dashboard         | totales           |
-| Registrar propina | ninguno           |
-| Historial         | lista de propinas |
+| Pantalla          | Datos necesarios                          |
+| ----------------- | ----------------------------------------- |
+| Dashboard         | totales calculados por `tip_date`         |
+| Registrar propina | alta de propina con fecha real            |
+| Historial         | lista de propinas agrupada por `tip_date` |
+| Estadisticas      | rango, resumen diario y detalle por dia   |
 
 ---
 
@@ -692,8 +773,16 @@ Consulta base:
 select *
 from tips
 where user_id = auth.uid()
-order by created_at desc
+order by tip_date desc, created_at desc
 ```
+
+### Estadisticas
+
+Consulta base:
+
+- filtrar por `tip_date`
+- agrupar por dia
+- ordenar el detalle por `created_at desc`
 
 ---
 
@@ -715,12 +804,13 @@ La implementación será correcta si:
 
 El diseño de pantallas de Propi debe mantenerse deliberadamente minimalista.
 
-El MVP solo necesita:
+La base operativa actual necesita:
 
 - autenticación
 - dashboard
 - registro de propinas
 - historial
+- estadisticas iniciales
 
 El éxito del producto dependerá de:
 

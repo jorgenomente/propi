@@ -1,1 +1,4 @@
--- Seed placeholder for local `supabase db reset`.
+-- Local data seed intentionally left minimal.
+-- Demo auth users are created via `npm run db:seed:auth-demo`
+-- because Supabase Auth must be seeded through GoTrue admin APIs,
+-- not by inserting rows directly into `auth.users`.

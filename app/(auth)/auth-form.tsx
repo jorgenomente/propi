@@ -60,6 +60,7 @@ export function AuthForm({
   });
   const formState = state ?? initialState;
   const errorId = formState.error ? 'auth-form-error' : undefined;
+  const emailFieldKey = formState.email ?? initialEmail ?? 'empty';
 
   return (
     <Card className="border-border bg-card w-full max-w-md shadow-[0_20px_60px_-42px_rgba(15,23,42,0.24)]">
@@ -81,6 +82,7 @@ export function AuthForm({
             <div className="relative">
               <Mail className="text-muted-foreground pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2" />
               <Input
+                key={emailFieldKey}
                 id="email"
                 name="email"
                 type="email"

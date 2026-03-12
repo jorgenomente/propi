@@ -107,3 +107,21 @@ si la carpeta diseno es solo un design system que me gustaria implementar en tod
 ```text
 ok ahora si. vamos a comitear y pushear todo hasta ahora y despues desplegamos a prod
 ```
+
+## 2026-03-12 13:51:25 -0300 | Lote: 2026-03-12-stats-tipdate-01
+
+- Objetivo: agregar soporte para registrar propinas con fecha real (`tip_date`) y construir un primer modulo de estadisticas por rango sobre esa fecha efectiva.
+- Prompt completo:
+
+```text
+ok si hagamos eso
+```
+
+## 2026-03-12 14:15:17 -0300 | Lote: 2026-03-12-auth-seed-01
+
+- Objetivo: corregir el warning de inputs en auth y dejar un usuario demo local persistente para pruebas despues de `supabase db reset`.
+- Prompt completo:
+
+```text
+cuando intento hacer login en local me dice esto ... puede ser tambien que la cuenta que habia creado se borro? insertemos credenciales en local para usar de prueba
+```

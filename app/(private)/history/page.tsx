@@ -1,5 +1,10 @@
 import Link from 'next/link';
-import { ArrowLeft, CalendarRange, ReceiptText } from 'lucide-react';
+import {
+  ArrowLeft,
+  CalendarRange,
+  ReceiptText,
+  TrendingUp,
+} from 'lucide-react';
 
 import { LogoutForm } from '@/components/auth/logout-form';
 import {
@@ -20,7 +25,7 @@ export default async function HistoryPage() {
   const tips = await getTips();
   const tipsByDay = Object.entries(
     tips.reduce<Record<string, typeof tips>>((groups, tip) => {
-      const label = formatTipDate(tip.created_at);
+      const label = formatTipDate(tip.tip_date);
       groups[label] ??= [];
       groups[label].push(tip);
       return groups;
@@ -30,13 +35,22 @@ export default async function HistoryPage() {
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-4 py-6 sm:px-6 sm:py-8">
       <div className="mb-6 flex items-center justify-between gap-3">
-        <Link
-          href="/"
-          className="border-border/80 bg-card/85 text-foreground hover:bg-secondary/75 inline-flex h-11 items-center justify-center gap-2 rounded-2xl border px-4 text-sm font-semibold transition-colors"
-        >
-          <ArrowLeft className="size-4" />
-          Volver
-        </Link>
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            href="/"
+            className="border-border/80 bg-card/85 text-foreground hover:bg-secondary/75 inline-flex h-11 items-center justify-center gap-2 rounded-2xl border px-4 text-sm font-semibold transition-colors"
+          >
+            <ArrowLeft className="size-4" />
+            Volver
+          </Link>
+          <Link
+            href="/stats"
+            className="border-border/80 bg-card/85 text-foreground hover:bg-secondary/75 inline-flex h-11 items-center justify-center gap-2 rounded-2xl border px-4 text-sm font-semibold transition-colors"
+          >
+            <TrendingUp className="size-4" />
+            Estadisticas
+          </Link>
+        </div>
         <LogoutForm variant="ghost" />
       </div>
 
@@ -75,9 +89,14 @@ export default async function HistoryPage() {
                         <span className="text-base font-medium">
                           {formatCurrency(tip.amount)}
                         </span>
-                        <span className="text-muted-foreground text-sm">
-                          {formatTipTime(tip.created_at)}
-                        </span>
+                        <div className="text-right">
+                          <p className="text-muted-foreground text-sm">
+                            {formatTipTime(tip.created_at)}
+                          </p>
+                          <p className="text-muted-foreground text-xs">
+                            corresponde a {formatTipDate(tip.tip_date)}
+                          </p>
+                        </div>
                       </div>
                     ))}
                   </div>
