@@ -69,3 +69,10 @@
 - Archivos afectados: docs/01-product-brief.md, docs/06-implementation-roadmap.md, docs/11-mvp-release-checklist.md, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: no aplica por tratarse de un lote solo de documentacion.
 - Commit hash: 118b2b8
+
+## 2026-03-12 12:27:51 -0300 | Lote: 2026-03-12-redesign-01 | Tipo: ui
+
+- Descripcion: adopcion visual del design system de `diseno/` en la app MVP mediante nuevos tokens teal/surface, reestilado de primitives y rediseño de auth, dashboard, registro de propina e historial, manteniendo la logica existente.
+- Archivos afectados: app/globals.css, app/(auth)/_, app/(private)/_, components/auth/\_, components/ui/button-variants.ts, components/ui/card.tsx, components/ui/input.tsx, tsconfig.json, eslint.config.mjs, e2e/auth.smoke.spec.ts, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx playwright test` OK. `diseno/` se excluyo de lint/build para conservarlo como referencia y no como parte ejecutable del producto.
+- Commit hash: pendiente

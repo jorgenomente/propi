@@ -89,3 +89,12 @@ si avancemos
 ```text
 ok hamos cierre del mvp y a partir de aqui lo que vamos a hacer es iterar lo que ya tenemos
 ```
+
+## 2026-03-12 12:27:51 -0300 | Lote: 2026-03-12-redesign-01
+
+- Objetivo: tomar `diseno/` como referencia visual, adaptar sus tokens al proyecto actual y rediseñar todas las pantallas del MVP sin cambiar logica de negocio.
+- Prompt completo:
+
+```text
+si la carpeta diseno es solo un design system que me gustaria implementar en toda la aplicacion para cambiar como se va ahora mismo. Esto es de una app que hice anteriormente, asi que toma las referencias e implementalas en todas las paginas
+```

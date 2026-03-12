@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { AlertTriangle } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,11 +14,12 @@ export default function PrivateError({
 }) {
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-3xl items-center px-4 py-8 sm:px-6">
-      <Card className="border-border/60 bg-background/95 w-full rounded-3xl">
+      <Card className="bg-card/90 w-full border-white/55">
         <CardHeader className="space-y-3">
-          <p className="text-muted-foreground text-xs tracking-[0.22em] uppercase">
+          <div className="bg-secondary text-secondary-foreground inline-flex w-fit items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-[0.22em] uppercase">
+            <AlertTriangle className="size-3.5" />
             Propi
-          </p>
+          </div>
           <CardTitle className="text-3xl">
             No pudimos cargar esta vista
           </CardTitle>
@@ -33,7 +35,7 @@ export default function PrivateError({
             </Button>
             <Link
               href="/"
-              className="border-border bg-background text-foreground hover:bg-muted inline-flex h-11 items-center justify-center rounded-md border px-4 text-sm font-medium transition-colors"
+              className="border-border/80 bg-card/85 text-foreground hover:bg-secondary/80 inline-flex h-11 items-center justify-center rounded-xl border px-4 text-sm font-semibold transition-colors"
             >
               Volver al dashboard
             </Link>

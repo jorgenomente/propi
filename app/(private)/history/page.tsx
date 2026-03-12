@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ArrowLeft, CalendarRange, ReceiptText } from 'lucide-react';
 
 import { LogoutForm } from '@/components/auth/logout-form';
 import {
@@ -31,35 +32,45 @@ export default async function HistoryPage() {
       <div className="mb-6 flex items-center justify-between gap-3">
         <Link
           href="/"
-          className="border-border bg-background text-foreground hover:bg-muted inline-flex h-10 items-center justify-center rounded-lg border px-3 text-sm font-medium transition-colors"
+          className="border-border/80 bg-card/85 text-foreground hover:bg-secondary/75 inline-flex h-11 items-center justify-center gap-2 rounded-2xl border px-4 text-sm font-semibold transition-colors"
         >
+          <ArrowLeft className="size-4" />
           Volver
         </Link>
         <LogoutForm variant="ghost" />
       </div>
 
-      <Card className="border-border/60 bg-background/95">
-        <CardHeader>
-          <CardTitle className="text-3xl">Historial</CardTitle>
+      <Card className="bg-card/90 border-white/55">
+        <CardHeader className="space-y-4">
+          <div className="bg-secondary text-secondary-foreground inline-flex w-fit items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-[0.22em] uppercase">
+            <CalendarRange className="size-3.5" />
+            Archivo personal
+          </div>
+          <CardTitle className="text-3xl tracking-[-0.03em]">
+            Historial
+          </CardTitle>
           <CardDescription className="leading-6">
             Revisa tus propinas registradas ordenadas por fecha.
           </CardDescription>
         </CardHeader>
         <CardContent>
           {tipsByDay.length === 0 ? (
-            <div className="border-border text-muted-foreground rounded-2xl border border-dashed px-4 py-8 text-sm">
+            <div className="text-muted-foreground border-border/80 bg-secondary/25 rounded-[28px] border border-dashed px-5 py-10 text-sm">
               Todavia no registraste propinas.
             </div>
           ) : (
             <div className="space-y-6">
               {tipsByDay.map(([dayLabel, dayTips]) => (
                 <section key={dayLabel} className="space-y-3">
-                  <h2 className="text-lg font-semibold">{dayLabel}</h2>
+                  <div className="flex items-center gap-2">
+                    <ReceiptText className="text-primary size-4" />
+                    <h2 className="text-lg font-semibold">{dayLabel}</h2>
+                  </div>
                   <div className="space-y-2">
                     {(dayTips ?? []).map((tip) => (
                       <div
                         key={tip.id}
-                        className="border-border flex items-center justify-between rounded-2xl border px-4 py-3"
+                        className="border-border/75 bg-card/72 flex items-center justify-between rounded-[24px] border px-4 py-4 shadow-[0_10px_30px_-24px_rgba(15,23,42,0.28)]"
                       >
                         <span className="text-base font-medium">
                           {formatCurrency(tip.amount)}

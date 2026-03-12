@@ -56,9 +56,9 @@ test('user can sign up, create a tip, sign out and sign back in', async ({
   await page.getByRole('button', { name: 'Guardar propina' }).click();
 
   await expect(page).toHaveURL(/\/$/);
-  await expect(page.getByText('US$ 20,00')).toHaveCount(3);
+  await expect(page.getByText('US$ 20,00')).toHaveCount(4);
 
-  await page.getByRole('link', { name: 'Historial' }).click();
+  await page.getByRole('link', { name: 'Historial', exact: true }).click();
   await expect(page).toHaveURL(/\/history$/);
   await expect(page.getByText('US$ 20,00')).toBeVisible();
 
@@ -71,5 +71,5 @@ test('user can sign up, create a tip, sign out and sign back in', async ({
 
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByText(`Sesion activa: ${email}`)).toBeVisible();
-  await expect(page.getByText('US$ 20,00')).toHaveCount(3);
+  await expect(page.getByText('US$ 20,00')).toHaveCount(4);
 });

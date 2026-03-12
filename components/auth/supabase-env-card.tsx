@@ -10,7 +10,7 @@ import {
 
 export function SupabaseEnvCard() {
   return (
-    <Card className="border-border/60 bg-background/95 shadow-xl backdrop-blur">
+    <Card className="bg-card/88 w-full max-w-md border-white/60 shadow-[0_32px_90px_-52px_rgba(15,23,42,0.55)] backdrop-blur-xl">
       <CardHeader className="space-y-2">
         <CardTitle className="text-2xl">Configuracion pendiente</CardTitle>
         <CardDescription className="text-sm leading-6">
@@ -19,7 +19,7 @@ export function SupabaseEnvCard() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4 text-sm leading-6">
-        <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-amber-950 dark:text-amber-100">
+        <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-amber-950 dark:text-amber-100">
           Faltan `NEXT_PUBLIC_SUPABASE_URL` y/o `NEXT_PUBLIC_SUPABASE_ANON_KEY`
           en Vercel.
         </div>
