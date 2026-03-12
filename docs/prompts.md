@@ -62,3 +62,12 @@ ok todo parece funcionar bien hasta ahora asi que podemos continuar
 ```text
 npx vercel --prod
 ```
+
+## 2026-03-12 10:26:21 -0300 | Lote: 2026-03-12-deploy-prod-02
+
+- Objetivo: eliminar el warning de `turbopack.root`, revalidar la build y desplegar la version actual a produccion.
+- Prompt completo:
+
+```text
+hagamos eso comit y push, despues pulir el warning y desplegar a prod
+```

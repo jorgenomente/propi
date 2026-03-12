@@ -48,3 +48,10 @@
 - Archivos afectados: docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: deploy productivo iniciado OK; URL `https://propi-4v4v4256c-jorgenomentes-projects.vercel.app` responde `HTTP 401`, consistente con proteccion de acceso del proyecto en Vercel.
 - Commit hash: pendiente
+
+## 2026-03-12 10:26:21 -0300 | Lote: 2026-03-12-deploy-prod-02 | Tipo: infra
+
+- Descripcion: configuracion de `turbopack.root` para fijar el workspace root correcto antes del siguiente despliegue productivo.
+- Archivos afectados: next.config.ts, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK sin warning de lockfiles; `npx vercel --prod` OK; alias productivo asignado a `https://propi-jade.vercel.app`. Verificacion por `curl` no disponible en sandbox por fallo de DNS local (`Could not resolve host`).
+- Commit hash: pendiente
