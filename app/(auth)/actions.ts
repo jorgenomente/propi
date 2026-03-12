@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
+import { hasSupabasePublicEnv } from '@/lib/supabase/env';
 import { createClient } from '@/lib/supabase/server';
 
 export type AuthFormState = {
@@ -40,6 +41,14 @@ export async function loginAction(
   _previousState: AuthFormState | void,
   formData: FormData,
 ) {
+  if (!hasSupabasePublicEnv()) {
+    return {
+      error:
+        'Faltan variables de entorno de Supabase en produccion. Configuralas en Vercel y redeploya.',
+      email: String(formData.get('email') ?? ''),
+    } satisfies AuthFormState;
+  }
+
   const parsed = getCredentials(formData);
 
   if (!parsed.success) {
@@ -66,6 +75,14 @@ export async function registerAction(
   _previousState: AuthFormState | void,
   formData: FormData,
 ) {
+  if (!hasSupabasePublicEnv()) {
+    return {
+      error:
+        'Faltan variables de entorno de Supabase en produccion. Configuralas en Vercel y redeploya.',
+      email: String(formData.get('email') ?? ''),
+    } satisfies AuthFormState;
+  }
+
   const parsed = getCredentials(formData);
 
   if (!parsed.success) {

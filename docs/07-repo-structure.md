@@ -291,6 +291,7 @@ Estructura sugerida:
 
 ```text
 lib/
+  tips.ts
 
 supabase/
    client.ts
@@ -322,6 +323,14 @@ Responsabilidades:
 - crear cliente Supabase
 - manejar sesión
 - conexión con base de datos
+
+## `/lib/tips.ts`
+
+Centraliza consultas simples y formateo para:
+
+- resumen de dashboard
+- historial
+- helpers de moneda y fecha
 
 ---
 

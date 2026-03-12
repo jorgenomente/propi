@@ -1,13 +1,26 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
+import { hasSupabasePublicEnv } from '@/lib/supabase/env';
 import { updateSession } from '@/lib/supabase/middleware';
 
 export async function proxy(request: NextRequest) {
-  const { response, user } = await updateSession(request);
   const { pathname } = request.nextUrl;
-
   const isPublicRoute = pathname === '/login' || pathname === '/register';
+
+  if (!hasSupabasePublicEnv()) {
+    if (!isPublicRoute) {
+      const loginUrl = request.nextUrl.clone();
+      loginUrl.pathname = '/login';
+      return NextResponse.redirect(loginUrl);
+    }
+
+    return NextResponse.next({
+      request,
+    });
+  }
+
+  const { response, user } = await updateSession(request);
 
   if (!user && !isPublicRoute) {
     const loginUrl = request.nextUrl.clone();

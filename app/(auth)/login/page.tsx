@@ -1,11 +1,17 @@
 import { redirect } from 'next/navigation';
 
+import { SupabaseEnvCard } from '@/components/auth/supabase-env-card';
+import { hasSupabasePublicEnv } from '@/lib/supabase/env';
 import { createClient } from '@/lib/supabase/server';
 
 import { AuthForm } from '../auth-form';
 import { loginAction } from '../actions';
 
 export default async function LoginPage() {
+  if (!hasSupabasePublicEnv()) {
+    return <SupabaseEnvCard />;
+  }
+
   const supabase = await createClient();
   const {
     data: { user },

@@ -26,7 +26,9 @@ Al 2026-03-12 el repositorio ya tiene cerrada la base de proyecto y quedó sanea
 - Lote 1: base del proyecto listo
 - Lote 2: autenticacion implementada y validada
 - Lote 3: schema y RLS validados en entorno local
-- Lote 4: siguiente lote recomendado
+- Lote 4: registro de propinas implementado
+- Lote 5: dashboard conectado a datos reales
+- Lote 6: historial conectado a datos reales
 
 ---
 
@@ -219,7 +221,7 @@ Un usuario autenticado puede:
 
 ## Estado
 
-Pendiente. Este es el siguiente lote recomendado.
+Completado. El formulario `/add` inserta en `tips` y redirige al dashboard.
 
 ---
 
@@ -255,6 +257,10 @@ El usuario puede ver:
 - cuánto hizo esta semana
 - cuánto hizo este mes
 
+## Estado
+
+Completado. Los totales del dashboard se calculan desde los datos reales del usuario autenticado.
+
 ---
 
 # 9. Lote 6 — Historial
@@ -281,6 +287,10 @@ El usuario puede:
 
 - ver todas sus propinas
 - revisar registros pasados
+
+## Estado
+
+Completado. El historial ya lista registros reales ordenados por fecha.
 
 ---
 

@@ -34,3 +34,17 @@
 - Archivos afectados: proxy.ts, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx playwright test` OK; warning de `middleware` eliminado.
 - Commit hash: `7b1ace2`
+
+## 2026-03-12 10:08:00 -0300 | Lote: 2026-03-12-tips-01 | Tipo: ui
+
+- Descripcion: implementacion de registro real de propinas en `/add`, conexion del dashboard a totales de `tips`, historial real por fecha y ampliacion de la smoke E2E para cubrir alta de propina.
+- Archivos afectados: app/(private)/add/\*, app/(private)/page.tsx, app/(private)/history/page.tsx, lib/tips.ts, e2e/auth.smoke.spec.ts, docs/06-implementation-roadmap.md, docs/07-repo-structure.md, docs/prompts.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx playwright test` OK.
+- Commit hash: pendiente
+
+## 2026-03-12 09:59:38 -0300 | Lote: 2026-03-12-deploy-prod-01 | Tipo: infra
+
+- Descripcion: despliegue productivo con `npx vercel --prod` sobre `jorgenomentes-projects/propi`; el CLI alcanzo la fase `Deploying outputs...` y la URL productiva ya responde desde Vercel.
+- Archivos afectados: docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: deploy productivo iniciado OK; URL `https://propi-4v4v4256c-jorgenomentes-projects.vercel.app` responde `HTTP 401`, consistente con proteccion de acceso del proyecto en Vercel.
+- Commit hash: pendiente

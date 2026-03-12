@@ -44,3 +44,21 @@ $vercel-deploy
 ```text
 eso es porque instale el skill de vercel-deploy. asi que comitea y pushea todo junto. antes de eso cambia el middleware por proxy para evitar ese warning
 ```
+
+## 2026-03-12 10:08:00 -0300 | Lote: 2026-03-12-tips-01
+
+- Objetivo: implementar registro real de propinas, conectar dashboard e historial a `tips` y ampliar la smoke E2E.
+- Prompt completo:
+
+```text
+ok todo parece funcionar bien hasta ahora asi que podemos continuar
+```
+
+## 2026-03-12 09:59:38 -0300 | Lote: 2026-03-12-deploy-prod-01
+
+- Objetivo: ejecutar despliegue productivo con Vercel CLI y verificar el estado inicial de la URL publicada.
+- Prompt completo:
+
+```text
+npx vercel --prod
+```

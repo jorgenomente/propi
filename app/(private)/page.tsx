@@ -9,18 +9,20 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { createClient } from '@/lib/supabase/server';
-
-const summaryCards = [
-  { label: 'Propinas de hoy', value: '$0' },
-  { label: 'Propinas esta semana', value: '$0' },
-  { label: 'Propinas este mes', value: '$0' },
-];
+import { formatCurrency, getTipSummary, getTips } from '@/lib/tips';
 
 export default async function DashboardPage() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  const tips = await getTips();
+  const summary = getTipSummary(tips);
+  const summaryCards = [
+    { label: 'Propinas de hoy', value: formatCurrency(summary.today) },
+    { label: 'Propinas esta semana', value: formatCurrency(summary.week) },
+    { label: 'Propinas este mes', value: formatCurrency(summary.month) },
+  ];
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 py-6 sm:px-6 sm:py-8">
@@ -33,8 +35,8 @@ export default async function DashboardPage() {
             Tu resumen de propinas
           </h1>
           <p className="text-muted-foreground max-w-2xl text-sm leading-6">
-            Sesion activa: {user?.email ?? user?.id}. La autenticacion ya esta
-            operativa y el dashboard queda listo para conectarse a `tips`.
+            Sesion activa: {user?.email ?? user?.id}. Los totales se calculan
+            desde la tabla `tips` de tu cuenta.
           </p>
         </div>
 
@@ -52,8 +54,9 @@ export default async function DashboardPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground text-sm">
-                Placeholder del dashboard. El siguiente lote conecta estos
-                totales a la tabla `tips`.
+                {tips.length === 0
+                  ? 'Todavia no registraste propinas.'
+                  : `Llevas ${tips.length} registro${tips.length === 1 ? '' : 's'} en total.`}
               </p>
             </CardContent>
           </Card>

@@ -9,6 +9,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
+import { createTipAction } from './actions';
+import { TipForm } from './tip-form';
+
 export default function AddTipPage() {
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-4 py-6 sm:px-6 sm:py-8">
@@ -26,15 +29,12 @@ export default function AddTipPage() {
         <CardHeader>
           <CardTitle className="text-3xl">Registrar propina</CardTitle>
           <CardDescription className="leading-6">
-            Ruta protegida lista para el proximo lote. Aqui va el formulario de
-            monto conectado a `public.tips`.
+            Guarda el monto en segundos y vuelve al dashboard para ver los
+            totales actualizados.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="border-border text-muted-foreground rounded-2xl border border-dashed px-4 py-8 text-sm">
-            Placeholder protegido. El siguiente paso implementa validacion,
-            insercion y redireccion al dashboard.
-          </div>
+          <TipForm action={createTipAction} />
         </CardContent>
       </Card>
     </div>

@@ -8,6 +8,17 @@ function getEnv(name: string) {
   return value;
 }
 
+export function hasEnv(name: string) {
+  return Boolean(process.env[name]);
+}
+
+export function hasSupabasePublicEnv() {
+  return (
+    hasEnv('NEXT_PUBLIC_SUPABASE_URL') &&
+    hasEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY')
+  );
+}
+
 export function getSupabaseUrl() {
   return getEnv('NEXT_PUBLIC_SUPABASE_URL');
 }
