@@ -61,4 +61,4 @@
 - Descripcion: cierre del pulido MVP con estados `loading` para auth y privadas, error boundary recuperable en privadas, feedback accesible en formularios, empty state reforzado en dashboard y smoke E2E ampliada con escenarios de error.
 - Archivos afectados: app/(auth)/auth-form.tsx, app/(auth)/login/page.tsx, app/(auth)/register/page.tsx, app/(auth)/loading.tsx, app/(private)/page.tsx, app/(private)/add/tip-form.tsx, app/(private)/loading.tsx, app/(private)/error.tsx, e2e/auth.smoke.spec.ts, docs/prompts.md, docs/06-implementation-roadmap.md, docs/activity-log.md.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx playwright test` OK.
-- Commit hash: pendiente
+- Commit hash: 1204627
