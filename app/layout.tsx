@@ -20,6 +20,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Propi',
   description: 'Registro personal de propinas con Supabase y Next.js.',
+  manifest: '/manifest.webmanifest',
+  icons: {
+    icon: '/propi-logo.png',
+    apple: '/propi-logo.png',
+    shortcut: '/propi-logo.png',
+  },
 };
 
 export default function RootLayout({
