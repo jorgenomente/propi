@@ -75,4 +75,4 @@
 - Descripcion: adopcion visual del design system de `diseno/` en la app MVP mediante nuevos tokens teal/surface, reestilado de primitives y rediseño de auth, dashboard, registro de propina e historial, manteniendo la logica existente.
 - Archivos afectados: app/globals.css, app/(auth)/_, app/(private)/_, components/auth/\_, components/ui/button-variants.ts, components/ui/card.tsx, components/ui/input.tsx, tsconfig.json, eslint.config.mjs, e2e/auth.smoke.spec.ts, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx playwright test` OK. `diseno/` se excluyo de lint/build para conservarlo como referencia y no como parte ejecutable del producto.
-- Commit hash: pendiente
+- Commit hash: 9e4baf5
