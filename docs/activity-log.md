@@ -54,4 +54,4 @@
 - Descripcion: configuracion de `turbopack.root` para fijar el workspace root correcto antes del siguiente despliegue productivo.
 - Archivos afectados: next.config.ts, app/globals.css, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK sin warning de lockfiles; `npx vercel --prod` OK; alias productivo asignado a `https://propi-jade.vercel.app`; verificacion manual del usuario OK en local y prod luego de quitar imports CSS de paquetes.
-- Commit hash: pendiente
+- Commit hash: 3bf797d
