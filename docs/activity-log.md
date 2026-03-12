@@ -82,4 +82,4 @@
 - Descripcion: cierre en git y despliegue productivo de la iteracion visual del MVP con la nueva direccion UI.
 - Archivos afectados: docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `git push origin main` OK; `npx vercel --prod` OK; alias productivo actualizado a `https://propi-jade.vercel.app`.
-- Commit hash: pendiente
+- Commit hash: 60471c5
