@@ -52,6 +52,6 @@
 ## 2026-03-12 10:26:21 -0300 | Lote: 2026-03-12-deploy-prod-02 | Tipo: infra
 
 - Descripcion: configuracion de `turbopack.root` para fijar el workspace root correcto antes del siguiente despliegue productivo.
-- Archivos afectados: next.config.ts, docs/prompts.md, docs/activity-log.md.
-- Resultado de tests: `npm run lint` OK; `npm run build` OK sin warning de lockfiles; `npx vercel --prod` OK; alias productivo asignado a `https://propi-jade.vercel.app`. Verificacion por `curl` no disponible en sandbox por fallo de DNS local (`Could not resolve host`).
+- Archivos afectados: next.config.ts, app/globals.css, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK sin warning de lockfiles; `npx vercel --prod` OK; alias productivo asignado a `https://propi-jade.vercel.app`; verificacion manual del usuario OK en local y prod luego de quitar imports CSS de paquetes.
 - Commit hash: pendiente
