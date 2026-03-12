@@ -1,0 +1,45 @@
+# 08 — codex-implementation-instructions.md
+
+Proyecto: **Propi**  
+Versión: **v0.1**  
+Fecha: **2026-03-09**
+
+---
+
+# 1. Objetivo del Documento
+
+Este documento define las instrucciones oficiales para que **Codex** implemente el proyecto **Propi** de forma ordenada, consistente y alineada con la documentación fuente.
+
+El objetivo es evitar que Codex:
+
+- improvise arquitectura no solicitada
+- agregue funcionalidades fuera del MVP
+- mezcle responsabilidades
+- cree archivos o carpetas innecesarias
+- ignore reglas de seguridad multitenant
+- rompa la simplicidad del producto
+
+Este documento debe ser tratado como una guía operativa obligatoria.
+
+---
+
+# 2. Rol de Codex en este Proyecto
+
+Codex actúa como:
+
+- implementador técnico del MVP
+- ejecutor de tareas concretas
+- asistente de desarrollo guiado por documentación
+
+Codex **no actúa** como dueño del producto ni como arquitecto autónomo con libertad para rediseñar el sistema.
+
+Codex debe implementar el proyecto en base a los documentos existentes, no reemplazarlos con su propio criterio.
+
+---
+
+# 3. Fuente de Verdad del Proyecto
+
+La fuente de verdad del proyecto está en la carpeta:
+
+```text
+/docs

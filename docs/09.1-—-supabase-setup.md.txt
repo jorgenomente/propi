@@ -1,0 +1,261 @@
+Proyecto: **Propi**  
+Versión: **v0.1**  
+Fecha: **2026-03-09**
+
+---
+
+# 1. Objetivo del Documento
+
+Este documento define cómo debe configurarse Supabase para el MVP de **Propi**.
+
+El objetivo es dejar una guía clara para:
+
+- crear el proyecto en Supabase
+- configurar autenticación
+- ejecutar el esquema SQL inicial
+- validar que la base quedó lista para usar
+
+---
+
+# 2. Servicios de Supabase Utilizados
+
+Para el MVP se utilizarán únicamente estos servicios:
+
+- Supabase Auth
+- PostgreSQL
+- Row Level Security
+
+No se requiere en esta etapa:
+
+- Storage
+- Edge Functions
+- Realtime
+- Cron Jobs
+- Buckets
+- Integraciones externas
+
+---
+
+# 3. Crear Proyecto en Supabase
+
+## Pasos
+
+1. Crear un nuevo proyecto en Supabase
+2. Elegir nombre del proyecto: `propi`
+3. Guardar la contraseña de base de datos en un lugar seguro
+4. Esperar a que el proyecto termine de aprovisionarse
+
+---
+
+# 4. Variables Necesarias
+
+Desde la configuración del proyecto, obtener:
+
+- `Project URL`
+- `anon public key`
+
+Estas variables deben colocarse en:
+
+```text
+.env.local
+
+Formato esperado:
+
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+5. Configuración de Auth
+Método de autenticación del MVP
+
+El MVP usará:
+
+email
+
+password
+
+Recomendación inicial
+
+Habilitar autenticación por email/password.
+
+Configuración sugerida
+
+permitir registro de usuarios
+
+mantener configuración simple
+
+no agregar providers externos en esta etapa
+
+No se necesitan inicialmente:
+
+Google Auth
+
+GitHub Auth
+
+magic links
+
+phone auth
+
+6. Ejecutar Esquema Inicial
+
+El archivo SQL oficial inicial es:
+
+09-initial-sql-schema.sql
+Acción
+
+Ejecutar ese archivo en el SQL Editor de Supabase.
+
+Este script debe crear:
+
+tabla public.tips
+
+índices
+
+trigger de updated_at
+
+RLS
+
+policies
+
+7. Validaciones Después de Ejecutar el SQL
+
+Después de correr el script, validar lo siguiente:
+
+Tabla creada
+
+Debe existir:
+
+public.tips
+
+Columnas esperadas
+
+id
+
+user_id
+
+amount
+
+created_at
+
+updated_at
+
+Restricciones esperadas
+
+primary key en id
+
+foreign key hacia auth.users(id)
+
+check amount > 0
+
+Índices esperados
+
+índice por user_id
+
+índice compuesto (user_id, created_at desc)
+
+Seguridad esperada
+
+RLS habilitado
+
+RLS forzado
+
+policies creadas para:
+
+select
+
+insert
+
+update
+
+delete
+
+8. Prueba Manual Recomendada
+Prueba 1 — registro de usuario
+
+Crear un usuario desde la app o desde Auth.
+
+Prueba 2 — inserción autenticada
+
+Con sesión iniciada, insertar una propina propia.
+
+Resultado esperado:
+
+inserción exitosa
+
+Prueba 3 — lectura autenticada
+
+Consultar las propinas del usuario autenticado.
+
+Resultado esperado:
+
+solo ve sus propias filas
+
+Prueba 4 — intento cross-user
+
+Intentar leer o insertar datos con otro user_id.
+
+Resultado esperado:
+
+operación rechazada o datos no visibles
+
+9. Reglas para Codex
+
+Codex debe asumir que Supabase es el backend principal del MVP.
+
+Debe:
+
+usar NEXT_PUBLIC_SUPABASE_URL
+
+usar NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+conectarse con cliente Supabase
+
+respetar RLS en todas las operaciones
+
+no usar service_role en frontend
+
+10. Lo que NO debe configurarse todavía
+
+No agregar en esta etapa:
+
+tablas extra
+
+buckets
+
+storage
+
+edge functions
+
+jobs programados
+
+auth providers externos
+
+lógica de admin
+
+seeds complejos
+
+11. Criterio de Setup Correcto
+
+La configuración de Supabase será correcta si:
+
+un usuario puede registrarse
+
+un usuario puede iniciar sesión
+
+un usuario puede insertar una propina propia
+
+un usuario puede leer solo sus propinas
+
+RLS impide acceso entre usuarios
+
+12. Conclusión
+
+La configuración de Supabase para Propi debe ser mínima, clara y segura.
+
+El objetivo no es montar infraestructura compleja, sino dejar una base sólida para:
+
+autenticación
+
+almacenamiento de propinas
+
+aislamiento de datos por usuario
+
+desarrollo rápido del MVP

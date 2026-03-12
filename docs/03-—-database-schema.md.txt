@@ -1,0 +1,534 @@
+03 — database-schema.md
+
+Proyecto: **Propi**  
+Versión: **v0.1**  
+Fecha: **2026-03-09**
+
+---
+
+# 1. Objetivo del Documento
+
+Este documento define el esquema de base de datos inicial para **Propi**, una aplicación multitenant simple para registro personal de propinas.
+
+El objetivo del esquema es:
+
+- soportar el MVP con la menor complejidad posible
+- garantizar aislamiento de datos por usuario
+- permitir consultas rápidas para dashboard e historial
+- establecer una base segura y extensible para futuras versiones
+
+Este documento describe el modelo conceptual y lógico.  
+La implementación SQL concreta se definirá en un documento posterior.
+
+---
+
+# 2. Principios del Modelo de Datos
+
+El diseño de base de datos de Propi debe seguir estos principios:
+
+## 2.1 Simplicidad primero
+Solo deben existir las tablas necesarias para el MVP.
+
+## 2.2 Tenant = usuario
+El aislamiento multitenant inicial se implementa a nivel de usuario.
+
+## 2.3 Seguridad en base de datos
+La base debe reforzar reglas de propiedad y acceso mediante RLS.
+
+## 2.4 Integridad de datos
+La base debe impedir valores inválidos como montos negativos o registros huérfanos.
+
+## 2.5 Evolución futura
+El modelo debe ser lo bastante simple para el MVP, pero permitir crecimiento incremental.
+
+---
+
+# 3. Resumen del Modelo
+
+Para el MVP, Propi necesita una sola tabla de negocio principal:
+
+- `tips`
+
+Además, se apoya en la tabla gestionada por Supabase Auth para usuarios:
+
+- `auth.users`
+
+En esta primera versión, no se requiere una tabla `profiles` obligatoria para operar el producto.
+
+---
+
+# 4. Entidades del Sistema
+
+## 4.1 Usuario
+
+El usuario representa al camarero autenticado que utiliza la aplicación.
+
+La identidad del usuario será gestionada por Supabase Auth mediante:
+
+- `auth.users.id`
+
+Cada usuario tiene su propio espacio de datos y solo puede acceder a sus propinas.
+
+---
+
+## 4.2 Tip
+
+La entidad `Tip` representa una propina registrada por un usuario.
+
+Cada propina:
+
+- pertenece a un único usuario
+- tiene un monto
+- tiene fecha/hora de creación
+- forma parte del historial personal del usuario
+
+---
+
+# 5. Tablas del MVP
+
+## 5.1 Tabla: `tips`
+
+Esta es la tabla principal del negocio.
+
+Cada fila representa una propina registrada manualmente por un usuario.
+
+### Propósito
+Permitir:
+
+- registrar propinas
+- construir historial
+- calcular resúmenes diarios, semanales y mensuales
+
+---
+
+# 6. Definición Lógica de la Tabla `tips`
+
+## 6.1 Columnas principales
+
+### `id`
+Tipo sugerido:
+- `uuid`
+
+Propósito:
+- identificador único de la propina
+
+Reglas:
+- clave primaria
+- generado automáticamente
+
+---
+
+### `user_id`
+Tipo sugerido:
+- `uuid`
+
+Propósito:
+- identifica al usuario dueño de la propina
+
+Relación:
+- referencia a `auth.users.id`
+
+Reglas:
+- obligatorio
+- debe existir en `auth.users`
+
+Esta columna es la base del modelo multitenant del MVP.
+
+---
+
+### `amount`
+Tipo sugerido:
+- `numeric(12,2)` o equivalente
+
+Propósito:
+- monto de la propina registrada
+
+Reglas:
+- obligatorio
+- mayor que cero
+
+Observaciones:
+- se recomienda usar tipo numérico exacto, no float
+- debe soportar decimales por compatibilidad futura, aunque el usuario muchas veces cargue enteros
+
+---
+
+### `created_at`
+Tipo sugerido:
+- `timestamptz`
+
+Propósito:
+- fecha y hora exacta de creación del registro
+
+Reglas:
+- obligatorio
+- valor por defecto generado por la base
+
+Observaciones:
+- esta columna se utiliza para historial y agregaciones temporales
+
+---
+
+### `updated_at`
+Tipo sugerido:
+- `timestamptz`
+
+Propósito:
+- fecha y hora de última modificación
+
+Reglas:
+- obligatorio
+- valor por defecto inicial
+- debe actualizarse automáticamente en modificaciones si luego se habilita edición
+
+Observaciones:
+- aunque el MVP no requiera editar propinas, conviene incluirla desde el inicio
+
+---
+
+# 7. Estructura Lógica Recomendada
+
+## Tabla `tips`
+
+| Columna      | Tipo sugerido     | Null | Default     | Descripción |
+|-------------|-------------------|------|-------------|-------------|
+| `id`        | `uuid`            | No   | auto-gen    | identificador único |
+| `user_id`   | `uuid`            | No   | none        | dueño del registro |
+| `amount`    | `numeric(12,2)`   | No   | none        | monto de la propina |
+| `created_at`| `timestamptz`     | No   | `now()`     | fecha/hora de creación |
+| `updated_at`| `timestamptz`     | No   | `now()`     | fecha/hora de actualización |
+
+---
+
+# 8. Relaciones
+
+## 8.1 Relación principal
+
+- un usuario puede tener muchas propinas
+- una propina pertenece a un solo usuario
+
+Cardinalidad:
+
+- `auth.users (1) -> (N) tips`
+
+---
+
+# 9. Restricciones de Integridad
+
+La tabla `tips` debe incluir restricciones claras para proteger calidad de datos.
+
+## 9.1 Primary Key
+- `id` debe ser clave primaria
+
+## 9.2 Foreign Key
+- `user_id` debe referenciar `auth.users(id)`
+
+## 9.3 Check de monto
+- `amount > 0`
+
+Esto evita registros inválidos como:
+
+- cero
+- negativos
+
+## 9.4 Not Null
+Las siguientes columnas deben ser obligatorias:
+
+- `user_id`
+- `amount`
+- `created_at`
+- `updated_at`
+
+---
+
+# 10. Decisiones de Diseño
+
+## 10.1 No usar tabla `profiles` en el MVP
+Para el MVP, la aplicación puede operar usando directamente `auth.users` para identidad.
+
+Esto reduce complejidad.
+
+Una tabla `profiles` podría agregarse después si se necesita almacenar:
+
+- nombre visible
+- avatar
+- preferencias
+- workplace
+- moneda preferida
+
+Pero no es obligatoria para la primera versión.
+
+---
+
+## 10.2 No usar tabla de agregados persistidos
+Los totales de:
+
+- hoy
+- semana
+- mes
+
+no necesitan almacenarse como tablas o columnas adicionales en el MVP.
+
+Deben calcularse mediante consultas sobre `tips`.
+
+Esto evita:
+
+- duplicación de datos
+- inconsistencias
+- lógica extra de sincronización
+
+---
+
+## 10.3 No usar soft delete en el MVP
+No se recomienda agregar columnas como:
+
+- `deleted_at`
+- `is_deleted`
+
+en esta primera versión.
+
+La app puede funcionar sin borrado o con borrado directo si luego se habilita.
+
+---
+
+## 10.4 Incluir `updated_at` desde el inicio
+Aunque el MVP no requiera edición, se recomienda incluir `updated_at` por consistencia estructural y evolución futura.
+
+---
+
+# 11. Índices Recomendados
+
+Para que la app responda rápido, especialmente en historial y consultas agregadas, se recomiendan índices simples y útiles.
+
+## 11.1 Índice por usuario
+Crear índice sobre:
+
+- `user_id`
+
+Utilidad:
+- listar propinas por usuario
+- reforzar filtros multitenant
+
+## 11.2 Índice compuesto por usuario y fecha
+Crear índice compuesto sobre:
+
+- `(user_id, created_at desc)`
+
+Utilidad:
+- historial personal ordenado por fecha
+- consultas por rango temporal
+- dashboard diario/semanal/mensual
+
+Este índice probablemente será el más importante del MVP.
+
+---
+
+# 12. Consultas que el Esquema Debe Soportar
+
+El diseño de la tabla `tips` debe permitir resolver eficientemente estos casos.
+
+## 12.1 Insertar propina
+Crear una nueva fila con:
+
+- `user_id`
+- `amount`
+
+y timestamps automáticos.
+
+---
+
+## 12.2 Listar historial del usuario
+Consultar propinas de un usuario:
+
+- filtradas por `user_id`
+- ordenadas por `created_at desc`
+
+---
+
+## 12.3 Calcular total de hoy
+Sumar `amount` de propinas del usuario en el día actual.
+
+---
+
+## 12.4 Calcular total semanal
+Sumar `amount` de propinas del usuario en la semana actual.
+
+---
+
+## 12.5 Calcular total mensual
+Sumar `amount` de propinas del usuario en el mes actual.
+
+---
+
+# 13. Consideraciones de Zona Horaria
+
+Como `created_at` usará `timestamptz`, el sistema tendrá información precisa de tiempo.
+
+Sin embargo, las consultas para:
+
+- hoy
+- semana
+- mes
+
+deben considerar cuidadosamente la zona horaria del usuario o una zona horaria de aplicación definida.
+
+## Recomendación MVP
+En la primera versión, definir una estrategia simple y consistente:
+
+- guardar siempre timestamps reales en UTC
+- convertir y agrupar según la zona horaria de la app en la capa de consulta
+
+Esto deberá documentarse en la implementación SQL y en la capa de aplicación.
+
+---
+
+# 14. Seguridad del Modelo
+
+La seguridad del esquema depende de dos elementos:
+
+## 14.1 Columna de propiedad
+Cada registro de `tips` debe tener `user_id`.
+
+## 14.2 Políticas RLS
+Las políticas deben garantizar que un usuario solo pueda:
+
+- leer sus propias propinas
+- insertar propinas para sí mismo
+- actualizar sus propias propinas si se habilita edición
+- borrar sus propias propinas si se habilita eliminación
+
+La seguridad no debe depender del frontend.
+
+---
+
+# 15. Posibles Extensiones Futuras
+
+El diseño actual debe permitir agregar más adelante nuevas capacidades sin romper el MVP.
+
+Ejemplos:
+
+## 15.1 Tabla `profiles`
+Para guardar metadatos del usuario.
+
+## 15.2 Tipos de propina
+Agregar una columna como:
+
+- `source_type` (`cash`, `card`, etc.)
+
+## 15.3 Notas
+Agregar:
+
+- `note text`
+
+## 15.4 Lugar de trabajo
+Agregar:
+
+- `workplace_name`
+- o relación a tabla `workplaces`
+
+## 15.5 Turnos
+Agregar:
+
+- `shift_date`
+- `shift_label`
+
+Pero nada de esto debe formar parte del esquema inicial del MVP.
+
+---
+
+# 16. Modelo Conceptual Simplificado
+
+```text
+auth.users
+  id (PK)
+   |
+   | 1:N
+   |
+tips
+  id (PK)
+  user_id (FK -> auth.users.id)
+  amount
+  created_at
+  updated_at
+17. Contrato de Datos del MVP
+Entidad Tip
+
+Campos mínimos esperados por aplicación:
+
+id
+
+user_id
+
+amount
+
+created_at
+
+updated_at
+
+Ejemplo conceptual
+{
+  "id": "uuid",
+  "user_id": "uuid",
+  "amount": 15.50,
+  "created_at": "2026-03-09T21:34:00Z",
+  "updated_at": "2026-03-09T21:34:00Z"
+}
+18. Reglas del Esquema para Codex
+
+Codex debe respetar estas reglas al implementar la base de datos:
+
+no crear tablas adicionales innecesarias
+
+usar tips como tabla principal del negocio
+
+asociar toda propina a user_id
+
+usar numeric para montos, no float
+
+agregar created_at y updated_at
+
+aplicar check (amount > 0)
+
+preparar el esquema para RLS desde el inicio
+
+crear índices mínimos útiles
+
+no introducir organizaciones, equipos ni jerarquías complejas
+
+19. Criterios de Correctitud
+
+La implementación del esquema será correcta si:
+
+existe una tabla tips
+
+cada tip pertenece a un usuario autenticado
+
+la base impide montos inválidos
+
+las consultas de historial y resúmenes son simples de resolver
+
+el modelo soporta RLS sin ambigüedades
+
+el diseño se mantiene pequeño y fácil de entender
+
+20. Conclusión
+
+El esquema inicial de Propi debe ser deliberadamente pequeño.
+
+Para el MVP, una sola tabla de negocio bien diseñada es suficiente para entregar valor real:
+
+registrar propinas
+
+consultar historial
+
+ver resúmenes diarios, semanales y mensuales
+
+El modelo multitenant se resuelve mediante:
+
+auth.users
+
+columna user_id
+
+políticas RLS
+
+La prioridad no es complejidad, sino claridad, seguridad y velocidad de implementación.

@@ -1,0 +1,545 @@
+04 — rls-policies.md
+
+Proyecto: **Propi**  
+Versión: **v0.1**  
+Fecha: **2026-03-09**
+
+---
+
+# 1. Objetivo del Documento
+
+Este documento define la estrategia de **Row Level Security (RLS)** para **Propi**, una aplicación multitenant simple donde cada usuario registra y visualiza únicamente sus propias propinas.
+
+El objetivo es garantizar que el aislamiento de datos no dependa del frontend ni de la buena conducta del cliente, sino de reglas impuestas directamente por la base de datos.
+
+Este documento debe servir como guía de implementación para Codex y para cualquier desarrollador que trabaje sobre Supabase/PostgreSQL.
+
+---
+
+# 2. Principio de Seguridad Base
+
+El principio de seguridad principal de Propi es:
+
+**cada usuario autenticado solo puede acceder a filas cuyo `user_id` sea igual a su `auth.uid()`**
+
+Esto aplica a todas las operaciones de negocio permitidas:
+
+- `SELECT`
+- `INSERT`
+- `UPDATE`
+- `DELETE`
+
+En el MVP, aunque no todas esas operaciones estén expuestas en UI, la política debe quedar definida de forma explícita.
+
+---
+
+# 3. Contexto del Modelo Multitenant
+
+Propi utiliza un modelo multitenant simple:
+
+- existe una sola base de datos
+- existen múltiples usuarios autenticados
+- cada usuario representa su propio tenant
+- los datos de negocio se aíslan por `user_id`
+
+En consecuencia:
+
+**tenant = usuario**
+
+La seguridad se implementa mediante la combinación de:
+
+- `auth.uid()`
+- columna `user_id`
+- políticas RLS sobre la tabla `tips`
+
+---
+
+# 4. Tabla Protegida por RLS
+
+En el MVP, la tabla principal protegida por RLS es:
+
+- `public.tips`
+
+Cada fila de `public.tips` representa una propina individual registrada por un usuario.
+
+---
+
+# 5. Requisitos de Seguridad
+
+La implementación de RLS debe cumplir estos requisitos:
+
+## 5.1 Lectura aislada
+Un usuario solo puede leer sus propias propinas.
+
+## 5.2 Inserción controlada
+Un usuario solo puede insertar propinas asociadas a sí mismo.
+
+## 5.3 Modificación aislada
+Si en el futuro se permite editar propinas, un usuario solo podrá editar las suyas.
+
+## 5.4 Eliminación aislada
+Si en el futuro se permite borrar propinas, un usuario solo podrá borrar las suyas.
+
+## 5.5 Acceso anónimo denegado
+Un usuario no autenticado no debe poder leer ni modificar datos de negocio.
+
+---
+
+# 6. Activación de RLS
+
+La tabla `public.tips` debe tener RLS activado obligatoriamente.
+
+## Regla
+Toda tabla de negocio con datos por usuario debe tener:
+
+- `ALTER TABLE ... ENABLE ROW LEVEL SECURITY`
+
+## Recomendación adicional
+Se recomienda también forzar RLS para reducir riesgo de bypass accidental en ciertos contextos:
+
+- `ALTER TABLE ... FORCE ROW LEVEL SECURITY`
+
+Esto ayuda a endurecer la postura de seguridad.
+
+---
+
+# 7. Columna de Propiedad
+
+La columna que define la propiedad del registro es:
+
+- `user_id`
+
+Reglas:
+
+- debe ser `NOT NULL`
+- debe referenciar `auth.users(id)`
+- debe estar presente en todas las filas de la tabla `tips`
+
+La política de seguridad se apoya completamente en esta columna.
+
+---
+
+# 8. Política de SELECT
+
+## Objetivo
+Permitir que un usuario autenticado lea únicamente sus propias propinas.
+
+## Regla lógica
+
+Un `SELECT` está permitido solo si:
+
+```sql
+user_id = auth.uid()
+Resultado esperado
+
+el usuario A puede leer solo filas de A
+
+el usuario B puede leer solo filas de B
+
+un usuario no autenticado no lee ninguna fila
+
+Intención para Codex
+
+Codex debe implementar una policy equivalente a:
+
+FOR SELECT
+
+USING (auth.uid() = user_id)
+
+9. Política de INSERT
+Objetivo
+
+Permitir que un usuario autenticado inserte únicamente propinas propias.
+
+Riesgo que se quiere evitar
+
+Que un usuario envíe manualmente un user_id ajeno para crear registros sobre otro usuario.
+
+Regla lógica
+
+Un INSERT está permitido solo si:
+
+auth.uid() = user_id
+Resultado esperado
+
+el usuario autenticado puede insertar una propina propia
+
+no puede insertar una propina con user_id de otro usuario
+
+un usuario anónimo no puede insertar
+
+Intención para Codex
+
+Codex debe implementar una policy equivalente a:
+
+FOR INSERT
+
+WITH CHECK (auth.uid() = user_id)
+
+10. Política de UPDATE
+Objetivo
+
+Permitir edición únicamente sobre registros propios, si esa capacidad se habilita más adelante.
+
+Aunque el MVP no requiera editar propinas, la política puede definirse desde el inicio para dejar el sistema preparado.
+
+Reglas lógicas
+
+Para actualizar una fila deben cumplirse dos cosas:
+
+10.1 La fila objetivo debe pertenecer al usuario
+auth.uid() = user_id
+10.2 La fila resultante debe seguir perteneciendo al mismo usuario
+auth.uid() = user_id
+
+Esto evita:
+
+editar filas ajenas
+
+cambiar user_id hacia otro usuario
+
+Intención para Codex
+
+Codex debe implementar una policy equivalente a:
+
+FOR UPDATE
+
+USING (auth.uid() = user_id)
+
+WITH CHECK (auth.uid() = user_id)
+
+11. Política de DELETE
+Objetivo
+
+Permitir eliminación únicamente sobre registros propios, si esa funcionalidad se habilita.
+
+Aunque el MVP podría no exponer borrado en UI, la política puede dejarse preparada.
+
+Regla lógica
+
+Un DELETE está permitido solo si:
+
+auth.uid() = user_id
+Resultado esperado
+
+un usuario solo puede borrar sus propias filas
+
+no puede borrar datos ajenos
+
+un usuario anónimo no puede borrar
+
+Intención para Codex
+
+Codex debe implementar una policy equivalente a:
+
+FOR DELETE
+
+USING (auth.uid() = user_id)
+
+12. Estrategia Recomendada de Inserción
+
+Para reducir errores de implementación, se recomienda una de estas dos estrategias.
+
+Opción A — el cliente envía user_id
+
+El frontend envía explícitamente user_id = auth.uid() al insertar.
+
+Ventaja:
+
+simple de entender
+
+Desventaja:
+
+el cliente participa en el envío de un dato sensible
+
+aunque RLS lo protege, deja más superficie para errores
+
+Opción B — la base asigna user_id automáticamente
+
+La tabla define:
+
+user_id uuid not null default auth.uid()
+
+y el cliente envía solo amount.
+
+Ventajas:
+
+menos fricción
+
+menos posibilidad de error
+
+mejor ergonomía para frontend
+
+mejor alineado con seguridad
+
+Recomendación para Propi
+
+Preferir Opción B, siempre que la implementación en Supabase quede clara y consistente.
+
+Aun si se usa valor por defecto, la policy de INSERT debe existir igual.
+
+13. Estrategia Recomendada para Roles
+
+En Supabase normalmente intervienen estos contextos:
+
+anon
+
+authenticated
+
+service_role
+
+Regla recomendada para el MVP
+
+Las policies de negocio sobre tips deben permitir acceso únicamente al rol:
+
+authenticated
+
+Importante
+
+service_role no debe usarse desde frontend.
+
+Si en el futuro existe backend privilegiado, debe usarse con extremo cuidado, ya que puede bypassar RLS dependiendo del contexto.
+
+14. Reglas de Implementación para Codex
+
+Codex debe respetar estas reglas:
+
+habilitar RLS en public.tips
+
+preferiblemente forzar RLS también
+
+crear policy de SELECT restringida por auth.uid() = user_id
+
+crear policy de INSERT restringida por auth.uid() = user_id
+
+crear policy de UPDATE con USING y WITH CHECK
+
+crear policy de DELETE restringida por auth.uid() = user_id
+
+limitar las policies al rol authenticated
+
+no crear policies amplias del tipo true
+
+no confiar en filtros del frontend como mecanismo de seguridad
+
+no exponer jamás acceso cross-user
+
+15. Patrón Recomendado de Policies
+
+La tabla tips debe tener policies explícitas por operación.
+
+Recomendación
+
+Crear una policy separada para cada operación:
+
+select own tips
+
+insert own tips
+
+update own tips
+
+delete own tips
+
+Ventajas:
+
+más claridad
+
+más fácil auditar
+
+menos ambigüedad
+
+más fácil depurar
+
+No se recomienda una única policy genérica y opaca.
+
+16. Ejemplos de Comportamiento Esperado
+Caso 1 — lectura correcta
+
+Usuario autenticado con id U1 consulta historial.
+
+Resultado esperado:
+
+ve solo filas donde user_id = U1
+
+Caso 2 — intento de lectura indebida
+
+Usuario U1 intenta consultar filas de U2.
+
+Resultado esperado:
+
+la base no devuelve esas filas
+
+Caso 3 — inserción válida
+
+Usuario U1 crea una propina de 20.00 para sí mismo.
+
+Resultado esperado:
+
+inserción permitida
+
+Caso 4 — inserción inválida
+
+Usuario U1 intenta insertar una fila con user_id = U2.
+
+Resultado esperado:
+
+inserción rechazada por RLS
+
+Caso 5 — actualización inválida
+
+Usuario U1 intenta modificar una propina perteneciente a U2.
+
+Resultado esperado:
+
+operación rechazada
+
+Caso 6 — borrado inválido
+
+Usuario U1 intenta borrar una propina de U2.
+
+Resultado esperado:
+
+operación rechazada
+
+17. Qué NO debe hacer Codex
+
+Codex no debe:
+
+crear policies abiertas a anon
+
+permitir USING (true)
+
+permitir WITH CHECK (true)
+
+depender de filtros del cliente para seguridad
+
+omitir RLS porque “el producto es pequeño”
+
+asumir que el frontend protege suficientemente los datos
+
+introducir lógica multitenant por organización o equipo en este MVP
+
+18. Relación con la UI
+
+La UI puede filtrar y ordenar datos para experiencia de usuario, pero eso no constituye seguridad.
+
+La seguridad real siempre debe ser impuesta por la base de datos.
+
+Esto significa:
+
+aunque el frontend tenga bugs
+
+aunque un usuario manipule requests
+
+aunque alguien llame directamente a Supabase
+
+la base debe seguir impidiendo acceso a datos ajenos.
+
+19. Testing Recomendado
+
+La implementación de RLS debe validarse con pruebas concretas.
+
+19.1 Casos mínimos a probar
+Como usuario autenticado:
+
+puedo insertar una propina propia
+
+puedo leer mis propinas
+
+no puedo leer propinas de otro usuario
+
+no puedo insertar con user_id ajeno
+
+no puedo editar propinas ajenas
+
+no puedo borrar propinas ajenas
+
+Como anónimo:
+
+no puedo leer propinas
+
+no puedo insertar propinas
+
+no puedo modificar propinas
+
+no puedo borrar propinas
+
+20. Recomendación de Hardening
+
+Además de RLS, se recomienda:
+
+no exponer service_role en cliente
+
+usar user_id default auth.uid() si es viable
+
+mantener esquema pequeño
+
+revisar manualmente las policies después de generarlas
+
+probar ataques básicos de cross-tenant access antes de dar por terminado el MVP
+
+21. SQL Conceptual de Referencia
+
+Este bloque es conceptual y orientativo.
+La implementación final irá en el archivo SQL correspondiente.
+
+alter table public.tips enable row level security;
+alter table public.tips force row level security;
+
+create policy "tips_select_own"
+on public.tips
+for select
+to authenticated
+using (auth.uid() = user_id);
+
+create policy "tips_insert_own"
+on public.tips
+for insert
+to authenticated
+with check (auth.uid() = user_id);
+
+create policy "tips_update_own"
+on public.tips
+for update
+to authenticated
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);
+
+create policy "tips_delete_own"
+on public.tips
+for delete
+to authenticated
+using (auth.uid() = user_id);
+22. Criterios de Correctitud
+
+La implementación RLS será correcta si:
+
+ningún usuario puede leer datos de otro
+
+ningún usuario puede insertar para otro
+
+ningún usuario puede editar datos de otro
+
+ningún usuario puede borrar datos de otro
+
+usuarios no autenticados no tienen acceso a datos de negocio
+
+la seguridad se mantiene incluso si el frontend falla
+
+23. Conclusión
+
+En Propi, el multitenancy no se resuelve por interfaz ni por convenciones del frontend.
+
+Se resuelve de forma real mediante:
+
+propiedad explícita por user_id
+
+auth.uid()
+
+RLS en PostgreSQL / Supabase
+
+La seguridad del MVP debe ser pequeña en alcance, pero estricta en ejecución.
+
+La regla que siempre debe cumplirse es:
+
+cada usuario solo puede operar sus propias propinas

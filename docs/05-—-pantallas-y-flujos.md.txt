@@ -1,0 +1,727 @@
+# 05 — pantallas-y-flujos.md
+
+Proyecto: **Propi**
+Versión: **v0.1**
+Fecha: **2026-03-09**
+
+---
+
+# 1. Objetivo del Documento
+
+Este documento define las **pantallas del sistema y los flujos de usuario del MVP** de Propi.
+
+El objetivo es:
+
+* definir exactamente qué pantallas existen
+* especificar qué información contiene cada una
+* definir cómo navega el usuario entre ellas
+* eliminar ambigüedades para la implementación
+
+El diseño de la aplicación debe seguir siempre estos principios:
+
+* simplicidad extrema
+* rapidez de uso
+* mobile-first
+* mínimo número de pasos
+
+Registrar una propina debe tomar **menos de 5 segundos**.
+
+---
+
+# 2. Estructura General de Pantallas
+
+El MVP de **Propi** contiene **5 pantallas principales**.
+
+## Pantallas públicas
+
+* Iniciar sesión
+* Crear cuenta
+
+## Pantallas privadas
+
+* Dashboard (pantalla principal)
+* Registrar propina
+* Historial de propinas
+
+---
+
+# 3. Mapa General de Navegación
+
+```
+            ┌───────────────┐
+            │ Crear cuenta  │
+            └───────┬───────┘
+                    │
+                    │
+            ┌───────▼───────┐
+            │ Iniciar sesión│
+            └───────┬───────┘
+                    │
+                    │ autenticación
+                    │
+            ┌───────▼───────┐
+            │   Dashboard   │
+            └───┬───────┬───┘
+                │       │
+                │       │
+        ┌───────▼───┐ ┌─▼─────────┐
+        │ Registrar │ │ Historial │
+        │ propina   │ │           │
+        └───────────┘ └───────────┘
+```
+
+El **Dashboard es el centro de la aplicación**.
+
+---
+
+# 4. Pantalla 1 — Iniciar sesión
+
+## Ruta
+
+```
+/login
+```
+
+## Objetivo
+
+Permitir que el usuario acceda a su cuenta personal.
+
+---
+
+## Elementos de la pantalla
+
+### Título
+
+```
+Bienvenido de nuevo
+```
+
+---
+
+### Campo de correo electrónico
+
+Input:
+
+```
+Correo electrónico
+```
+
+---
+
+### Campo de contraseña
+
+Input:
+
+```
+Contraseña
+```
+
+---
+
+### Botón principal
+
+```
+Iniciar sesión
+```
+
+Acción:
+
+* autenticar usuario usando Supabase Auth
+
+---
+
+### Enlace secundario
+
+```
+Crear cuenta
+```
+
+Navega a:
+
+```
+/register
+```
+
+---
+
+## Comportamiento esperado
+
+Si el login es exitoso:
+
+```
+redirigir → /
+```
+
+---
+
+# 5. Pantalla 2 — Crear cuenta
+
+## Ruta
+
+```
+/register
+```
+
+---
+
+## Objetivo
+
+Permitir que un nuevo usuario cree una cuenta para utilizar Propi.
+
+---
+
+## Elementos
+
+### Título
+
+```
+Crear cuenta
+```
+
+---
+
+### Campo correo electrónico
+
+```
+Correo electrónico
+```
+
+---
+
+### Campo contraseña
+
+```
+Contraseña
+```
+
+---
+
+### Botón principal
+
+```
+Crear cuenta
+```
+
+Acción:
+
+* registrar usuario en Supabase Auth
+
+---
+
+### Enlace secundario
+
+```
+¿Ya tienes cuenta? Iniciar sesión
+```
+
+Navega a:
+
+```
+/login
+```
+
+---
+
+## Comportamiento esperado
+
+Después del registro:
+
+* crear sesión automáticamente
+* redirigir al usuario a:
+
+```
+/
+```
+
+---
+
+# 6. Pantalla 3 — Dashboard
+
+## Ruta
+
+```
+/
+```
+
+---
+
+## Objetivo
+
+Mostrar al usuario un **resumen rápido de sus propinas**.
+
+El usuario debe poder ver su situación en **menos de 2 segundos**.
+
+---
+
+# 6.1 Layout General
+
+```
+---------------------------------
+Propi
+
+Propinas de hoy
+$85
+
+Propinas esta semana
+$420
+
+Propinas este mes
+$1320
+
+[ Registrar propina ]
+
+[ Ver historial ]
+
+---------------------------------
+```
+
+---
+
+# 6.2 Elementos
+
+### Encabezado
+
+```
+Propi
+```
+
+Opcional:
+
+```
+Cerrar sesión
+```
+
+---
+
+### Tarjeta — Hoy
+
+Mostrar:
+
+```
+Propinas de hoy
+```
+
+Ejemplo:
+
+```
+$85
+```
+
+---
+
+### Tarjeta — Esta semana
+
+Mostrar:
+
+```
+Propinas esta semana
+```
+
+Ejemplo:
+
+```
+$420
+```
+
+---
+
+### Tarjeta — Este mes
+
+Mostrar:
+
+```
+Propinas este mes
+```
+
+Ejemplo:
+
+```
+$1320
+```
+
+---
+
+### Botón principal
+
+```
+Registrar propina
+```
+
+Acción:
+
+```
+navegar → /add
+```
+
+---
+
+### Botón secundario
+
+```
+Historial
+```
+
+Acción:
+
+```
+navegar → /history
+```
+
+---
+
+# 7. Pantalla 4 — Registrar propina
+
+## Ruta
+
+```
+/add
+```
+
+---
+
+## Objetivo
+
+Permitir registrar una propina **de forma extremadamente rápida**.
+
+El proceso completo debe tomar **menos de 5 segundos**.
+
+---
+
+# 7.1 Layout
+
+```
+Registrar propina
+
+Monto
+
+[ 20 ]
+
+[ Guardar propina ]
+```
+
+---
+
+# 7.2 Elementos
+
+### Título
+
+```
+Registrar propina
+```
+
+---
+
+### Campo monto
+
+Campo numérico.
+
+Ejemplo:
+
+```
+20
+```
+
+---
+
+### Validaciones
+
+El campo debe cumplir:
+
+* obligatorio
+* número válido
+* mayor que 0
+
+---
+
+### Botón principal
+
+```
+Guardar propina
+```
+
+Acción:
+
+* insertar registro en la tabla `tips`
+
+---
+
+# 7.3 Comportamiento después de guardar
+
+Después de guardar una propina:
+
+```
+redirigir → /
+```
+
+Esto permite que el usuario vea inmediatamente los nuevos totales actualizados.
+
+---
+
+# 8. Pantalla 5 — Historial
+
+## Ruta
+
+```
+/history
+```
+
+---
+
+## Objetivo
+
+Permitir al usuario revisar todas sus propinas registradas.
+
+---
+
+# 8.1 Layout
+
+```
+Historial
+
+9 Marzo
+$20
+$10
+$5
+
+8 Marzo
+$15
+$10
+```
+
+---
+
+# 8.2 Elementos
+
+### Título
+
+```
+Historial
+```
+
+---
+
+### Lista de propinas
+
+Cada registro muestra:
+
+```
+monto
+hora
+```
+
+Ejemplo:
+
+```
+$20 — 21:34
+$10 — 20:10
+```
+
+---
+
+### Orden
+
+Ordenadas por:
+
+```
+created_at DESC
+```
+
+Más reciente primero.
+
+---
+
+### Botón volver
+
+```
+Volver
+```
+
+Acción:
+
+```
+navegar → /
+```
+
+---
+
+# 9. Flujos de Usuario
+
+---
+
+# 9.1 Flujo — Crear cuenta
+
+```
+Crear cuenta
+↓
+Registrar usuario
+↓
+Sesión creada
+↓
+Dashboard
+```
+
+---
+
+# 9.2 Flujo — Iniciar sesión
+
+```
+Iniciar sesión
+↓
+Autenticación
+↓
+Dashboard
+```
+
+---
+
+# 9.3 Flujo — Registrar propina
+
+```
+Dashboard
+↓
+Registrar propina
+↓
+Ingresar monto
+↓
+Guardar
+↓
+Dashboard actualizado
+```
+
+---
+
+# 9.4 Flujo — Ver historial
+
+```
+Dashboard
+↓
+Historial
+↓
+Lista de propinas
+```
+
+---
+
+# 10. Reglas de UX Importantes
+
+Codex debe respetar estas reglas:
+
+### 1 — mínimo número de clics
+
+Registrar una propina debe requerir **máximo 2 acciones**.
+
+---
+
+### 2 — interfaz limpia
+
+No agregar:
+
+* filtros
+* configuraciones
+* tabs innecesarios
+
+---
+
+### 3 — optimizado para móvil
+
+Los botones deben ser grandes y fáciles de presionar.
+
+---
+
+### 4 — feedback inmediato
+
+Después de registrar una propina, el usuario debe ver los totales actualizados inmediatamente.
+
+---
+
+# 11. Componentes Reutilizables
+
+Se recomienda crear componentes reutilizables simples.
+
+### TarjetaResumenPropinas
+
+Usada en:
+
+* hoy
+* semana
+* mes
+
+---
+
+### ItemPropina
+
+Usado en:
+
+* historial
+
+---
+
+### BotonPrincipal
+
+Botón reutilizable para acciones principales.
+
+---
+
+# 12. Datos necesarios por pantalla
+
+| Pantalla          | Datos necesarios  |
+| ----------------- | ----------------- |
+| Dashboard         | totales           |
+| Registrar propina | ninguno           |
+| Historial         | lista de propinas |
+
+---
+
+# 13. Consultas necesarias
+
+### Dashboard
+
+Necesita consultar:
+
+* total hoy
+* total semana
+* total mes
+
+---
+
+### Historial
+
+Consulta base:
+
+```
+select *
+from tips
+where user_id = auth.uid()
+order by created_at desc
+```
+
+---
+
+# 14. Criterios de Correctitud
+
+La implementación será correcta si:
+
+* el usuario puede crear cuenta
+* el usuario puede iniciar sesión
+* el usuario puede registrar propinas
+* el dashboard muestra totales
+* el historial muestra registros
+* la aplicación funciona correctamente en móvil
+* el flujo es rápido y simple
+
+---
+
+# 15. Conclusión
+
+El diseño de pantallas de Propi debe mantenerse deliberadamente minimalista.
+
+El MVP solo necesita:
+
+* autenticación
+* dashboard
+* registro de propinas
+* historial
+
+El éxito del producto dependerá de:
+
+**simplicidad + rapidez de uso + claridad de los datos.**
