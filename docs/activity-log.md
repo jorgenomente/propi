@@ -47,7 +47,7 @@
 - Descripcion: despliegue productivo con `npx vercel --prod` sobre `jorgenomentes-projects/propi`; el CLI alcanzo la fase `Deploying outputs...` y la URL productiva ya responde desde Vercel.
 - Archivos afectados: docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: deploy productivo iniciado OK; URL `https://propi-4v4v4256c-jorgenomentes-projects.vercel.app` responde `HTTP 401`, consistente con proteccion de acceso del proyecto en Vercel.
-- Commit hash: pendiente
+- Commit hash: `3c7e566`
 
 ## 2026-03-12 10:26:21 -0300 | Lote: 2026-03-12-deploy-prod-02 | Tipo: infra
 
