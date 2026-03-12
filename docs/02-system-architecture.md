@@ -47,19 +47,24 @@ Esto significa que cada usuario funciona como su propio espacio aislado y solo p
 La arquitectura de Propi debe respetar siempre estos principios:
 
 ## 3.1 Simplicidad primero
+
 No introducir capas, módulos o patrones innecesarios para un MVP pequeño.
 
 ## 3.2 Seguridad en base de datos
+
 La seguridad no depende solo del frontend.  
 El aislamiento de datos debe garantizarse con **RLS** en PostgreSQL / Supabase.
 
 ## 3.3 Mobile-first
+
 La experiencia principal será desde teléfono móvil.
 
 ## 3.4 Flujo rápido
+
 La app debe minimizar clics, formularios y fricción operativa.
 
 ## 3.5 Evolución incremental
+
 La arquitectura debe permitir crecer después sin sobrediseñar la versión inicial.
 
 ---
@@ -98,6 +103,7 @@ La frontera de aislamiento del tenant está dada por:
 La arquitectura del sistema se divide en cuatro capas principales.
 
 ## 5.1 Capa de Presentación
+
 Responsable de:
 
 - renderizar pantallas
@@ -113,6 +119,7 @@ Tecnología principal:
 - estilos mobile-first
 
 ## 5.2 Capa de Aplicación
+
 Responsable de:
 
 - coordinar acciones del usuario
@@ -129,6 +136,7 @@ Ejemplos:
 - listar historial
 
 ## 5.3 Capa de Persistencia
+
 Responsable de:
 
 - guardar datos en PostgreSQL
@@ -141,6 +149,7 @@ Tecnología principal:
 - Supabase PostgreSQL
 
 ## 5.4 Capa de Identidad y Seguridad
+
 Responsable de:
 
 - registro
@@ -244,9 +253,11 @@ La aplicación debe mantener una estructura de rutas simple y clara.
 ## 8.1 Rutas públicas
 
 ### `/login`
+
 Pantalla de inicio de sesión.
 
 ### `/register`
+
 Pantalla de creación de cuenta.
 
 ---
@@ -254,6 +265,7 @@ Pantalla de creación de cuenta.
 ## 8.2 Rutas privadas
 
 ### `/`
+
 Dashboard principal del usuario autenticado.
 
 Contenido esperado:
@@ -264,9 +276,11 @@ Contenido esperado:
 - acceso rápido para agregar propina
 
 ### `/add`
+
 Pantalla o modal de registro de propina.
 
 ### `/history`
+
 Pantalla de historial personal.
 
 ---
@@ -314,9 +328,11 @@ Pantalla de historial personal.
 ## 10.1 Entidad principal del MVP
 
 ### User
+
 Representa al camarero autenticado.
 
 ### Tip
+
 Representa una propina registrada por el usuario.
 
 ## 10.2 Relación principal
@@ -329,6 +345,7 @@ Representa una propina registrada por el usuario.
 # 11. Decisiones Técnicas Clave
 
 ## 11.1 Usar Supabase como backend integral
+
 Se recomienda Supabase porque resuelve de forma integrada:
 
 - auth
@@ -338,6 +355,7 @@ Se recomienda Supabase porque resuelve de forma integrada:
 - despliegue rápido del MVP
 
 ## 11.2 Usar App Router de Next.js
+
 Permite:
 
 - estructura moderna
@@ -345,9 +363,11 @@ Permite:
 - buena base para crecimiento futuro
 
 ## 11.3 Usar RLS desde el inicio
+
 Aunque el producto sea pequeño, la seguridad multitenant debe quedar blindada desde la base.
 
 ## 11.4 Evitar backend custom innecesario
+
 En el MVP no se necesita un backend separado tipo Express, Nest o similar.
 
 La app puede operar con:
@@ -362,12 +382,14 @@ La app puede operar con:
 La aplicación necesita principalmente dos tipos de consultas:
 
 ## 12.1 Consultas transaccionales
+
 Para:
 
 - insertar una nueva propina
 - listar historial
 
 ## 12.2 Consultas agregadas
+
 Para:
 
 - total de hoy
@@ -381,6 +403,7 @@ Estas consultas pueden resolverse inicialmente con SQL simple o vistas si luego 
 # 13. Validaciones del Sistema
 
 ## 13.1 Validaciones de UI
+
 El frontend debe validar:
 
 - que el monto exista
@@ -388,6 +411,7 @@ El frontend debe validar:
 - que el monto sea mayor que cero
 
 ## 13.2 Validaciones en base de datos
+
 La base debe reforzar:
 
 - `amount > 0`
@@ -399,15 +423,19 @@ La base debe reforzar:
 # 14. Seguridad
 
 ## 14.1 Autenticación obligatoria
+
 Ninguna funcionalidad de negocio debe estar disponible sin sesión activa.
 
 ## 14.2 Aislamiento por usuario
+
 Toda tabla de negocio debe tener `user_id`.
 
 ## 14.3 Políticas RLS obligatorias
+
 La protección real de datos debe aplicarse en base de datos, no solo en frontend.
 
 ## 14.4 No confiar en datos del cliente
+
 El frontend no debe decidir qué registros pertenecen a quién.  
 La base de datos debe imponer esa regla.
 
@@ -586,3 +614,4 @@ permite construir un MVP sólido, seguro y fácil de evolucionar, sin introducir
 La prioridad es:
 
 terminar una primera versión usable, rápida y confiable.
+```

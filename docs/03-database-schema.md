@@ -27,18 +27,23 @@ La implementación SQL concreta se definirá en un documento posterior.
 El diseño de base de datos de Propi debe seguir estos principios:
 
 ## 2.1 Simplicidad primero
+
 Solo deben existir las tablas necesarias para el MVP.
 
 ## 2.2 Tenant = usuario
+
 El aislamiento multitenant inicial se implementa a nivel de usuario.
 
 ## 2.3 Seguridad en base de datos
+
 La base debe reforzar reglas de propiedad y acceso mediante RLS.
 
 ## 2.4 Integridad de datos
+
 La base debe impedir valores inválidos como montos negativos o registros huérfanos.
 
 ## 2.5 Evolución futura
+
 El modelo debe ser lo bastante simple para el MVP, pero permitir crecimiento incremental.
 
 ---
@@ -93,6 +98,7 @@ Esta es la tabla principal del negocio.
 Cada fila representa una propina registrada manualmente por un usuario.
 
 ### Propósito
+
 Permitir:
 
 - registrar propinas
@@ -106,29 +112,38 @@ Permitir:
 ## 6.1 Columnas principales
 
 ### `id`
+
 Tipo sugerido:
+
 - `uuid`
 
 Propósito:
+
 - identificador único de la propina
 
 Reglas:
+
 - clave primaria
 - generado automáticamente
 
 ---
 
 ### `user_id`
+
 Tipo sugerido:
+
 - `uuid`
 
 Propósito:
+
 - identifica al usuario dueño de la propina
 
 Relación:
+
 - referencia a `auth.users.id`
 
 Reglas:
+
 - obligatorio
 - debe existir en `auth.users`
 
@@ -137,51 +152,66 @@ Esta columna es la base del modelo multitenant del MVP.
 ---
 
 ### `amount`
+
 Tipo sugerido:
+
 - `numeric(12,2)` o equivalente
 
 Propósito:
+
 - monto de la propina registrada
 
 Reglas:
+
 - obligatorio
 - mayor que cero
 
 Observaciones:
+
 - se recomienda usar tipo numérico exacto, no float
 - debe soportar decimales por compatibilidad futura, aunque el usuario muchas veces cargue enteros
 
 ---
 
 ### `created_at`
+
 Tipo sugerido:
+
 - `timestamptz`
 
 Propósito:
+
 - fecha y hora exacta de creación del registro
 
 Reglas:
+
 - obligatorio
 - valor por defecto generado por la base
 
 Observaciones:
+
 - esta columna se utiliza para historial y agregaciones temporales
 
 ---
 
 ### `updated_at`
+
 Tipo sugerido:
+
 - `timestamptz`
 
 Propósito:
+
 - fecha y hora de última modificación
 
 Reglas:
+
 - obligatorio
 - valor por defecto inicial
 - debe actualizarse automáticamente en modificaciones si luego se habilita edición
 
 Observaciones:
+
 - aunque el MVP no requiera editar propinas, conviene incluirla desde el inicio
 
 ---
@@ -190,13 +220,13 @@ Observaciones:
 
 ## Tabla `tips`
 
-| Columna      | Tipo sugerido     | Null | Default     | Descripción |
-|-------------|-------------------|------|-------------|-------------|
-| `id`        | `uuid`            | No   | auto-gen    | identificador único |
-| `user_id`   | `uuid`            | No   | none        | dueño del registro |
-| `amount`    | `numeric(12,2)`   | No   | none        | monto de la propina |
-| `created_at`| `timestamptz`     | No   | `now()`     | fecha/hora de creación |
-| `updated_at`| `timestamptz`     | No   | `now()`     | fecha/hora de actualización |
+| Columna      | Tipo sugerido   | Null | Default  | Descripción                 |
+| ------------ | --------------- | ---- | -------- | --------------------------- |
+| `id`         | `uuid`          | No   | auto-gen | identificador único         |
+| `user_id`    | `uuid`          | No   | none     | dueño del registro          |
+| `amount`     | `numeric(12,2)` | No   | none     | monto de la propina         |
+| `created_at` | `timestamptz`   | No   | `now()`  | fecha/hora de creación      |
+| `updated_at` | `timestamptz`   | No   | `now()`  | fecha/hora de actualización |
 
 ---
 
@@ -218,12 +248,15 @@ Cardinalidad:
 La tabla `tips` debe incluir restricciones claras para proteger calidad de datos.
 
 ## 9.1 Primary Key
+
 - `id` debe ser clave primaria
 
 ## 9.2 Foreign Key
+
 - `user_id` debe referenciar `auth.users(id)`
 
 ## 9.3 Check de monto
+
 - `amount > 0`
 
 Esto evita registros inválidos como:
@@ -232,6 +265,7 @@ Esto evita registros inválidos como:
 - negativos
 
 ## 9.4 Not Null
+
 Las siguientes columnas deben ser obligatorias:
 
 - `user_id`
@@ -244,6 +278,7 @@ Las siguientes columnas deben ser obligatorias:
 # 10. Decisiones de Diseño
 
 ## 10.1 No usar tabla `profiles` en el MVP
+
 Para el MVP, la aplicación puede operar usando directamente `auth.users` para identidad.
 
 Esto reduce complejidad.
@@ -261,6 +296,7 @@ Pero no es obligatoria para la primera versión.
 ---
 
 ## 10.2 No usar tabla de agregados persistidos
+
 Los totales de:
 
 - hoy
@@ -280,6 +316,7 @@ Esto evita:
 ---
 
 ## 10.3 No usar soft delete en el MVP
+
 No se recomienda agregar columnas como:
 
 - `deleted_at`
@@ -292,6 +329,7 @@ La app puede funcionar sin borrado o con borrado directo si luego se habilita.
 ---
 
 ## 10.4 Incluir `updated_at` desde el inicio
+
 Aunque el MVP no requiera edición, se recomienda incluir `updated_at` por consistencia estructural y evolución futura.
 
 ---
@@ -301,20 +339,24 @@ Aunque el MVP no requiera edición, se recomienda incluir `updated_at` por consi
 Para que la app responda rápido, especialmente en historial y consultas agregadas, se recomiendan índices simples y útiles.
 
 ## 11.1 Índice por usuario
+
 Crear índice sobre:
 
 - `user_id`
 
 Utilidad:
+
 - listar propinas por usuario
 - reforzar filtros multitenant
 
 ## 11.2 Índice compuesto por usuario y fecha
+
 Crear índice compuesto sobre:
 
 - `(user_id, created_at desc)`
 
 Utilidad:
+
 - historial personal ordenado por fecha
 - consultas por rango temporal
 - dashboard diario/semanal/mensual
@@ -328,6 +370,7 @@ Este índice probablemente será el más importante del MVP.
 El diseño de la tabla `tips` debe permitir resolver eficientemente estos casos.
 
 ## 12.1 Insertar propina
+
 Crear una nueva fila con:
 
 - `user_id`
@@ -338,6 +381,7 @@ y timestamps automáticos.
 ---
 
 ## 12.2 Listar historial del usuario
+
 Consultar propinas de un usuario:
 
 - filtradas por `user_id`
@@ -346,16 +390,19 @@ Consultar propinas de un usuario:
 ---
 
 ## 12.3 Calcular total de hoy
+
 Sumar `amount` de propinas del usuario en el día actual.
 
 ---
 
 ## 12.4 Calcular total semanal
+
 Sumar `amount` de propinas del usuario en la semana actual.
 
 ---
 
 ## 12.5 Calcular total mensual
+
 Sumar `amount` de propinas del usuario en el mes actual.
 
 ---
@@ -373,6 +420,7 @@ Sin embargo, las consultas para:
 deben considerar cuidadosamente la zona horaria del usuario o una zona horaria de aplicación definida.
 
 ## Recomendación MVP
+
 En la primera versión, definir una estrategia simple y consistente:
 
 - guardar siempre timestamps reales en UTC
@@ -387,9 +435,11 @@ Esto deberá documentarse en la implementación SQL y en la capa de aplicación.
 La seguridad del esquema depende de dos elementos:
 
 ## 14.1 Columna de propiedad
+
 Cada registro de `tips` debe tener `user_id`.
 
 ## 14.2 Políticas RLS
+
 Las políticas deben garantizar que un usuario solo pueda:
 
 - leer sus propias propinas
@@ -408,25 +458,30 @@ El diseño actual debe permitir agregar más adelante nuevas capacidades sin rom
 Ejemplos:
 
 ## 15.1 Tabla `profiles`
+
 Para guardar metadatos del usuario.
 
 ## 15.2 Tipos de propina
+
 Agregar una columna como:
 
 - `source_type` (`cash`, `card`, etc.)
 
 ## 15.3 Notas
+
 Agregar:
 
 - `note text`
 
 ## 15.4 Lugar de trabajo
+
 Agregar:
 
 - `workplace_name`
 - o relación a tabla `workplaces`
 
 ## 15.5 Turnos
+
 Agregar:
 
 - `shift_date`
@@ -532,3 +587,4 @@ columna user_id
 políticas RLS
 
 La prioridad no es complejidad, sino claridad, seguridad y velocidad de implementación.
+```

@@ -12,17 +12,17 @@ Este documento define las **pantallas del sistema y los flujos de usuario del MV
 
 El objetivo es:
 
-* definir exactamente qué pantallas existen
-* especificar qué información contiene cada una
-* definir cómo navega el usuario entre ellas
-* eliminar ambigüedades para la implementación
+- definir exactamente qué pantallas existen
+- especificar qué información contiene cada una
+- definir cómo navega el usuario entre ellas
+- eliminar ambigüedades para la implementación
 
 El diseño de la aplicación debe seguir siempre estos principios:
 
-* simplicidad extrema
-* rapidez de uso
-* mobile-first
-* mínimo número de pasos
+- simplicidad extrema
+- rapidez de uso
+- mobile-first
+- mínimo número de pasos
 
 Registrar una propina debe tomar **menos de 5 segundos**.
 
@@ -34,14 +34,14 @@ El MVP de **Propi** contiene **5 pantallas principales**.
 
 ## Pantallas públicas
 
-* Iniciar sesión
-* Crear cuenta
+- Iniciar sesión
+- Crear cuenta
 
 ## Pantallas privadas
 
-* Dashboard (pantalla principal)
-* Registrar propina
-* Historial de propinas
+- Dashboard (pantalla principal)
+- Registrar propina
+- Historial de propinas
 
 ---
 
@@ -126,7 +126,7 @@ Iniciar sesión
 
 Acción:
 
-* autenticar usuario usando Supabase Auth
+- autenticar usuario usando Supabase Auth
 
 ---
 
@@ -204,7 +204,7 @@ Crear cuenta
 
 Acción:
 
-* registrar usuario en Supabase Auth
+- registrar usuario en Supabase Auth
 
 ---
 
@@ -226,8 +226,8 @@ Navega a:
 
 Después del registro:
 
-* crear sesión automáticamente
-* redirigir al usuario a:
+- crear sesión automáticamente
+- redirigir al usuario a:
 
 ```
 /
@@ -427,9 +427,9 @@ Ejemplo:
 
 El campo debe cumplir:
 
-* obligatorio
-* número válido
-* mayor que 0
+- obligatorio
+- número válido
+- mayor que 0
 
 ---
 
@@ -441,7 +441,7 @@ Guardar propina
 
 Acción:
 
-* insertar registro en la tabla `tips`
+- insertar registro en la tabla `tips`
 
 ---
 
@@ -616,9 +616,9 @@ Registrar una propina debe requerir **máximo 2 acciones**.
 
 No agregar:
 
-* filtros
-* configuraciones
-* tabs innecesarios
+- filtros
+- configuraciones
+- tabs innecesarios
 
 ---
 
@@ -642,9 +642,9 @@ Se recomienda crear componentes reutilizables simples.
 
 Usada en:
 
-* hoy
-* semana
-* mes
+- hoy
+- semana
+- mes
 
 ---
 
@@ -652,7 +652,7 @@ Usada en:
 
 Usado en:
 
-* historial
+- historial
 
 ---
 
@@ -678,9 +678,9 @@ Botón reutilizable para acciones principales.
 
 Necesita consultar:
 
-* total hoy
-* total semana
-* total mes
+- total hoy
+- total semana
+- total mes
 
 ---
 
@@ -701,13 +701,13 @@ order by created_at desc
 
 La implementación será correcta si:
 
-* el usuario puede crear cuenta
-* el usuario puede iniciar sesión
-* el usuario puede registrar propinas
-* el dashboard muestra totales
-* el historial muestra registros
-* la aplicación funciona correctamente en móvil
-* el flujo es rápido y simple
+- el usuario puede crear cuenta
+- el usuario puede iniciar sesión
+- el usuario puede registrar propinas
+- el dashboard muestra totales
+- el historial muestra registros
+- la aplicación funciona correctamente en móvil
+- el flujo es rápido y simple
 
 ---
 
@@ -717,10 +717,10 @@ El diseño de pantallas de Propi debe mantenerse deliberadamente minimalista.
 
 El MVP solo necesita:
 
-* autenticación
-* dashboard
-* registro de propinas
-* historial
+- autenticación
+- dashboard
+- registro de propinas
+- historial
 
 El éxito del producto dependerá de:
 

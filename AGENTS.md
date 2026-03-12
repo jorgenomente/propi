@@ -2,9 +2,6 @@
 
 # AGENTS.md — PROPI (v3)
 
-```md
-# AGENTS.md — PROPI
-
 Versión: v3
 Estado: ACTIVO
 Tipo: Documento operativo del repositorio
@@ -61,7 +58,7 @@ Estos documentos definen:
 
 Si existe conflicto entre código y documentación:
 
-→ la documentación prevalece.
+-> la documentación prevalece.
 
 ---
 
@@ -114,8 +111,6 @@ No introducir:
 - colas
 - frameworks innecesarios
 
----
-
 ## 4.2 DB-first
 
 La base de datos es la fuente de verdad.
@@ -127,8 +122,6 @@ La lógica vive en:
 - índices
 - triggers
 - RLS
-
----
 
 ## 4.3 RLS-first
 
@@ -142,11 +135,9 @@ auth.uid() = user_id
 
 Esto debe cumplirse en todas las operaciones.
 
----
-
 ## 4.4 One Screen = One Data Contract
 
-Cada pantalla tiene un contrato de datos explícito.
+Cada pantalla debe tener un contrato de datos explícito.
 
 Pantallas oficiales:
 
@@ -178,7 +169,7 @@ tips
 
 Relación:
 
-auth.users → tips
+auth.users -> tips
 
 ---
 
@@ -196,8 +187,6 @@ amount
 
 user_id debe asignarse automáticamente.
 
----
-
 ## list_user_tips
 
 Lista de propinas del usuario.
@@ -206,19 +195,13 @@ Orden:
 
 created_at desc
 
----
-
 ## total_today
 
 Suma de propinas del día.
 
----
-
 ## total_week
 
 Suma de propinas de la semana.
-
----
 
 ## total_month
 
@@ -451,9 +434,9 @@ qué pegar a continuación
 
 Cuando el agente trabaja con Codex CLI debe:
 
-1 leer docs
-2 ejecutar lote correspondiente
-3 validar resultados
+1 leer docs  
+2 ejecutar lote correspondiente  
+3 validar resultados  
 4 registrar actividad
 
 No debe avanzar al siguiente lote automáticamente.
@@ -476,9 +459,3 @@ Ante duda:
 reducir complejidad  
 pedir confirmación  
 proteger el MVP
-
-```
-
----
-
-```

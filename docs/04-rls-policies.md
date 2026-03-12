@@ -69,18 +69,23 @@ Cada fila de `public.tips` representa una propina individual registrada por un u
 La implementación de RLS debe cumplir estos requisitos:
 
 ## 5.1 Lectura aislada
+
 Un usuario solo puede leer sus propias propinas.
 
 ## 5.2 Inserción controlada
+
 Un usuario solo puede insertar propinas asociadas a sí mismo.
 
 ## 5.3 Modificación aislada
+
 Si en el futuro se permite editar propinas, un usuario solo podrá editar las suyas.
 
 ## 5.4 Eliminación aislada
+
 Si en el futuro se permite borrar propinas, un usuario solo podrá borrar las suyas.
 
 ## 5.5 Acceso anónimo denegado
+
 Un usuario no autenticado no debe poder leer ni modificar datos de negocio.
 
 ---
@@ -90,11 +95,13 @@ Un usuario no autenticado no debe poder leer ni modificar datos de negocio.
 La tabla `public.tips` debe tener RLS activado obligatoriamente.
 
 ## Regla
+
 Toda tabla de negocio con datos por usuario debe tener:
 
 - `ALTER TABLE ... ENABLE ROW LEVEL SECURITY`
 
 ## Recomendación adicional
+
 Se recomienda también forzar RLS para reducir riesgo de bypass accidental en ciertos contextos:
 
 - `ALTER TABLE ... FORCE ROW LEVEL SECURITY`
@@ -122,6 +129,7 @@ La política de seguridad se apoya completamente en esta columna.
 # 8. Política de SELECT
 
 ## Objetivo
+
 Permitir que un usuario autenticado lea únicamente sus propias propinas.
 
 ## Regla lógica
@@ -129,114 +137,136 @@ Permitir que un usuario autenticado lea únicamente sus propias propinas.
 Un `SELECT` está permitido solo si:
 
 ```sql
-user_id = auth.uid()
-Resultado esperado
+auth.uid() = user_id
+```
 
-el usuario A puede leer solo filas de A
+## Resultado esperado
 
-el usuario B puede leer solo filas de B
+- el usuario A puede leer solo filas de A
+- el usuario B puede leer solo filas de B
+- un usuario no autenticado no lee ninguna fila
 
-un usuario no autenticado no lee ninguna fila
-
-Intención para Codex
+## Intención para Codex
 
 Codex debe implementar una policy equivalente a:
 
-FOR SELECT
+```sql
+for select
+using (auth.uid() = user_id)
+```
 
-USING (auth.uid() = user_id)
+---
 
-9. Política de INSERT
-Objetivo
+# 9. Política de INSERT
+
+## Objetivo
 
 Permitir que un usuario autenticado inserte únicamente propinas propias.
 
-Riesgo que se quiere evitar
+## Riesgo que se quiere evitar
 
-Que un usuario envíe manualmente un user_id ajeno para crear registros sobre otro usuario.
+Que un usuario envíe manualmente un `user_id` ajeno para crear registros sobre otro usuario.
 
-Regla lógica
+## Regla lógica
 
-Un INSERT está permitido solo si:
+Un `INSERT` está permitido solo si:
 
+```sql
 auth.uid() = user_id
-Resultado esperado
+```
 
-el usuario autenticado puede insertar una propina propia
+## Resultado esperado
 
-no puede insertar una propina con user_id de otro usuario
+- el usuario autenticado puede insertar una propina propia
+- no puede insertar una propina con `user_id` de otro usuario
+- un usuario anónimo no puede insertar
 
-un usuario anónimo no puede insertar
-
-Intención para Codex
+## Intención para Codex
 
 Codex debe implementar una policy equivalente a:
 
-FOR INSERT
+```sql
+for insert
+with check (auth.uid() = user_id)
+```
 
-WITH CHECK (auth.uid() = user_id)
+---
 
-10. Política de UPDATE
-Objetivo
+# 10. Política de UPDATE
+
+## Objetivo
 
 Permitir edición únicamente sobre registros propios, si esa capacidad se habilita más adelante.
 
 Aunque el MVP no requiera editar propinas, la política puede definirse desde el inicio para dejar el sistema preparado.
 
-Reglas lógicas
+## Reglas lógicas
 
 Para actualizar una fila deben cumplirse dos cosas:
 
-10.1 La fila objetivo debe pertenecer al usuario
+### 10.1 La fila objetivo debe pertenecer al usuario
+
+```sql
 auth.uid() = user_id
-10.2 La fila resultante debe seguir perteneciendo al mismo usuario
+```
+
+### 10.2 La fila resultante debe seguir perteneciendo al mismo usuario
+
+```sql
 auth.uid() = user_id
+```
 
 Esto evita:
 
-editar filas ajenas
+- editar filas ajenas
+- cambiar `user_id` hacia otro usuario
 
-cambiar user_id hacia otro usuario
-
-Intención para Codex
+## Intención para Codex
 
 Codex debe implementar una policy equivalente a:
 
-FOR UPDATE
+```sql
+for update
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id)
+```
 
-USING (auth.uid() = user_id)
+---
 
-WITH CHECK (auth.uid() = user_id)
+# 11. Política de DELETE
 
-11. Política de DELETE
-Objetivo
+## Objetivo
 
 Permitir eliminación únicamente sobre registros propios, si esa funcionalidad se habilita.
 
-Aunque el MVP podría no exponer borrado en UI, la política puede dejarse preparada.
+Aunque el MVP podría no exponer borrado en UI, la policy puede dejarse preparada.
 
-Regla lógica
+## Regla lógica
 
-Un DELETE está permitido solo si:
+Un `DELETE` está permitido solo si:
 
+```sql
 auth.uid() = user_id
-Resultado esperado
+```
 
-un usuario solo puede borrar sus propias filas
+## Resultado esperado
 
-no puede borrar datos ajenos
+- un usuario solo puede borrar sus propias filas
+- no puede borrar datos ajenos
+- un usuario anónimo no puede borrar
 
-un usuario anónimo no puede borrar
-
-Intención para Codex
+## Intención para Codex
 
 Codex debe implementar una policy equivalente a:
 
-FOR DELETE
+```sql
+for delete
+using (auth.uid() = user_id)
+```
 
-USING (auth.uid() = user_id)
+---
 
-12. Estrategia Recomendada de Inserción
+# 12. Estrategia Recomendada de Inserción
 
 Para reducir errores de implementación, se recomienda una de estas dos estrategias.
 
@@ -278,7 +308,7 @@ Preferir Opción B, siempre que la implementación en Supabase quede clara y con
 
 Aun si se usa valor por defecto, la policy de INSERT debe existir igual.
 
-13. Estrategia Recomendada para Roles
+# 13. Estrategia Recomendada para Roles
 
 En Supabase normalmente intervienen estos contextos:
 
@@ -300,7 +330,7 @@ service_role no debe usarse desde frontend.
 
 Si en el futuro existe backend privilegiado, debe usarse con extremo cuidado, ya que puede bypassar RLS dependiendo del contexto.
 
-14. Reglas de Implementación para Codex
+# 14. Reglas de Implementación para Codex
 
 Codex debe respetar estas reglas:
 
@@ -324,7 +354,7 @@ no confiar en filtros del frontend como mecanismo de seguridad
 
 no exponer jamás acceso cross-user
 
-15. Patrón Recomendado de Policies
+# 15. Patrón Recomendado de Policies
 
 La tabla tips debe tener policies explícitas por operación.
 
@@ -353,7 +383,7 @@ más fácil depurar
 No se recomienda una única policy genérica y opaca.
 
 16. Ejemplos de Comportamiento Esperado
-Caso 1 — lectura correcta
+    Caso 1 — lectura correcta
 
 Usuario autenticado con id U1 consulta historial.
 
@@ -509,8 +539,7 @@ create policy "tips_delete_own"
 on public.tips
 for delete
 to authenticated
-using (auth.uid() = user_id);
-22. Criterios de Correctitud
+using (auth.uid() = user_id); 22. Criterios de Correctitud
 
 La implementación RLS será correcta si:
 

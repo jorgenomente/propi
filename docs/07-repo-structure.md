@@ -12,10 +12,10 @@ Este documento define la **estructura oficial del repositorio** para el proyecto
 
 El objetivo es:
 
-* mantener una organización clara del código
-* evitar duplicación de lógica
-* facilitar el trabajo con Codex
-* permitir crecimiento futuro sin romper la estructura inicial
+- mantener una organización clara del código
+- evitar duplicación de lógica
+- facilitar el trabajo con Codex
+- permitir crecimiento futuro sin romper la estructura inicial
 
 La estructura debe mantenerse **simple y predecible**.
 
@@ -118,9 +118,9 @@ page.tsx
 
 Responsabilidades:
 
-* formulario de login
-* conexión con Supabase Auth
-* redirección al dashboard
+- formulario de login
+- conexión con Supabase Auth
+- redirección al dashboard
 
 ---
 
@@ -136,9 +136,9 @@ page.tsx
 
 Responsabilidades:
 
-* formulario de registro
-* creación de usuario
-* redirección al dashboard
+- formulario de registro
+- creación de usuario
+- redirección al dashboard
 
 ---
 
@@ -164,9 +164,9 @@ page.tsx
 
 Responsabilidades:
 
-* mostrar totales
-* acceso rápido a registrar propina
-* acceso a historial
+- mostrar totales
+- acceso rápido a registrar propina
+- acceso a historial
 
 ---
 
@@ -182,9 +182,9 @@ page.tsx
 
 Responsabilidades:
 
-* formulario simple
-* insertar propina
-* redirigir al dashboard
+- formulario simple
+- insertar propina
+- redirigir al dashboard
 
 ---
 
@@ -200,8 +200,8 @@ page.tsx
 
 Responsabilidades:
 
-* mostrar lista de propinas
-* ordenar por fecha
+- mostrar lista de propinas
+- ordenar por fecha
 
 ---
 
@@ -236,9 +236,9 @@ Componentes básicos de UI reutilizables.
 
 Ejemplos:
 
-* botones
-* inputs
-* tarjetas
+- botones
+- inputs
+- tarjetas
 
 ---
 
@@ -298,9 +298,9 @@ server.ts
 
 Responsabilidades:
 
-* crear cliente Supabase
-* manejar sesión
-* conexión con base de datos
+- crear cliente Supabase
+- manejar sesión
+- conexión con base de datos
 
 ---
 
@@ -316,9 +316,9 @@ tips.ts
 
 Funciones esperadas:
 
-* crear propina
-* obtener historial
-* obtener totales
+- crear propina
+- obtener historial
+- obtener totales
 
 ---
 
@@ -364,11 +364,11 @@ Ejemplo:
 
 ```ts
 export interface Tip {
-  id: string
-  user_id: string
-  amount: number
-  created_at: string
-  updated_at: string
+  id: string;
+  user_id: string;
+  amount: number;
+  created_at: string;
+  updated_at: string;
 }
 ```
 
@@ -450,9 +450,9 @@ Estas variables permiten conectar el frontend con Supabase.
 
 Debe contener:
 
-* descripción del proyecto
-* instrucciones de instalación
-* instrucciones de desarrollo
+- descripción del proyecto
+- instrucciones de instalación
+- instrucciones de desarrollo
 
 ---
 
@@ -474,11 +474,11 @@ Codex debe respetar las siguientes reglas:
 
 La estructura será considerada correcta si:
 
-* las rutas están dentro de `/app`
-* los componentes están en `/components`
-* la lógica de datos está en `/lib`
-* los tipos están en `/types`
-* la documentación está en `/docs`
+- las rutas están dentro de `/app`
+- los componentes están en `/components`
+- la lógica de datos está en `/lib`
+- los tipos están en `/types`
+- la documentación está en `/docs`
 
 La estructura debe ser **clara incluso para un desarrollador que vea el proyecto por primera vez**.
 

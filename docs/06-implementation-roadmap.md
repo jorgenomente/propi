@@ -12,12 +12,20 @@ Este documento define el **plan de implementación del MVP de Propi**.
 
 El objetivo es dividir el desarrollo en **lotes pequeños y ejecutables** que permitan:
 
-* construir el sistema de forma ordenada
-* reducir errores de implementación
-* facilitar el trabajo con agentes como Codex
-* validar el sistema paso a paso
+- construir el sistema de forma ordenada
+- reducir errores de implementación
+- facilitar el trabajo con agentes como Codex
+- validar el sistema paso a paso
 
 Cada lote debe producir un resultado funcional verificable.
+
+## Estado actual del roadmap
+
+Al 2026-03-12 el repositorio ya tiene cerrada la base de proyecto y quedó saneado para continuar con implementación auditable:
+
+- Lote 1: base del proyecto listo
+- Lote 2: siguiente lote recomendado
+- Lote 3: contrato y migración inicial creados, falta validación aplicada sobre entorno local y conexión desde UI
 
 ---
 
@@ -25,10 +33,10 @@ Cada lote debe producir un resultado funcional verificable.
 
 La implementación del MVP sigue estos principios:
 
-* construir primero la **infraestructura base**
-* después la **autenticación**
-* luego el **modelo de datos**
-* finalmente las **funcionalidades del producto**
+- construir primero la **infraestructura base**
+- después la **autenticación**
+- luego el **modelo de datos**
+- finalmente las **funcionalidades del producto**
 
 Esto evita bloqueos técnicos y simplifica el desarrollo.
 
@@ -73,9 +81,13 @@ Crear la estructura base del proyecto y configurar las herramientas principales.
 
 Debe existir una aplicación que:
 
-* compila correctamente
-* puede conectarse a Supabase
-* tiene estructura de carpetas clara
+- compila correctamente
+- puede conectarse a Supabase
+- tiene estructura de carpetas clara
+
+## Estado
+
+Completado.
 
 ---
 
@@ -125,10 +137,14 @@ Implementar el sistema de autenticación de usuarios.
 
 Un usuario debe poder:
 
-* crear una cuenta
-* iniciar sesión
-* cerrar sesión
-* acceder a la app autenticado
+- crear una cuenta
+- iniciar sesión
+- cerrar sesión
+- acceder a la app autenticado
+
+## Estado
+
+Pendiente. Este es el siguiente lote recomendado.
 
 ---
 
@@ -136,7 +152,7 @@ Un usuario debe poder:
 
 ## Objetivo
 
-Implementar el esquema de base de datos definido en `database-schema.md`.
+Implementar el esquema de base de datos definido en `docs/03-database-schema.md`.
 
 ---
 
@@ -145,11 +161,11 @@ Implementar el esquema de base de datos definido en `database-schema.md`.
 1. Crear tabla `tips`
 2. Definir columnas:
 
-* id
-* user_id
-* amount
-* created_at
-* updated_at
+- id
+- user_id
+- amount
+- created_at
+- updated_at
 
 3. Crear clave primaria
 4. Crear foreign key hacia `auth.users`
@@ -164,9 +180,13 @@ Implementar el esquema de base de datos definido en `database-schema.md`.
 
 La base de datos debe permitir:
 
-* insertar propinas
-* consultar propinas
-* aislar datos por usuario
+- insertar propinas
+- consultar propinas
+- aislar datos por usuario
+
+## Estado
+
+En preparación. El repo ya incluye una migración inicial versionada en `supabase/migrations/20260312094000_001_init_tips.sql`, pero falta ejecutarla y verificarla en el entorno local.
 
 ---
 
@@ -193,8 +213,8 @@ Implementar la funcionalidad central del producto: registrar propinas.
 
 Un usuario autenticado puede:
 
-* registrar una propina
-* verla guardada en la base de datos
+- registrar una propina
+- verla guardada en la base de datos
 
 ---
 
@@ -212,9 +232,9 @@ Mostrar un resumen de propinas del usuario.
 2. Consultar propinas del usuario
 3. Calcular totales:
 
-* hoy
-* semana
-* mes
+- hoy
+- semana
+- mes
 
 4. Mostrar los totales en tarjetas
 5. Crear botón para registrar propina
@@ -226,9 +246,9 @@ Mostrar un resumen de propinas del usuario.
 
 El usuario puede ver:
 
-* cuánto hizo hoy
-* cuánto hizo esta semana
-* cuánto hizo este mes
+- cuánto hizo hoy
+- cuánto hizo esta semana
+- cuánto hizo este mes
 
 ---
 
@@ -254,8 +274,8 @@ Permitir al usuario ver todas sus propinas registradas.
 
 El usuario puede:
 
-* ver todas sus propinas
-* revisar registros pasados
+- ver todas sus propinas
+- revisar registros pasados
 
 ---
 
@@ -282,13 +302,13 @@ Mejorar experiencia y estabilidad del sistema.
 
 El MVP se considera completo cuando:
 
-* el usuario puede registrarse
-* el usuario puede iniciar sesión
-* el usuario puede registrar propinas
-* el dashboard muestra totales
-* el historial funciona
-* la seguridad RLS está activa
-* la app funciona correctamente en móvil
+- el usuario puede registrarse
+- el usuario puede iniciar sesión
+- el usuario puede registrar propinas
+- el dashboard muestra totales
+- el historial funciona
+- la seguridad RLS está activa
+- la app funciona correctamente en móvil
 
 ---
 

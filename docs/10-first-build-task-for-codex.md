@@ -1,5 +1,7 @@
 10 — first-build-task-for-codex.md
 
+Nota de estado: este documento queda como referencia histórica del arranque del repo. El estado operativo actual vive en `docs/06-implementation-roadmap.md` y en `AGENTS.md`.
+
 Proyecto: Propi
 Versión: v0.1
 Fecha: 2026-03-09
@@ -42,8 +44,7 @@ Row Level Security
 
 Toda la arquitectura del proyecto está documentada en:
 
-/docs
-3. Documentos que Codex Debe Leer Primero
+/docs 3. Documentos que Codex Debe Leer Primero
 
 Antes de escribir código, Codex debe revisar:
 
@@ -118,20 +119,20 @@ Dentro de /app crear:
 app/
 
 (auth)/
-  login/
-    page.tsx
+login/
+page.tsx
 
-  register/
-    page.tsx
+register/
+page.tsx
 
 (private)/
-  page.tsx
+page.tsx
 
-  add/
-    page.tsx
+add/
+page.tsx
 
-  history/
-    page.tsx
+history/
+page.tsx
 
 Estas páginas pueden comenzar como placeholders simples.
 
@@ -271,8 +272,7 @@ cliente Supabase listo para usar
 
 Este entregable corresponde a:
 
-Lote 1 — Base del proyecto
-10. Instrucción Final para Codex
+Lote 1 — Base del proyecto 10. Instrucción Final para Codex
 
 Implementa únicamente Lote 1.
 

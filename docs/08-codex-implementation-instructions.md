@@ -43,3 +43,4 @@ La fuente de verdad del proyecto está en la carpeta:
 
 ```text
 /docs
+```
