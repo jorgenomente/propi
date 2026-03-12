@@ -62,3 +62,10 @@
 - Archivos afectados: app/(auth)/auth-form.tsx, app/(auth)/login/page.tsx, app/(auth)/register/page.tsx, app/(auth)/loading.tsx, app/(private)/page.tsx, app/(private)/add/tip-form.tsx, app/(private)/loading.tsx, app/(private)/error.tsx, e2e/auth.smoke.spec.ts, docs/prompts.md, docs/06-implementation-roadmap.md, docs/activity-log.md.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx playwright test` OK.
 - Commit hash: 1204627
+
+## 2026-03-12 12:05:00 -0300 | Lote: 2026-03-12-mvp-close-01 | Tipo: docs
+
+- Descripcion: cierre formal del MVP en la documentacion del repo y explicitacion de la fase siguiente como iteracion sobre la base ya implementada.
+- Archivos afectados: docs/01-product-brief.md, docs/06-implementation-roadmap.md, docs/11-mvp-release-checklist.md, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: no aplica por tratarse de un lote solo de documentacion.
+- Commit hash: pendiente

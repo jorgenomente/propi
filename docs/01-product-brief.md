@@ -4,6 +4,8 @@ Proyecto: Propi
 Versión: v0.1
 Fecha: 2026-03-09
 
+Estado actual: MVP implementado y validado al 2026-03-12. A partir de este punto el trabajo pasa a iteracion sobre la base existente.
+
 1. Visión del Producto
 
 Propi es una aplicación simple para que camareros puedan registrar y visualizar sus propinas diarias.

@@ -80,3 +80,12 @@ hagamos eso comit y push, despues pulir el warning y desplegar a prod
 ```text
 si avancemos
 ```
+
+## 2026-03-12 12:05:00 -0300 | Lote: 2026-03-12-mvp-close-01
+
+- Objetivo: cerrar formalmente el MVP en documentacion y dejar explicitada la transicion a una fase de iteracion sobre la base ya implementada.
+- Prompt completo:
+
+```text
+ok hamos cierre del mvp y a partir de aqui lo que vamos a hacer es iterar lo que ya tenemos
+```

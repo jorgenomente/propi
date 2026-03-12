@@ -29,6 +29,9 @@ Al 2026-03-12 el repositorio ya tiene cerrada la base de proyecto y quedó sanea
 - Lote 4: registro de propinas implementado
 - Lote 5: dashboard conectado a datos reales
 - Lote 6: historial conectado a datos reales
+- Lote 7: pulido MVP implementado y validado
+
+Estado general: MVP completado y listo para iteracion controlada sobre la base actual.
 
 ---
 
@@ -329,6 +332,10 @@ El MVP se considera completo cuando:
 - la seguridad RLS está activa
 - la app funciona correctamente en móvil
 
+## Estado
+
+Completado. Al 2026-03-12 todos los criterios del MVP quedaron implementados, validados en local y probados manualmente en produccion.
+
 ---
 
 # 12. Flujo de Construcción Recomendado
@@ -380,3 +387,24 @@ El MVP de Propi debe poder desarrollarse en poco tiempo y validarse rápidamente
 La prioridad siempre debe ser:
 
 **simplicidad + velocidad + utilidad real.**
+
+---
+
+# 15. Fase Posterior al MVP
+
+Desde este punto el proyecto entra en fase de iteracion.
+
+Regla operativa:
+
+- no reabrir lotes base ya cerrados salvo bug real
+- iterar sobre UX, confiabilidad y uso real
+- priorizar mejoras pequeñas, verificables y con impacto en adopcion
+- mantener el mismo criterio de simplicidad del MVP
+
+Orden recomendado de iteracion:
+
+1. observacion de uso real
+2. correcciones de friccion
+3. mejoras de claridad en dashboard e historial
+4. mejoras de captura de propinas
+5. solo despues evaluar expansiones funcionales
