@@ -24,8 +24,9 @@ Cada lote debe producir un resultado funcional verificable.
 Al 2026-03-12 el repositorio ya tiene cerrada la base de proyecto y quedó saneado para continuar con implementación auditable:
 
 - Lote 1: base del proyecto listo
-- Lote 2: siguiente lote recomendado
-- Lote 3: contrato y migración inicial creados, falta validación aplicada sobre entorno local y conexión desde UI
+- Lote 2: autenticacion implementada y validada
+- Lote 3: schema y RLS validados en entorno local
+- Lote 4: siguiente lote recomendado
 
 ---
 
@@ -144,7 +145,7 @@ Un usuario debe poder:
 
 ## Estado
 
-Pendiente. Este es el siguiente lote recomendado.
+Completado. Login, registro, logout, proteccion de rutas y smoke E2E minima ya estan implementados.
 
 ---
 
@@ -186,7 +187,7 @@ La base de datos debe permitir:
 
 ## Estado
 
-En preparación. El repo ya incluye una migración inicial versionada en `supabase/migrations/20260312094000_001_init_tips.sql`, pero falta ejecutarla y verificarla en el entorno local.
+Completado a nivel de base. El repo ya incluye la migracion `supabase/migrations/20260312094000_001_init_tips.sql` y fue validada con `supabase db reset` y chequeos SQL minimos.
 
 ---
 
@@ -215,6 +216,10 @@ Un usuario autenticado puede:
 
 - registrar una propina
 - verla guardada en la base de datos
+
+## Estado
+
+Pendiente. Este es el siguiente lote recomendado.
 
 ---
 

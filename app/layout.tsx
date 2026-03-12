@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Propi',
-  description: 'Base UI setup with shadcn, themes, forms, and testing.',
+  description: 'Registro personal de propinas con Supabase y Next.js.',
 };
 
 export default function RootLayout({

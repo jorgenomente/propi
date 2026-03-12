@@ -1,12 +1,10 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
-import { getSupabasePublishableKey, getSupabaseUrl } from './env';
+import { getSupabasePublishableKey, getSupabaseUrl } from '@/lib/supabase/env';
 
-export async function updateSession(request: NextRequest) {
-  let response = NextResponse.next({
-    request,
-  });
+export async function POST(request: NextRequest) {
+  const response = NextResponse.redirect(new URL('/login', request.url), 303);
 
   const supabase = createServerClient(
     getSupabaseUrl(),
@@ -17,14 +15,6 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => {
-            request.cookies.set(name, value);
-          });
-
-          response = NextResponse.next({
-            request,
-          });
-
           cookiesToSet.forEach(({ name, value, options }) => {
             response.cookies.set(name, value, options);
           });
@@ -33,9 +23,7 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  await supabase.auth.signOut();
 
-  return { response, user };
+  return response;
 }

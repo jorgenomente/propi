@@ -57,10 +57,12 @@ types/
 styles/
 docs/
 public/
+e2e/
 
 package.json
 tsconfig.json
 next.config.js
+playwright.config.ts
 .env.local
 README.md
 ```
@@ -262,7 +264,26 @@ Tarjeta para mostrar totales.
 
 ---
 
-# 8. Carpeta `/lib`
+# 8. Carpeta `/e2e`
+
+Contiene pruebas end-to-end de smoke y flujos criticos.
+
+Estructura inicial:
+
+```text
+e2e/
+  auth.smoke.spec.ts
+```
+
+Responsabilidades:
+
+- validar redirects de auth
+- validar registro
+- validar login y logout
+
+---
+
+# 9. Carpeta `/lib`
 
 Contiene utilidades y lógica de infraestructura.
 
@@ -335,7 +356,7 @@ dateHelpers.ts
 
 ---
 
-# 9. Carpeta `/types`
+# 10. Carpeta `/types`
 
 Contiene **tipos TypeScript compartidos**.
 
@@ -374,7 +395,7 @@ export interface Tip {
 
 ---
 
-# 10. Carpeta `/styles`
+# 11. Carpeta `/styles`
 
 Contiene estilos globales.
 
@@ -390,7 +411,7 @@ Si se usa Tailwind, esta carpeta puede mantenerse mínima.
 
 ---
 
-# 11. Carpeta `/docs`
+# 12. Carpeta `/docs`
 
 Contiene toda la documentación del proyecto.
 
@@ -412,7 +433,7 @@ Esta carpeta funciona como **fuente de verdad del proyecto**.
 
 ---
 
-# 12. Carpeta `/public`
+# 13. Carpeta `/public`
 
 Contiene archivos estáticos.
 
@@ -427,7 +448,7 @@ favicon.ico
 
 ---
 
-# 13. Variables de Entorno
+# 14. Variables de Entorno
 
 Archivo:
 
@@ -446,7 +467,7 @@ Estas variables permiten conectar el frontend con Supabase.
 
 ---
 
-# 14. Archivo `README.md`
+# 15. Archivo `README.md`
 
 Debe contener:
 
@@ -456,7 +477,7 @@ Debe contener:
 
 ---
 
-# 15. Reglas para Codex
+# 16. Reglas para Codex
 
 Codex debe respetar las siguientes reglas:
 
@@ -470,7 +491,7 @@ Codex debe respetar las siguientes reglas:
 
 ---
 
-# 16. Criterios de Correctitud
+# 17. Criterios de Correctitud
 
 La estructura será considerada correcta si:
 
@@ -484,7 +505,7 @@ La estructura debe ser **clara incluso para un desarrollador que vea el proyecto
 
 ---
 
-# 17. Conclusión
+# 18. Conclusión
 
 La estructura del repositorio de Propi debe mantenerse **simple, clara y organizada**.
 
