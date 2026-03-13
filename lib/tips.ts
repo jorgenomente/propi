@@ -137,6 +137,21 @@ export async function getTips() {
   return (data ?? []) as TipRecord[];
 }
 
+export async function getTipById(tipId: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('tips')
+    .select('id, amount, tip_date, created_at')
+    .eq('id', tipId)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return (data as TipRecord | null) ?? null;
+}
+
 export async function getTipsInRange(fromDate: Date, toDate: Date) {
   const fromValue = formatDateInputValue(fromDate);
   const toValue = formatDateInputValue(toDate);

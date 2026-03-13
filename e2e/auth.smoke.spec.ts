@@ -85,6 +85,13 @@ test('user can sign up, create a tip, sign out and sign back in', async ({
   await page.getByRole('link', { name: 'Historial', exact: true }).click();
   await expect(page).toHaveURL(/\/history$/);
   await expect(page.getByText('$20,00')).toBeVisible();
+  await page.getByRole('link', { name: 'Editar' }).click();
+  await expect(page).toHaveURL(/\/edit\//);
+  await page.getByLabel('Monto').fill('35');
+  await page.getByRole('button', { name: 'Guardar cambios' }).click();
+
+  await expect(page).toHaveURL(/\/history$/);
+  await expect(page.getByText('$35,00')).toBeVisible();
   await expect(
     page.getByRole('link', { name: 'Agregar propina' }),
   ).toBeVisible();
@@ -97,7 +104,7 @@ test('user can sign up, create a tip, sign out and sign back in', async ({
   await expect(
     page.getByRole('link', { name: 'Ultimos 7 dias' }),
   ).toBeVisible();
-  await expect(page.getByText('$20,00').first()).toBeVisible();
+  await expect(page.getByText('$35,00').first()).toBeVisible();
 
   await page.getByRole('button', { name: 'Cerrar sesion' }).click();
   await expect(page).toHaveURL(/\/login$/);
@@ -112,6 +119,13 @@ test('user can sign up, create a tip, sign out and sign back in', async ({
     page
       .locator('article')
       .filter({ hasText: 'Propinas esta semana' })
-      .getByText('$20,00'),
+      .getByText('$35,00'),
   ).toBeVisible();
+
+  await page.getByRole('link', { name: 'Historial', exact: true }).click();
+  await page.getByRole('link', { name: 'Editar' }).click();
+  await page.getByRole('button', { name: 'Eliminar propina' }).click();
+
+  await expect(page).toHaveURL(/\/history$/);
+  await expect(page.getByText('$35,00')).toHaveCount(0);
 });

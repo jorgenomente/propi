@@ -30,7 +30,7 @@ Registrar una propina debe tomar **menos de 5 segundos**.
 
 # 2. Estructura General de Pantallas
 
-La base actual de **Propi** contiene **6 pantallas principales**.
+La base actual de **Propi** contiene **7 pantallas principales**.
 
 ## Pantallas públicas
 
@@ -41,6 +41,7 @@ La base actual de **Propi** contiene **6 pantallas principales**.
 
 - Dashboard (pantalla principal)
 - Registrar propina
+- Editar propina
 - Historial de propinas
 - Estadisticas
 
@@ -68,13 +69,16 @@ La base actual de **Propi** contiene **6 pantallas principales**.
         ┌───────▼───┐ ┌─▼─────────┐
         │ Registrar │ │ Historial │
         │ propina   │ │           │
-        └─────┬─────┘ └─────┬─────┘
-              │             │
-              └──────┬──────┘
-                     │
-              ┌──────▼──────┐
-              │ Estadisticas│
-              └─────────────┘
+        └───────────┘ └─────┬─────┘
+                            │
+                     ┌──────▼──────┐
+                     │ Editar      │
+                     │ propina     │
+                     └──────┬──────┘
+                            │
+                     ┌──────▼──────┐
+                     │ Estadisticas│
+                     └─────────────┘
 ```
 
 El **Dashboard es el centro de la aplicación**.
@@ -610,6 +614,37 @@ Permitir al usuario explorar sus propinas por rango de fechas y revisar detalle 
 
 ---
 
+# 8.4 Pantalla 7 — Editar propina
+
+## Ruta
+
+```text
+/edit/[id]
+```
+
+## Objetivo
+
+Permitir corregir una propina cargada con monto o fecha equivocada, o eliminarla si no debe existir.
+
+## Elementos
+
+- formulario con:
+  - monto
+  - fecha de la propina
+- botón `Guardar cambios`
+- acción destructiva `Eliminar propina`
+
+## Contrato funcional
+
+- fuente principal: `tips`
+- lookup por `id`
+- actualización de negocio sobre:
+  - `amount`
+  - `tip_date`
+- eliminación del registro dentro del mismo tenant
+
+---
+
 # 9. Flujos de Usuario
 
 ---
@@ -682,6 +717,26 @@ Ver resumen diario y detalle por jornada
 
 ---
 
+# 9.6 Flujo — Corregir o eliminar propina
+
+```text
+Historial
+↓
+Editar
+↓
+Cambiar monto o fecha
+↓
+Guardar cambios
+
+o
+
+Eliminar propina
+↓
+Historial actualizado
+```
+
+---
+
 # 10. Reglas de UX Importantes
 
 Codex debe respetar estas reglas:
@@ -748,6 +803,7 @@ Botón reutilizable para acciones principales.
 | ----------------- | ----------------------------------------- |
 | Dashboard         | totales calculados por `tip_date`         |
 | Registrar propina | alta de propina con fecha real            |
+| Editar propina    | detalle de `tip` por `id`                 |
 | Historial         | lista de propinas agrupada por `tip_date` |
 | Estadisticas      | rango, resumen diario y detalle por dia   |
 

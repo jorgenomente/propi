@@ -2,6 +2,7 @@ import Link from 'next/link';
 import {
   ArrowLeft,
   CalendarRange,
+  PencilLine,
   ReceiptText,
   TrendingUp,
 } from 'lucide-react';
@@ -89,13 +90,22 @@ export default async function HistoryPage() {
                         <span className="text-base font-medium">
                           {formatCurrency(tip.amount)}
                         </span>
-                        <div className="text-right">
-                          <p className="text-muted-foreground text-sm">
-                            {formatTipTime(tip.created_at)}
-                          </p>
-                          <p className="text-muted-foreground text-xs">
-                            corresponde a {formatTipDate(tip.tip_date)}
-                          </p>
+                        <div className="flex items-center gap-3">
+                          <div className="text-right">
+                            <p className="text-muted-foreground text-sm">
+                              {formatTipTime(tip.created_at)}
+                            </p>
+                            <p className="text-muted-foreground text-xs">
+                              corresponde a {formatTipDate(tip.tip_date)}
+                            </p>
+                          </div>
+                          <Link
+                            href={`/edit/${tip.id}`}
+                            className="border-border/70 bg-card hover:bg-secondary inline-flex h-10 items-center justify-center gap-2 rounded-xl border px-3 text-sm font-medium transition-colors"
+                          >
+                            <PencilLine className="size-4" />
+                            Editar
+                          </Link>
                         </div>
                       </div>
                     ))}

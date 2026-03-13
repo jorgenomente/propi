@@ -125,3 +125,12 @@ ok si hagamos eso
 ```text
 cuando intento hacer login en local me dice esto ... puede ser tambien que la cuenta que habia creado se borro? insertemos credenciales en local para usar de prueba
 ```
+
+## 2026-03-13 10:32:28 -0300 | Lote: 2026-03-13-tips-edit-01
+
+- Objetivo: permitir corregir o eliminar propinas mal registradas desde la aplicacion, sin tocar base manualmente.
+- Prompt completo:
+
+```text
+adelante
+```

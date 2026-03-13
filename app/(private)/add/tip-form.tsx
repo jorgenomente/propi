@@ -15,6 +15,9 @@ type TipFormProps = {
     state: TipFormState | void,
     formData: FormData,
   ) => Promise<TipFormState | void>;
+  initialAmount?: string;
+  initialTipDate?: string;
+  submitLabel?: string;
 };
 
 const initialState: TipFormState = {};
@@ -42,23 +45,31 @@ function getTodayInputValue() {
   return new Date().toISOString().slice(0, 10);
 }
 
-function SubmitButton() {
+function SubmitButton({ label }: { label: string }) {
   const { pending } = useFormStatus();
 
   return (
     <Button type="submit" className="h-12 w-full text-sm" disabled={pending}>
-      {pending ? 'Guardando...' : 'Guardar propina'}
+      {pending ? 'Guardando...' : label}
     </Button>
   );
 }
 
-export function TipForm({ action }: TipFormProps) {
+export function TipForm({
+  action,
+  initialAmount,
+  initialTipDate,
+  submitLabel = 'Guardar propina',
+}: TipFormProps) {
   const [state, formAction] = useActionState(action, initialState);
   const formState = state ?? initialState;
   const errorId = formState.error ? 'tip-form-error' : undefined;
   const hiddenAmountRef = useRef<HTMLInputElement>(null);
-  const initialAmount = formatAmountInput(formState.amount ?? '');
-  const tipDateValue = formState.tipDate || getTodayInputValue();
+  const amountValue = formatAmountInput(
+    formState.amount ?? initialAmount ?? '',
+  );
+  const tipDateValue =
+    formState.tipDate || initialTipDate || getTodayInputValue();
 
   return (
     <form action={formAction} className="space-y-5" noValidate>
@@ -67,11 +78,11 @@ export function TipForm({ action }: TipFormProps) {
         <div className="relative">
           <Coins className="text-muted-foreground pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2" />
           <Input
-            key={formState.amount ?? 'empty'}
+            key={formState.amount ?? initialAmount ?? 'empty'}
             id="amount-display"
             type="text"
             inputMode="numeric"
-            defaultValue={initialAmount.display}
+            defaultValue={amountValue.display}
             placeholder="20"
             aria-invalid={Boolean(formState.error)}
             aria-describedby={errorId}
@@ -90,7 +101,7 @@ export function TipForm({ action }: TipFormProps) {
             ref={hiddenAmountRef}
             name="amount"
             type="hidden"
-            defaultValue={initialAmount.raw}
+            defaultValue={amountValue.raw}
           />
         </div>
       </div>
@@ -120,7 +131,7 @@ export function TipForm({ action }: TipFormProps) {
         </p>
       ) : null}
 
-      <SubmitButton />
+      <SubmitButton label={submitLabel} />
     </form>
   );
 }

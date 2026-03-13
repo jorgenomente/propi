@@ -97,3 +97,10 @@
 - Archivos afectados: app/(auth)/auth-form.tsx, supabase/seed.sql, scripts/seed-demo-auth.mjs, package.json, docs/09.1-supabase-setup.md, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx supabase db reset` OK; `npm run db:seed:auth-demo` OK; verificacion de login demo OK.
 - Commit hash: pendiente
+
+## 2026-03-13 10:32:28 -0300 | Lote: 2026-03-13-tips-edit-01 | Tipo: ui
+
+- Descripcion: incorporacion de pantalla `/edit/[id]` para corregir monto y fecha de una propina existente, mas eliminacion explicita desde la misma vista y acceso de entrada desde historial.
+- Archivos afectados: app/(private)/add/tip-form.tsx, app/(private)/edit/[id]/\_, app/(private)/history/page.tsx, lib/tips.ts, e2e/auth.smoke.spec.ts, docs/05-pantallas-y-flujos.md, docs/06-implementation-roadmap.md, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx playwright test` OK.
+- Commit hash: pendiente

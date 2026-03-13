@@ -40,6 +40,7 @@ Primera iteracion post-MVP ya implementada:
 - soporte para `tip_date` como fecha efectiva de la propina
 - pantalla `/stats` con presets y rango personalizado
 - dashboard, historial y estadisticas calculados sobre fecha real de negocio
+- correccion y eliminacion de propinas desde historial mediante `/edit/[id]`
 
 ---
 
