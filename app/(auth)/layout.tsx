@@ -2,10 +2,10 @@ export default function AuthLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-8 sm:px-6 lg:px-10">
+    <main className="relative flex min-h-screen items-start justify-center overflow-hidden px-4 py-6 sm:px-6 lg:px-10">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.08),transparent_55%)]" />
-      <div className="grid w-full max-w-6xl gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-        <section className="border-border bg-card relative overflow-hidden rounded-[32px] border px-6 py-8 shadow-[0_24px_80px_-48px_rgba(15,23,42,0.2)] sm:px-8 sm:py-10 lg:min-h-[620px] lg:px-10 lg:py-12">
+      <div className="grid w-full max-w-6xl gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+        <section className="border-border bg-card relative order-2 overflow-hidden rounded-[32px] border px-6 py-7 shadow-[0_24px_80px_-48px_rgba(15,23,42,0.2)] sm:px-8 sm:py-8 lg:order-2 lg:min-h-[520px] lg:px-10 lg:py-10">
           <div className="absolute inset-x-0 top-0 h-40 bg-[linear-gradient(180deg,rgba(99,102,241,0.06),transparent)]" />
           <div className="relative flex h-full flex-col justify-between gap-8">
             <div className="space-y-6">
@@ -59,7 +59,7 @@ export default function AuthLayout({
           </div>
         </section>
 
-        <section className="flex items-center justify-center lg:justify-end">
+        <section className="order-1 flex items-center justify-center lg:order-1 lg:justify-start">
           {children}
         </section>
       </div>

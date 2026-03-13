@@ -104,3 +104,10 @@
 - Archivos afectados: app/(private)/add/tip-form.tsx, app/(private)/edit/[id]/\_, app/(private)/history/page.tsx, lib/tips.ts, e2e/auth.smoke.spec.ts, docs/05-pantallas-y-flujos.md, docs/06-implementation-roadmap.md, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK; `npx playwright test` OK.
 - Commit hash: pendiente
+
+## 2026-03-13 10:48:24 -0300 | Lote: 2026-03-13-dashboard-ux-01 | Tipo: ui
+
+- Descripcion: ajuste de UX en dashboard y captura rapida; `Registros` ahora navega a `/history`, se elimina el bloque `Estado`, y se quita `Cerrar sesion` de `/add` para reducir ruido en ese punto del flujo.
+- Archivos afectados: app/(private)/page.tsx, app/(private)/add/page.tsx, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: pendiente.
+- Commit hash: pendiente

@@ -18,6 +18,7 @@ import {
 import {
   formatCurrency,
   formatTipDate,
+  formatTipDateWithWeekday,
   formatTipTime,
   getTips,
 } from '@/lib/tips';
@@ -26,7 +27,7 @@ export default async function HistoryPage() {
   const tips = await getTips();
   const tipsByDay = Object.entries(
     tips.reduce<Record<string, typeof tips>>((groups, tip) => {
-      const label = formatTipDate(tip.tip_date);
+      const label = formatTipDateWithWeekday(tip.tip_date);
       groups[label] ??= [];
       groups[label].push(tip);
       return groups;

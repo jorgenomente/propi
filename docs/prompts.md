@@ -134,3 +134,12 @@ cuando intento hacer login en local me dice esto ... puede ser tambien que la cu
 ```text
 adelante
 ```
+
+## 2026-03-13 10:48:24 -0300 | Lote: 2026-03-13-dashboard-ux-01
+
+- Objetivo: simplificar acceso desde dashboard e input flow, haciendo clicable `Registros` hacia historial y quitando elementos sin utilidad visible.
+- Prompt completo:
+
+```text
+luego en el dashboard hay una seccion que dice Actividad...
+```

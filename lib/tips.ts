@@ -107,6 +107,15 @@ export function formatTipDate(value: string) {
   }).format(parseTipDate(value));
 }
 
+export function formatTipDateWithWeekday(value: string) {
+  return new Intl.DateTimeFormat('es-AR', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(parseTipDate(value));
+}
+
 export function formatTipTime(value: string) {
   return new Intl.DateTimeFormat('es-AR', {
     hour: '2-digit',

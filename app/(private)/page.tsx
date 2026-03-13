@@ -157,29 +157,24 @@ export default async function DashboardPage() {
                 Tu cuenta ya tiene movimiento
               </CardTitle>
             </CardHeader>
-            <CardContent className="grid gap-4 sm:grid-cols-3">
-              <div className="border-border/70 bg-secondary/55 rounded-[24px] border p-4">
+            <CardContent className="grid gap-4 sm:grid-cols-2">
+              <Link
+                href="/history"
+                className="border-border/70 bg-secondary/55 hover:bg-secondary/70 rounded-[24px] border p-4 transition-colors"
+              >
                 <p className="text-muted-foreground text-xs tracking-[0.18em] uppercase">
                   Registros
                 </p>
                 <p className="mt-3 text-3xl font-semibold tracking-[-0.03em]">
                   {tips.length}
                 </p>
-              </div>
+              </Link>
               <div className="border-border/70 bg-secondary/40 rounded-[24px] border p-4">
                 <p className="text-muted-foreground text-xs tracking-[0.18em] uppercase">
                   Ultimo total
                 </p>
                 <p className="mt-3 text-2xl font-semibold tracking-[-0.03em]">
                   {formatCurrency(tips[0]?.amount ?? 0)}
-                </p>
-              </div>
-              <div className="border-border/70 bg-secondary/25 rounded-[24px] border p-4">
-                <p className="text-muted-foreground text-xs tracking-[0.18em] uppercase">
-                  Estado
-                </p>
-                <p className="mt-3 text-base font-semibold">
-                  Seguimiento activo
                 </p>
               </div>
             </CardContent>
