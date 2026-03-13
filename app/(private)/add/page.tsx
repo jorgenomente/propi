@@ -1,13 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeft, Coins, PlusCircle } from 'lucide-react';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 import { createTipAction } from './actions';
 import { TipForm } from './tip-form';
@@ -34,11 +28,6 @@ export default function AddTipPage() {
           <CardTitle className="text-3xl tracking-[-0.03em]">
             Registrar propina
           </CardTitle>
-          <CardDescription className="leading-6">
-            Guarda el monto y, si hace falta, asignalo al dia real en que lo
-            recibiste para que dashboard, historial y estadisticas queden
-            correctos.
-          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="border-border/70 rounded-[28px] border bg-[linear-gradient(135deg,rgba(12,122,130,0.08),rgba(205,236,231,0.7))] p-5">

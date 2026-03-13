@@ -50,22 +50,23 @@ export default async function DashboardPage() {
     <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 py-6 sm:px-6 sm:py-8">
       <header className="border-border bg-card relative overflow-hidden rounded-[32px] border p-6 shadow-[0_24px_70px_-46px_rgba(15,23,42,0.2)] sm:p-8">
         <div className="absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(99,102,241,0.05),transparent)]" />
-        <div className="relative flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-          <div className="space-y-3">
+        <div className="relative space-y-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-muted-foreground text-xs tracking-[0.22em] uppercase">
               Propi
             </p>
+            <div className="flex flex-wrap items-center gap-3 sm:justify-end">
+              <p className="text-muted-foreground text-sm">
+                {user?.email ?? user?.id}
+              </p>
+              <LogoutForm variant="ghost" />
+            </div>
+          </div>
+
+          <div className="space-y-3">
             <h1 className="max-w-2xl text-4xl font-semibold tracking-[-0.05em] text-balance sm:text-5xl">
               Tu resumen de propinas
             </h1>
-            <p className="text-muted-foreground max-w-2xl text-sm leading-7 sm:text-base">
-              Sesion activa: {user?.email ?? user?.id}. Guarda cada monto al
-              instante y revisa tu progreso sin salirte del ritmo del turno.
-            </p>
-          </div>
-
-          <div className="sm:min-w-fit">
-            <LogoutForm variant="ghost" />
           </div>
         </div>
 
@@ -141,7 +142,7 @@ export default async function DashboardPage() {
                 2. Vuelve al dashboard y revisa tus acumulados.
               </div>
               <div className="bg-secondary/25 rounded-2xl px-4 py-3">
-                3. Usa historial para revisar tus registros por fecha.
+                3. Usa historial para revisar o editar tus registros por fecha.
               </div>
             </CardContent>
           </Card>

@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { ArrowLeft, ChartColumnBig, Filter, TrendingUp } from 'lucide-react';
 
-import { LogoutForm } from '@/components/auth/logout-form';
 import {
   Card,
   CardContent,
@@ -55,7 +54,7 @@ export default async function StatsPage({ searchParams }: StatsPageProps) {
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 py-6 sm:px-6 sm:py-8">
-      <div className="mb-6 flex items-center justify-between gap-3">
+      <div className="mb-6 flex items-center gap-3">
         <Link
           href="/"
           className="border-border/80 bg-card/85 text-foreground hover:bg-secondary/75 inline-flex h-11 items-center justify-center gap-2 rounded-2xl border px-4 text-sm font-semibold transition-colors"
@@ -63,7 +62,6 @@ export default async function StatsPage({ searchParams }: StatsPageProps) {
           <ArrowLeft className="size-4" />
           Volver
         </Link>
-        <LogoutForm variant="ghost" />
       </div>
 
       <Card className="bg-card/90 border-white/55">

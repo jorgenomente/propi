@@ -152,3 +152,18 @@ luego en el dashboard hay una seccion que dice Actividad...
 ```text
 Me gustaria que ubiera un banner que diga agrega propi a tu pantalla de inicio...
 ```
+
+## 2026-03-13 11:22:30 -0300 | Lote: 2026-03-13-private-ux-polish-01
+
+- Objetivo: pulir la experiencia en rutas privadas, simplificando acciones redundantes y aclarando flujos de historial, edicion y acceso.
+- Prompt completo:
+
+```text
+en el dashboard el boton de cerrar sesion vamos a moverlo hacia arriba a la derecha al otro lado de propi.. Mejor hagamos una especie de topbar que tenga propi, el usuario logeado y cerrar sesion. despues sacamos ese text oque dice sesion activa, guarda cada monto al instante.... es redundante
+
+despues mas abajo donde dice metodo en el 3. agrega para revisar o editar tus registros como para aclarar que se pueden editar
+
+quita tambien el boton de cerrar sesion desde /history y tambien desde /estadisticas. que ese boton de cerrar sesion solo este disponible en el dashboard de inicio
+
+despues en /add vamos a quitar el texto que dice guarda el monto y, si hace falta....... ya que el texto que dice registro directo explica lo mismo de arriba
+```

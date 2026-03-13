@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, PencilLine, Trash2 } from 'lucide-react';
 
-import { LogoutForm } from '@/components/auth/logout-form';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -38,7 +37,7 @@ export default async function EditTipPage({
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-4 py-6 sm:px-6 sm:py-8">
-      <div className="mb-6 flex items-center justify-between gap-3">
+      <div className="mb-6 flex items-center gap-3">
         <Link
           href="/history"
           className="border-border/80 bg-card/85 text-foreground hover:bg-secondary/75 inline-flex h-11 items-center justify-center gap-2 rounded-2xl border px-4 text-sm font-semibold transition-colors"
@@ -46,7 +45,6 @@ export default async function EditTipPage({
           <ArrowLeft className="size-4" />
           Volver al historial
         </Link>
-        <LogoutForm variant="ghost" />
       </div>
 
       <div className="space-y-5">
