@@ -125,3 +125,10 @@
 - Archivos afectados: app/(private)/add/page.tsx, app/(private)/edit/[id]/page.tsx, app/(private)/history/page.tsx, app/(private)/page.tsx, app/(private)/stats/page.tsx, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK.
 - Commit hash: pendiente
+
+## 2026-03-13 12:01:24 -0300 | Lote: 2026-03-13-install-modal-scroll-01 | Tipo: ui
+
+- Descripcion: correccion del modal de instrucciones para agregar Propi a la pantalla de inicio, habilitando scroll interno real en mobile para que todo el contenido quede accesible.
+- Archivos afectados: components/pwa/install-app-banner.tsx, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK.
+- Commit hash: pendiente

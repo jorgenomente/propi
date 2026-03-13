@@ -187,7 +187,7 @@ export function InstallAppBanner() {
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
-          className="max-h-[min(82vh,760px)] max-w-xl overflow-hidden rounded-[28px] p-0"
+          className="flex max-h-[min(82vh,760px)] max-w-xl flex-col overflow-hidden rounded-[28px] p-0"
           showCloseButton
         >
           <DialogHeader className="border-b px-5 pt-5 pb-4">
@@ -199,7 +199,7 @@ export function InstallAppBanner() {
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-4 overflow-y-auto px-5 py-5">
+          <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-5 py-5">
             <section className="border-border/80 bg-muted/30 rounded-2xl border p-4">
               <h3 className="text-sm font-semibold">iPhone en Safari</h3>
               <ol className="text-muted-foreground mt-3 space-y-2 text-sm leading-6">
@@ -291,7 +291,7 @@ export function InstallAppBanner() {
             </section>
           </div>
 
-          <DialogFooter className="rounded-b-[28px]" showCloseButton>
+          <DialogFooter className="shrink-0 rounded-b-[28px]" showCloseButton>
             {canUseNativeInstall ? (
               <Button type="button" onClick={handleInstallNow}>
                 <Download className="size-4" />

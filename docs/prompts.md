@@ -167,3 +167,12 @@ quita tambien el boton de cerrar sesion desde /history y tambien desde /estadist
 
 despues en /add vamos a quitar el texto que dice guarda el monto y, si hace falta....... ya que el texto que dice registro directo explica lo mismo de arriba
 ```
+
+## 2026-03-13 12:01:24 -0300 | Lote: 2026-03-13-install-modal-scroll-01
+
+- Objetivo: corregir el modal de instrucciones de instalacion para que el contenido completo sea visible y pueda scrollearse en mobile.
+- Prompt completo:
+
+```text
+falto agregar el scroll en el modal de ver instrucciones. cuando lo abro no se ve toda la info completa y no la puedo scrolear. arregla eso
+```
