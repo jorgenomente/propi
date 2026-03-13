@@ -60,6 +60,7 @@ export function AuthForm({
   });
   const formState = state ?? initialState;
   const errorId = formState.error ? 'auth-form-error' : undefined;
+  const successId = formState.success ? 'auth-form-success' : undefined;
   const emailFieldKey = formState.email ?? initialEmail ?? 'empty';
 
   return (
@@ -90,7 +91,7 @@ export function AuthForm({
                 defaultValue={formState.email}
                 placeholder="tu@correo.com"
                 aria-invalid={Boolean(formState.error)}
-                aria-describedby={errorId}
+                aria-describedby={errorId ?? successId}
                 className="pl-11"
                 required
               />
@@ -108,7 +109,7 @@ export function AuthForm({
                 autoComplete={passwordAutoComplete}
                 placeholder="Minimo 6 caracteres"
                 aria-invalid={Boolean(formState.error)}
-                aria-describedby={errorId}
+                aria-describedby={errorId ?? successId}
                 className="pl-11"
                 required
               />
@@ -122,6 +123,16 @@ export function AuthForm({
               className="border-destructive/30 bg-destructive/10 text-destructive rounded-lg border px-3 py-2 text-sm"
             >
               {formState.error}
+            </p>
+          ) : null}
+
+          {formState.success ? (
+            <p
+              id={successId}
+              role="status"
+              className="rounded-lg border border-emerald-300/70 bg-emerald-50 px-3 py-2 text-sm text-emerald-800"
+            >
+              {formState.success}
             </p>
           ) : null}
 

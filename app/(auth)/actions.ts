@@ -1,5 +1,6 @@
 'use server';
 
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
@@ -9,6 +10,7 @@ import { createClient } from '@/lib/supabase/server';
 export type AuthFormState = {
   error?: string;
   email?: string;
+  success?: string;
 };
 
 const authSchema = z.object({
@@ -35,6 +37,19 @@ function getFriendlyAuthError(message: string) {
   }
 
   return 'No se pudo completar la autenticacion. Intenta otra vez.';
+}
+
+async function getRequestOrigin() {
+  const requestHeaders = await headers();
+  const forwardedProto = requestHeaders.get('x-forwarded-proto');
+  const forwardedHost = requestHeaders.get('x-forwarded-host');
+  const host = forwardedHost ?? requestHeaders.get('host');
+
+  if (!host) {
+    return null;
+  }
+
+  return `${forwardedProto ?? 'https'}://${host}`;
 }
 
 export async function loginAction(
@@ -93,7 +108,15 @@ export async function registerAction(
   }
 
   const supabase = await createClient();
-  const { data, error } = await supabase.auth.signUp(parsed.data);
+  const origin = await getRequestOrigin();
+  const { data, error } = await supabase.auth.signUp({
+    ...parsed.data,
+    options: origin
+      ? {
+          emailRedirectTo: `${origin}/auth/callback?next=/`,
+        }
+      : undefined,
+  });
 
   if (error) {
     return {
@@ -103,14 +126,11 @@ export async function registerAction(
   }
 
   if (!data.session) {
-    const loginResult = await supabase.auth.signInWithPassword(parsed.data);
-
-    if (loginResult.error) {
-      return {
-        error: getFriendlyAuthError(loginResult.error.message),
-        email: parsed.data.email,
-      } satisfies AuthFormState;
-    }
+    return {
+      success:
+        'Te enviamos un correo para confirmar tu cuenta. Abre el enlace y entraras directo a Propi.',
+      email: parsed.data.email,
+    } satisfies AuthFormState;
   }
 
   redirect('/');

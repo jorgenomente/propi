@@ -6,7 +6,10 @@ import { updateSession } from '@/lib/supabase/middleware';
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const isPublicRoute = pathname === '/login' || pathname === '/register';
+  const isPublicRoute =
+    pathname === '/login' ||
+    pathname === '/register' ||
+    pathname === '/auth/callback';
 
   if (!hasSupabasePublicEnv()) {
     if (!isPublicRoute) {
