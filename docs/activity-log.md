@@ -111,3 +111,10 @@
 - Archivos afectados: app/(private)/page.tsx, app/(private)/add/page.tsx, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: pendiente.
 - Commit hash: pendiente
+
+## 2026-03-13 11:02:09 -0300 | Lote: 2026-03-13-install-banner-01 | Tipo: ui
+
+- Descripcion: incorporacion de banner de instalacion en rutas privadas con CTA para agregar Propi a pantalla de inicio, modal de instrucciones para iPhone/Android y uso de `beforeinstallprompt` en Android Chrome cuando el navegador lo permite.
+- Archivos afectados: components/pwa/install-app-banner.tsx, app/(private)/layout.tsx, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: pendiente.
+- Commit hash: pendiente

@@ -143,3 +143,12 @@ adelante
 ```text
 luego en el dashboard hay una seccion que dice Actividad...
 ```
+
+## 2026-03-13 11:02:09 -0300 | Lote: 2026-03-13-install-banner-01
+
+- Objetivo: incentivar la instalacion en pantalla de inicio con un banner y una guia por plataforma, usando prompt nativo en Android cuando exista.
+- Prompt completo:
+
+```text
+Me gustaria que ubiera un banner que diga agrega propi a tu pantalla de inicio...
+```
