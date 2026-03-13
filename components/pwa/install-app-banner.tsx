@@ -1,7 +1,14 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { Download, Share2, Smartphone, X } from 'lucide-react';
+import {
+  Download,
+  Ellipsis,
+  PlusSquare,
+  Share2,
+  Smartphone,
+  X,
+} from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -179,7 +186,10 @@ export function InstallAppBanner() {
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-xl rounded-[28px] p-0" showCloseButton>
+        <DialogContent
+          className="max-h-[min(82vh,760px)] max-w-xl overflow-hidden rounded-[28px] p-0"
+          showCloseButton
+        >
           <DialogHeader className="border-b px-5 pt-5 pb-4">
             <DialogTitle>Agregar Propi a tu pantalla de inicio</DialogTitle>
             <DialogDescription>
@@ -189,24 +199,30 @@ export function InstallAppBanner() {
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-4 px-5 py-5">
+          <div className="space-y-4 overflow-y-auto px-5 py-5">
             <section className="border-border/80 bg-muted/30 rounded-2xl border p-4">
               <h3 className="text-sm font-semibold">iPhone en Safari</h3>
               <ol className="text-muted-foreground mt-3 space-y-2 text-sm leading-6">
                 <li>
-                  1. Toca el boton{' '}
+                  1. Toca el boton de{' '}
+                  <span className="text-foreground font-medium">Mas</span>{' '}
+                  <Ellipsis className="ml-1 inline size-4 align-text-bottom" />.
+                </li>
+                <li>
+                  2. En la pestaña que se abre, toca{' '}
                   <span className="text-foreground font-medium">Compartir</span>{' '}
                   <Share2 className="ml-1 inline size-4 align-text-bottom" />.
                 </li>
                 <li>
-                  2. Busca{' '}
+                  3. Haz scroll hacia abajo y busca{' '}
                   <span className="text-foreground font-medium">
-                    Anadir a pantalla de inicio
+                    Agregar inicio
                   </span>
+                  <PlusSquare className="ml-1 inline size-4 align-text-bottom" />
                   .
                 </li>
                 <li>
-                  3. Confirma tocando{' '}
+                  4. Confirma tocando{' '}
                   <span className="text-foreground font-medium">Anadir</span>.
                 </li>
               </ol>
@@ -215,16 +231,26 @@ export function InstallAppBanner() {
             <section className="border-border/80 bg-muted/30 rounded-2xl border p-4">
               <h3 className="text-sm font-semibold">iPhone en Chrome</h3>
               <ol className="text-muted-foreground mt-3 space-y-2 text-sm leading-6">
-                <li>1. Abre el menu de compartir del iPhone desde Chrome.</li>
                 <li>
-                  2. Elige{' '}
+                  1. Toca{' '}
+                  <span className="text-foreground font-medium">Compartir</span>{' '}
+                  <Share2 className="ml-1 inline size-4 align-text-bottom" />.
+                </li>
+                <li>
+                  2. En la hoja de compartir, toca{' '}
+                  <span className="text-foreground font-medium">Mas</span>{' '}
+                  <Ellipsis className="ml-1 inline size-4 align-text-bottom" />.
+                </li>
+                <li>
+                  3. Elige{' '}
                   <span className="text-foreground font-medium">
                     Anadir a pantalla de inicio
                   </span>
+                  <PlusSquare className="ml-1 inline size-4 align-text-bottom" />
                   .
                 </li>
                 <li>
-                  3. Confirma el nombre y toca{' '}
+                  4. Confirma el nombre y toca{' '}
                   <span className="text-foreground font-medium">Anadir</span>.
                 </li>
               </ol>
