@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, Coins, PlusCircle } from 'lucide-react';
+import { ArrowLeft, PlusCircle } from 'lucide-react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -29,21 +29,7 @@ export default function AddTipPage() {
             Registrar propina
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="border-border/70 rounded-[28px] border bg-[linear-gradient(135deg,rgba(12,122,130,0.08),rgba(205,236,231,0.7))] p-5">
-            <div className="flex items-start gap-4">
-              <div className="bg-primary/12 text-primary flex size-12 items-center justify-center rounded-2xl">
-                <Coins className="size-5" />
-              </div>
-              <div className="space-y-1">
-                <p className="text-sm font-semibold">Registro directo</p>
-                <p className="text-muted-foreground text-sm leading-6">
-                  Puedes registrar una propina de hoy o cargar una atrasada con
-                  su fecha real para no distorsionar tus totales.
-                </p>
-              </div>
-            </div>
-          </div>
+        <CardContent>
           <TipForm action={createTipAction} />
         </CardContent>
       </Card>

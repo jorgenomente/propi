@@ -51,5 +51,5 @@ export async function createTipAction(
     } satisfies TipFormState;
   }
 
-  redirect('/');
+  redirect(`/?created=${encodeURIComponent(String(parsed.data.amount))}`);
 }

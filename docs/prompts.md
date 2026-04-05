@@ -1,5 +1,52 @@
 # Prompts Log
 
+## 2026-04-04 22:28:38 -0300 | Lote: 2026-04-04-dashboard-tighten-01
+
+- Objetivo: simplificar el hero del dashboard, dar mas protagonismo a `Ir a estadisticas`, compactar montos del grafico y reforzar sutilmente la animacion del boton flotante.
+- Prompt completo:
+
+```text
+quitemos la seccion foco actual y en tendencia de 7 dias me gusta pero las cantidades se solapan con las que estan allado quizas ahi tenemos que usar K para mil asi queda todo cortito y quizas quitar los ,00 del final  y vamos a colocar ir a estadisticas como algo con mas protagonismo y visible ya que esta muy bueno. cambiemos el copy del dashboard por algo mas simple. y quitar la informacion adicional tambien porque ya la app se sobre entiende. podriamos agregar una pequena animaion en el boton flotante de agregar propina
+```
+
+## 2026-04-04 22:20:13 -0300 | Lote: 2026-04-04-dashboard-interactive-01
+
+- Objetivo: volver el dashboard mas interactivo y atractivo sin salir del MVP, reforzando lectura visual, actividad reciente y feedback al registrar una propina.
+- Prompt completo:
+
+```text
+que se te ocurre hacer para que el dashboard sea un poco mas interactivo o atractivo o mas interesante
+
+ok adelante
+```
+
+## 2026-04-04 19:46:26 -0300 | Lote: 2026-04-04-stats-redesign-01
+
+- Objetivo: rediseñar `/stats` para que las estadisticas se entiendan de forma mas grafica, simple y estimulante, usando barras por semana y por mes sobre los datos existentes.
+- Prompt completo:
+
+```text
+vamos a trabajar sobre http://localhost:3000/stats no me gusta como se ve ahora. la idea es que podamos ver la informacion de una manera mas grafica, quuiero ver barras por semana y por mes, que sea algo mas estimulante y mas simple y facil para el usuario ver sus estadisticas de cuando dinero hizo esta semana este mes o en el tiempo que sea. quiero que veas la pagina y que con los datos que tenemos me hagas una propuesta para que todo esto se vea de mejor manera. adelante
+```
+
+## 2026-04-04 12:38:53 -0300 | Lote: 2026-04-04-performance-01
+
+- Objetivo: revisar por que la app tarda en abrir y aplicar optimizaciones concretas para acelerar la carga inicial sin salir del MVP.
+- Prompt completo:
+
+```text
+la app tarda mucho en abrir podemos chequear que podemos hacer para volverla mas rapida
+```
+
+## 2026-04-04 12:57:04 -0300 | Lote: 2026-04-04-share-01
+
+- Objetivo: agregar un botón en el dashboard que abra WhatsApp con el enlace de la app para facilitar compartirla.
+- Prompt completo:
+
+```text
+ok adelante. me gustaria tambien agregar en el dashboard un boton de compartir app que sea facil para que se abra whatsapp y se comparta el link de la app y asi puedo seleccionar a quien enviarselo
+```
+
 ## 2026-03-12 09:29:55 -0300 | Lote: 2026-03-12-git-cierre-01
 
 - Objetivo: comitear y pushear todo lo pendiente del repositorio luego de validar el estado del lote.
@@ -175,4 +222,40 @@ despues en /add vamos a quitar el texto que dice guarda el monto y, si hace falt
 
 ```text
 falto agregar el scroll en el modal de ver instrucciones. cuando lo abro no se ve toda la info completa y no la puedo scrolear. arregla eso
+```
+
+## 2026-04-04 21:49:36 -0300 | Lote: 2026-04-04-stats-data-integrity-01
+
+- Objetivo: asegurar que dashboard y estadisticas consideren todos los registros reales del usuario sin recortes silenciosos ni desalineacion entre rangos.
+- Prompt completo:
+
+```text
+me estoy dando cuenta de que no funciona tan bien con los registros actuales de los usuaeios por ejemplo en mi cuenta decia que tenia ingresos  de 900mil pesos o por ahi con pero solo me esta contando pocos registros en las barras chrqiea que se esyan considerando todos los registros. es importante que no se pierdan datos ya que hay usuarios activos ahora que miran su informacion
+```
+
+## 2026-04-04 22:06:00 -0300 | Lote: 2026-04-04-add-page-cleanup-01
+
+- Objetivo: quitar la seccion visual `Registro directo` de la pantalla de registrar propina porque no agrega valor al flujo.
+- Prompt completo:
+
+```text
+en registrar propina hay un card que dice registro directo. vamos a quitar esa seccion no agrega nada
+```
+
+## 2026-04-04 22:18:00 -0300 | Lote: 2026-04-04-floating-add-cta-01
+
+- Objetivo: hacer mas evidente la accion principal del producto reforzando el boton flotante de agregar propina con texto y efecto visual.
+- Prompt completo:
+
+```text
+agreguemos algun efecto al boton flotante que tiene el + de agregar propina. y agreguemos tabien el texto ya que esa es la unica funcion importante de la app
+```
+
+## 2026-04-04 22:24:00 -0300 | Lote: 2026-04-04-floating-add-motion-01
+
+- Objetivo: agregar una microanimacion al CTA flotante para remarcar la accion central de registrar propinas.
+- Prompt completo:
+
+```text
+si eso
 ```

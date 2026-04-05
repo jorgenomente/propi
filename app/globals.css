@@ -146,3 +146,70 @@
       'cv05' 1;
   }
 }
+
+@keyframes fabPulse {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  10% {
+    transform: translateY(-2px) scale(1.015);
+  }
+  18% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fabHalo {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.98);
+  }
+  10% {
+    opacity: 0.88;
+    transform: scale(1.05);
+  }
+  18% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+}
+
+@keyframes dashboardCreatedPulse {
+  0% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  18% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  82% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-4px);
+    opacity: 0.92;
+  }
+}
+
+@keyframes fabIconNudge {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  10% {
+    transform: rotate(10deg) scale(1.08);
+  }
+  18% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@layer utilities {
+  .dashboard-created-pulse {
+    animation: dashboardCreatedPulse 3.2s ease-out both;
+  }
+}

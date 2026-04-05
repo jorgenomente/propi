@@ -1,5 +1,40 @@
 # Activity Log
 
+## 2026-04-04 22:28:38 -0300 | Lote: 2026-04-04-dashboard-tighten-01 | Tipo: ui
+
+- Descripcion: simplificacion del dashboard quitando el bloque `Foco actual`, hero con copy mas directo, CTA de estadisticas mucho mas visible, montos compactos en la tendencia de 7 dias para evitar solapes, limpieza de texto secundario y refuerzo de la microanimacion del boton flotante de agregar propina.
+- Archivos afectados: app/(private)/dashboard-shell.tsx, components/tips/floating-add-tip-button.tsx, app/globals.css, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK.
+- Commit hash: pendiente
+
+## 2026-04-04 22:20:13 -0300 | Lote: 2026-04-04-dashboard-interactive-01 | Tipo: ui
+
+- Descripcion: rediseño interactivo del dashboard con tarjetas clicables para cambiar el foco entre hoy/semana/mes, feedback visual al volver desde `/add`, tendencia simple de 7 dias, bloque de ultimo movimiento y lista de actividad reciente, manteniendo el alcance del MVP.
+- Archivos afectados: app/(private)/page.tsx, app/(private)/dashboard-shell.tsx, app/(private)/add/actions.ts, app/globals.css, lib/tips.ts, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK.
+- Commit hash: pendiente
+
+## 2026-04-04 19:46:26 -0300 | Lote: 2026-04-04-stats-redesign-01 | Tipo: ui
+
+- Descripcion: rediseño de `/stats` para priorizar lectura visual rapida con hero de totales, barras por semana y por mes, ranking de dias mas fuertes y detalle reciente mas compacto; tambien se extendio `lib/tips.ts` con agregaciones reutilizables por periodo.
+- Archivos afectados: app/(private)/stats/page.tsx, lib/tips.ts, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK.
+- Commit hash: pendiente
+
+## 2026-04-04 12:38:53 -0300 | Lote: 2026-04-04-performance-01 | Tipo: ui
+
+- Descripcion: optimizacion de apertura inicial mediante diferimiento del banner PWA y FAB del layout privado, reduccion del trabajo del dashboard para no leer todo el historial en cada carga, y ajuste del `proxy` para no procesar assets con extension.
+- Archivos afectados: app/(private)/layout.tsx, app/(private)/page.tsx, components/tips/private-route-chrome.tsx, lib/tips.ts, proxy.ts, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK.
+- Commit hash: pendiente
+
+## 2026-04-04 12:57:04 -0300 | Lote: 2026-04-04-share-01 | Tipo: ui
+
+- Descripcion: agregue un botón de compartir Propi vía WhatsApp en el dashboard para que el usuario pueda abrir fácilmente WhatsApp y enviar el enlace de la app.
+- Archivos afectados: app/(private)/page.tsx, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: pendiente.
+- Commit hash: pendiente
+
 ## 2026-03-12 09:29:55 -0300 | Lote: 2026-03-12-git-cierre-01 | Tipo: infra
 
 - Descripcion: validacion previa al cierre del lote, registro operativo obligatorio y preparacion de commit/push de todos los cambios pendientes.
@@ -130,5 +165,33 @@
 
 - Descripcion: correccion del modal de instrucciones para agregar Propi a la pantalla de inicio, habilitando scroll interno real en mobile para que todo el contenido quede accesible.
 - Archivos afectados: components/pwa/install-app-banner.tsx, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK.
+- Commit hash: pendiente
+
+## 2026-04-04 21:49:36 -0300 | Lote: 2026-04-04-stats-data-integrity-01 | Tipo: ui
+
+- Descripcion: correccion de integridad en lecturas de propinas para usuarios con muchos registros; `lib/tips.ts` ahora pagina todas las consultas para evitar recortes silenciosos, el snapshot del dashboard calcula semana/mes desde la fecha minima realmente necesaria, y `/stats` abre sobre todo el historial con acceso explicito a ese preset.
+- Archivos afectados: lib/tips.ts, app/(private)/stats/page.tsx, app/(private)/page.tsx, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK.
+- Commit hash: pendiente
+
+## 2026-04-04 22:06:00 -0300 | Lote: 2026-04-04-add-page-cleanup-01 | Tipo: ui
+
+- Descripcion: eliminacion del card informativo `Registro directo` en `/add` para dejar la pantalla enfocada solo en la captura de la propina.
+- Archivos afectados: app/(private)/add/page.tsx, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK.
+- Commit hash: pendiente
+
+## 2026-04-04 22:18:00 -0300 | Lote: 2026-04-04-floating-add-cta-01 | Tipo: ui
+
+- Descripcion: refuerzo visual del boton flotante principal con texto siempre visible y halo sutil para destacar que agregar propina es la accion central de la app.
+- Archivos afectados: components/tips/floating-add-tip-button.tsx, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `npm run lint` OK; `npm run build` OK.
+- Commit hash: pendiente
+
+## 2026-04-04 22:24:00 -0300 | Lote: 2026-04-04-floating-add-motion-01 | Tipo: ui
+
+- Descripcion: incorporacion de una microanimacion periodica al CTA flotante de agregar propina para reforzar su prioridad visual sin volverlo invasivo y respetando reduced motion.
+- Archivos afectados: app/globals.css, components/tips/floating-add-tip-button.tsx, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK.
 - Commit hash: pendiente
