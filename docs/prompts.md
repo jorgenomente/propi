@@ -307,3 +307,12 @@ intente enviarme otro correo pero ya no pude, es que no me queda claro. podemos 
 ```text
 claro, agregemos en el AGENTS que siempre despues de un push a main o un PR chequee si hay migraciones por realizar y pregunte si queremos proceder a aplicarlas en remoto
 ```
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-reset-link-error-state-01
+
+- Objetivo: aclarar si la pantalla de restablecer contraseña existe y corregir el flujo de links invalidos para que no caigan silenciosamente en login.
+- Prompt completo:
+
+```text
+intente usar el ultimo correo y me trae aqui. la pantalla de restablecer contrasena existe? es distinta a esta? o es la misma?
+```

@@ -230,3 +230,17 @@
 - Archivos afectados: AGENTS.md, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `git diff --check` OK.
 - Commit hash: pendiente
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-apply-budget-migration-remote-01 | Tipo: db
+
+- Descripcion: aplicacion en Supabase remoto de la migracion `20260610120000_003_add_budget_items.sql` para crear `public.budget_items`, indices, trigger `updated_at`, RLS forzado y policies por usuario.
+- Archivos afectados: base remota Supabase `geegtwaawvlyooqomxkk`, docs/activity-log.md.
+- Resultado de tests: `supabase migration list --linked` confirma `20260610120000` aplicada; `supabase db dump --schema public` confirma tabla `budget_items`, constraints, indices, trigger, RLS, policies y grants.
+- Commit hash: pendiente
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-reset-link-error-state-01 | Tipo: ui
+
+- Descripcion: ajuste del callback de Supabase Auth para que los enlaces de recuperacion invalidos, usados o vencidos redirijan a `/reset-password?error=invalid_link` y muestren una explicacion clara en vez de caer en login.
+- Archivos afectados: app/auth/callback/route.ts, app/(auth)/reset-password/page.tsx, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `eslint app/auth/callback/route.ts app/(auth)/reset-password/page.tsx` OK; `git diff --check` OK; `next build` OK.
+- Commit hash: pendiente

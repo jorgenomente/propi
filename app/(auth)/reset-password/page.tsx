@@ -13,11 +13,24 @@ import { createClient } from '@/lib/supabase/server';
 
 import { ResetPasswordForm } from './reset-password-form';
 
-export default async function ResetPasswordPage() {
+type ResetPasswordPageProps = {
+  searchParams?: Promise<{
+    error?: string;
+  }>;
+};
+
+export default async function ResetPasswordPage({
+  searchParams,
+}: ResetPasswordPageProps) {
   if (!hasSupabasePublicEnv()) {
     return <SupabaseEnvCard />;
   }
 
+  const resolvedSearchParams = await (searchParams ??
+    Promise.resolve<{
+      error?: string;
+    }>({}));
+  const hasInvalidLinkError = resolvedSearchParams?.error === 'invalid_link';
   const supabase = await createClient();
   const {
     data: { user },
@@ -31,11 +44,14 @@ export default async function ResetPasswordPage() {
             Enlace requerido
           </div>
           <CardTitle className="text-2xl" role="heading" aria-level={2}>
-            Solicita un enlace nuevo
+            {hasInvalidLinkError
+              ? 'El enlace ya no esta disponible'
+              : 'Solicita un enlace nuevo'}
           </CardTitle>
           <CardDescription className="text-sm leading-6">
-            Para cambiar la contraseña necesitas abrir el enlace que enviamos a
-            tu correo.
+            {hasInvalidLinkError
+              ? 'Los enlaces de recuperacion vencen o dejan de servir despues de usarse. Solicita uno nuevo para crear otra contraseña.'
+              : 'Para cambiar la contraseña necesitas abrir el enlace que enviamos a tu correo.'}
           </CardDescription>
         </CardHeader>
         <CardContent>

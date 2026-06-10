@@ -11,7 +11,9 @@ export async function GET(request: NextRequest) {
   const response = NextResponse.redirect(redirectUrl);
 
   if (!code) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    return NextResponse.redirect(
+      new URL('/reset-password?error=invalid_link', request.url),
+    );
   }
 
   const supabase = createServerClient(
@@ -34,7 +36,9 @@ export async function GET(request: NextRequest) {
   const { error } = await supabase.auth.exchangeCodeForSession(code);
 
   if (error) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    return NextResponse.redirect(
+      new URL('/reset-password?error=invalid_link', request.url),
+    );
   }
 
   return response;
