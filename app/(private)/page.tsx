@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server';
+import { getBudgetSnapshot } from '@/lib/budget';
 import { getDashboardSnapshot } from '@/lib/tips';
 
+import { BudgetModal } from './budget/budget-modal';
 import { DashboardShell } from './dashboard-shell';
 
 type DashboardPageProps = {
@@ -18,10 +20,12 @@ export default async function DashboardPage({
       data: { user },
     },
     snapshot,
+    budgetSnapshot,
     resolvedSearchParams,
   ] = await Promise.all([
     supabase.auth.getUser(),
     getDashboardSnapshot(),
+    getBudgetSnapshot(),
     searchParams ??
       Promise.resolve<{
         created?: string;
@@ -45,6 +49,7 @@ export default async function DashboardPage({
 
   return (
     <DashboardShell
+      budgetModal={<BudgetModal snapshot={budgetSnapshot} />}
       createdAmount={createdAmount}
       snapshot={snapshot}
       todayLabel={todayLabel}

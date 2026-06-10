@@ -92,6 +92,9 @@ app/
 
 (private)/
    page.tsx
+   budget/
+      actions.ts
+      budget-modal.tsx
    add/
       page.tsx
    history/
@@ -208,6 +211,7 @@ Responsabilidades:
 - mostrar totales
 - acceso rápido a registrar propina
 - acceso a historial
+- acceso al modal post-MVP de presupuesto
 
 ---
 
@@ -243,6 +247,10 @@ Responsabilidades:
 
 - mostrar lista de propinas
 - ordenar por fecha
+
+## `/budget`
+
+No define una ruta visible. Agrupa la accion de servidor y el modal post-MVP de presupuesto personal usado desde el dashboard.
 
 ---
 

@@ -209,3 +209,17 @@
 - Archivos afectados: proxy.ts, app/(auth)/auth-form.tsx, e2e/auth.smoke.spec.ts, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `eslint .` OK; `next build` OK; Playwright directo mobile OK; `playwright test e2e/auth.smoke.spec.ts -g "password recovery entry points are accessible"` OK.
 - Commit hash: pendiente
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-post-mvp-budget-01 | Tipo: post-mvp
+
+- Descripcion: declaracion formal de etapa post-MVP e incorporacion de presupuesto personal mensual desde dashboard, con propinas del mes como ingreso automatico, movimientos de ingreso/gasto, RLS por usuario y modal mobile-first.
+- Archivos afectados: `supabase/migrations/20260610120000_003_add_budget_items.sql`, `lib/budget.ts`, `app/(private)/page.tsx`, `app/(private)/dashboard-shell.tsx`, `app/(private)/budget/*`, `e2e/auth.smoke.spec.ts`, `docs/*`.
+- Resultado de tests: `eslint .` OK; `tsc --noEmit` OK; `prettier --check` OK en archivos del lote. `next build` BLOCKED por entorno local: `lightningcss` no puede resolver `../lightningcss.darwin-arm64.node`. Supabase local BLOCKED: `supabase start` no pudo iniciar porque el puerto `54322` esta ocupado por otro proyecto (`nodux`). E2E funcional no ejecutado porque no hay servidor local y Supabase local no esta disponible.
+- Commit hash: pendiente
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-password-reset-callback-01 | Tipo: ui
+
+- Descripcion: correccion del proxy para permitir que una sesion de recuperacion acceda a `/reset-password` despues del callback de Supabase, sin redirigirla como si fuera login normal; mejora del mensaje cuando Supabase limita reintentos de envio de correo de recuperacion.
+- Archivos afectados: proxy.ts, app/(auth)/actions.ts, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `eslint proxy.ts app/(auth)/actions.ts` OK; `git diff --check` OK; `next build` OK; `curl -I https://propi-jade.vercel.app/reset-password` 200 OK.
+- Commit hash: pendiente

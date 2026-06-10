@@ -277,3 +277,24 @@ Me gustaria que chequeemos si existe un flujo de recuperear contrasena y si no e
 ```text
 el boton de olvide mi contrasena no hace nada si lo clickeo
 ```
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-post-mvp-budget-01
+
+- Objetivo: registrar que el MVP ya fue completado e implementar una funcion post-MVP de presupuesto personal simple, mobile-first e integrada con propinas.
+- Prompt completo:
+
+```text
+PLEASE IMPLEMENT THIS PLAN:
+# Plan: Presupuesto Personal Post-MVP
+
+Agregar una función post-MVP de Presupuesto como modal mobile-first desde el dashboard. El usuario podrá registrar ingresos fijos, gastos fijos y gastos variables; las propinas del mes se sumarán automáticamente desde tips. Antes de implementar, dejar registrado en docs que el MVP ya fue completado y que este lote pertenece a etapa post-MVP.
+```
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-password-reset-callback-01
+
+- Objetivo: revisar por que el link de reset password del correo no llega a la pantalla de restablecer contraseña y por que un nuevo correo de recuperacion puede fallar.
+- Prompt completo:
+
+```text
+intente enviarme otro correo pero ya no pude, es que no me queda claro. podemos chequear lo que sucede cuando le doy click al reset pasword porque no me lleva a una pantlla de restablecer contrasena sino de login
+```

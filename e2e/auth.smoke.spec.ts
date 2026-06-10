@@ -70,7 +70,7 @@ test('user can sign up, create a tip, sign out and sign back in', async ({
   await page.getByRole('button', { name: 'Crear cuenta' }).click();
 
   await expect(page).toHaveURL(/\/$/);
-  await expect(page.getByText(`Sesion activa: ${email}`)).toBeVisible();
+  await expect(page.getByText(email)).toBeVisible();
   await expect(page.getByText('$0,00')).toHaveCount(3);
   await expect(
     page.getByRole('link', { name: 'Agregar propina' }),
@@ -137,7 +137,7 @@ test('user can sign up, create a tip, sign out and sign back in', async ({
   await page.getByRole('button', { name: 'Iniciar sesion' }).click();
 
   await expect(page).toHaveURL(/\/$/);
-  await expect(page.getByText(`Sesion activa: ${email}`)).toBeVisible();
+  await expect(page.getByText(email)).toBeVisible();
   await expect(
     page
       .locator('article')
@@ -151,4 +151,73 @@ test('user can sign up, create a tip, sign out and sign back in', async ({
 
   await expect(page).toHaveURL(/\/history$/);
   await expect(page.getByText('$35,00')).toHaveCount(0);
+});
+
+test('user can manage a monthly budget with tips included', async ({
+  page,
+}) => {
+  const formatDateInput = (date: Date) =>
+    `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(
+      date.getDate(),
+    ).padStart(2, '0')}`;
+
+  const stamp = Date.now();
+  const email = `propi-budget-${stamp}@example.com`;
+  const password = 'prueba123';
+  const todayIso = formatDateInput(new Date());
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/register');
+  await page.getByLabel('Correo electronico').fill(email);
+  await page.getByLabel('Contrasena').fill(password);
+  await page.getByRole('button', { name: 'Crear cuenta' }).click();
+
+  await expect(page).toHaveURL(/\/$/);
+
+  await page.getByRole('link', { name: 'Registrar propina' }).click();
+  await page.getByLabel('Monto').fill('20');
+  await page.getByLabel('Fecha de la propina').fill(todayIso);
+  await page.getByRole('button', { name: 'Guardar propina' }).click();
+
+  await expect(page).toHaveURL(/\/$/);
+  await page.getByRole('button', { name: /Presupuesto/ }).click();
+  await expect(
+    page.getByRole('heading', { name: 'Presupuesto' }),
+  ).toBeVisible();
+  await expect(
+    page.locator('section').filter({ hasText: 'Propinas' }).getByText('$20,00'),
+  ).toBeVisible();
+
+  await page.getByLabel('Tipo').selectOption('fixed_income');
+  await page.getByLabel('Nombre').fill('Sueldo');
+  await page.getByLabel('Monto').fill('1000');
+  await page.getByLabel('Fecha').fill(todayIso);
+  await page.getByLabel('Repetir todos los meses').check();
+  await page.getByRole('button', { name: 'Agregar movimiento' }).click();
+
+  await expect(page.getByText('Movimiento guardado.')).toBeVisible();
+  await expect(page.getByText('Sueldo')).toBeVisible();
+
+  await page.getByLabel('Tipo').selectOption('fixed_expense');
+  await page.getByLabel('Nombre').fill('Alquiler');
+  await page.getByLabel('Monto').fill('300');
+  await page.getByLabel('Fecha').fill(todayIso);
+  await page.getByLabel('Repetir todos los meses').check();
+  await page.getByRole('button', { name: 'Agregar movimiento' }).click();
+
+  await expect(page.getByText('Alquiler')).toBeVisible();
+
+  await page.getByLabel('Tipo').selectOption('variable_expense');
+  await page.getByLabel('Nombre').fill('Supermercado');
+  await page.getByLabel('Monto').fill('50');
+  await page.getByLabel('Fecha').fill(todayIso);
+  await page.getByRole('button', { name: 'Agregar movimiento' }).click();
+
+  await expect(page.getByText('Supermercado')).toBeVisible();
+  await expect(page.getByText('$670,00')).toBeVisible();
+
+  await page.getByRole('button', { name: 'Eliminar Supermercado' }).click();
+
+  await expect(page.getByText('Supermercado')).toHaveCount(0);
+  await expect(page.getByText('$720,00')).toBeVisible();
 });

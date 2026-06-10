@@ -627,3 +627,53 @@ políticas RLS
 
 La prioridad no es complejidad, sino claridad, seguridad y velocidad de implementación.
 ```
+
+21. Post-MVP — Presupuesto Personal
+
+Desde 2026-06-10 el MVP se considera completado. La tabla `budget_items` pertenece a la etapa post-MVP y se agrega para control mensual simple de presupuesto.
+
+Tabla: `budget_items`
+
+Campos:
+
+id
+
+user_id
+
+type
+
+name
+
+amount
+
+budget_date
+
+is_recurring
+
+created_at
+
+updated_at
+
+Tipos permitidos:
+
+fixed_income
+
+fixed_expense
+
+variable_expense
+
+Reglas:
+
+cada movimiento pertenece a un usuario
+
+amount debe ser mayor a 0
+
+name no puede estar vacio
+
+budget_date es obligatorio
+
+is_recurring indica si un ingreso o gasto fijo aplica todos los meses desde su fecha
+
+variable_expense no puede ser recurrente
+
+Las propinas no se duplican en `budget_items`. El presupuesto mensual suma las propinas desde `tips`.

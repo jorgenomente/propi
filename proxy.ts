@@ -12,6 +12,8 @@ export async function proxy(request: NextRequest) {
     pathname === '/forgot-password' ||
     pathname === '/reset-password' ||
     pathname === '/auth/callback';
+  const shouldRedirectAuthenticatedUser =
+    pathname === '/login' || pathname === '/register';
 
   if (!hasSupabasePublicEnv()) {
     if (!isPublicRoute) {
@@ -33,7 +35,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  if (user && isPublicRoute) {
+  if (user && shouldRedirectAuthenticatedUser) {
     const appUrl = request.nextUrl.clone();
     appUrl.pathname = '/';
     return NextResponse.redirect(appUrl);

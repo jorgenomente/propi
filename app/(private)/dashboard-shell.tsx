@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import {
   ArrowRight,
   CalendarDays,
@@ -23,6 +23,7 @@ import {
 import { cn } from '@/lib/utils';
 
 type DashboardShellProps = {
+  budgetModal: ReactNode;
   createdAmount?: number | null;
   snapshot: DashboardSnapshot;
   todayLabel: string;
@@ -151,6 +152,7 @@ function formatCompactCurrency(value: number) {
 }
 
 export function DashboardShell({
+  budgetModal,
   createdAmount,
   snapshot,
   todayLabel,
@@ -479,7 +481,7 @@ export function DashboardShell({
         </section>
       )}
 
-      <section className="mt-6 grid gap-4 md:grid-cols-3">
+      <section className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <Link
           href="/add"
           className="border-border/80 bg-card/85 hover:bg-secondary/70 rounded-[28px] border p-5 transition-colors"
@@ -503,6 +505,8 @@ export function DashboardShell({
             Revisar y editar registros
           </p>
         </Link>
+
+        {budgetModal}
 
         <a
           href={whatsappShareUrl}

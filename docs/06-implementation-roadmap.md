@@ -32,7 +32,9 @@ Al 2026-03-12 el repositorio ya tiene cerrada la base de proyecto y quedó sanea
 - Lote 7: pulido MVP implementado y validado
 - Lote 8: recuperacion de contraseña implementada sobre Supabase Auth
 
-Estado general: MVP completado y listo para iteracion controlada sobre la base actual.
+Estado general: MVP completado y listo para iteracion post-MVP controlada sobre la base actual.
+
+Desde 2026-06-10, toda funcionalidad nueva debe registrarse como post-MVP.
 
 ## Estado de iteracion actual
 
@@ -43,6 +45,7 @@ Primera iteracion post-MVP ya implementada:
 - dashboard, historial y estadisticas calculados sobre fecha real de negocio
 - correccion y eliminacion de propinas desde historial mediante `/edit/[id]`
 - flujo accesible de recuperacion de contraseña con `/forgot-password` y `/reset-password`
+- presupuesto personal post-MVP integrado al dashboard
 
 ---
 

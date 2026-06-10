@@ -134,6 +134,7 @@ Ejemplos:
 - obtener total semanal
 - obtener total mensual
 - listar historial
+- calcular presupuesto mensual post-MVP
 
 ## 5.3 Capa de Persistencia
 
@@ -192,6 +193,7 @@ Administra:
 Administra:
 
 - tabla de propinas
+- tabla de movimientos de presupuesto post-MVP
 - relación de cada propina con su usuario
 - timestamps
 - consultas agregadas
@@ -237,6 +239,7 @@ Responsabilidades:
 - mostrar total semanal
 - mostrar total mensual
 - mostrar cantidad de registros recientes si se desea
+- abrir presupuesto personal post-MVP
 
 ## 7.4 Módulo de Historial
 
@@ -246,6 +249,17 @@ Responsabilidades:
 - ordenar por fecha descendente
 - mostrar monto y timestamp
 - permitir navegación simple por registros
+
+## 7.5 Módulo de Presupuesto Personal
+
+Responsabilidades:
+
+- mostrar balance mensual simple
+- sumar propinas del mes como ingreso automatico
+- registrar ingresos fijos
+- registrar gastos fijos
+- registrar gastos variables
+- eliminar movimientos cargados por error
 
 ---
 

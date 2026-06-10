@@ -572,3 +572,29 @@ La seguridad del MVP debe ser pequeña en alcance, pero estricta en ejecución.
 La regla que siempre debe cumplirse es:
 
 cada usuario solo puede operar sus propias propinas
+
+24. Post-MVP — RLS para Presupuesto Personal
+
+La tabla `public.budget_items` debe seguir la misma regla base:
+
+auth.uid() = user_id
+
+Operaciones:
+
+SELECT
+
+INSERT
+
+UPDATE
+
+DELETE
+
+Todas deben estar limitadas al usuario autenticado dueño del movimiento.
+
+La tabla debe tener:
+
+alter table public.budget_items enable row level security;
+
+alter table public.budget_items force row level security;
+
+Los usuarios anonimos no deben poder leer ni modificar movimientos de presupuesto.

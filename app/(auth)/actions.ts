@@ -81,6 +81,20 @@ function getFriendlyAuthError(message: string) {
   return 'No se pudo completar la autenticacion. Intenta otra vez.';
 }
 
+function getFriendlyPasswordResetError(message: string) {
+  const normalizedMessage = message.toLowerCase();
+
+  if (
+    normalizedMessage.includes('rate limit') ||
+    normalizedMessage.includes('security purposes') ||
+    normalizedMessage.includes('too many')
+  ) {
+    return 'Ya solicitaste un enlace hace poco. Espera unos minutos y vuelve a intentarlo.';
+  }
+
+  return 'No se pudo enviar el correo de recuperacion. Intenta nuevamente.';
+}
+
 async function getRequestOrigin() {
   const requestHeaders = await headers();
   const forwardedProto = requestHeaders.get('x-forwarded-proto');
@@ -220,8 +234,10 @@ export async function requestPasswordResetAction(
   );
 
   if (error) {
+    console.error('Password reset email request failed', error);
+
     return {
-      error: 'No se pudo enviar el correo de recuperacion. Intenta nuevamente.',
+      error: getFriendlyPasswordResetError(error.message),
       email: parsed.data.email,
     } satisfies PasswordResetRequestState;
   }

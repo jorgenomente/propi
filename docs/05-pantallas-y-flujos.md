@@ -30,7 +30,7 @@ Registrar una propina debe tomar **menos de 5 segundos**.
 
 # 2. Estructura General de Pantallas
 
-La base actual de **Propi** contiene **9 pantallas principales**.
+La base actual de **Propi** contiene **9 pantallas principales** y 1 modal post-MVP.
 
 ## Pantallas públicas
 
@@ -46,6 +46,7 @@ La base actual de **Propi** contiene **9 pantallas principales**.
 - Editar propina
 - Historial de propinas
 - Estadisticas
+- Modal Presupuesto
 
 ---
 
@@ -84,6 +85,8 @@ La base actual de **Propi** contiene **9 pantallas principales**.
 ```
 
 El **Dashboard es el centro de la aplicación**.
+
+El modal **Presupuesto** se abre desde el Dashboard y no crea una ruta nueva.
 
 ---
 
@@ -403,6 +406,8 @@ Mostrar al usuario un **resumen rápido de sus propinas**.
 
 El usuario debe poder ver su situación en **menos de 2 segundos**.
 
+Como funcionalidad post-MVP, el dashboard tambien ofrece acceso al modal de presupuesto personal.
+
 ---
 
 # 6.1 Layout General
@@ -423,6 +428,8 @@ $1320
 [ Registrar propina ]
 
 [ Ver historial ]
+
+[ Presupuesto ]
 
 ---------------------------------
 ```
@@ -518,6 +525,99 @@ Acción:
 ```
 navegar → /history
 ```
+
+### Botón post-MVP
+
+```
+Presupuesto
+```
+
+Acción:
+
+```
+abrir modal de presupuesto
+```
+
+---
+
+# 8.1 Modal Post-MVP — Presupuesto
+
+## Ubicación
+
+Se abre desde:
+
+```
+/
+```
+
+No tiene ruta propia.
+
+---
+
+## Objetivo
+
+Permitir que el usuario controle su presupuesto mensual de forma simple, usando las propinas del mes como ingreso automatico.
+
+---
+
+## Elementos
+
+### Resumen superior
+
+```
+Cuánto queda
+```
+
+Muestra:
+
+- propinas del mes
+- ingresos fijos
+- gastos fijos
+- gastos del mes
+- balance disponible
+
+### Formulario
+
+Campos:
+
+```
+Tipo
+Nombre
+Monto
+Fecha
+Repetir todos los meses
+```
+
+Tipos permitidos:
+
+- Ingreso fijo
+- Gasto fijo
+- Gasto del mes
+
+El toggle de repeticion solo aplica a ingresos fijos y gastos fijos.
+
+### Lista de movimientos
+
+Muestra:
+
+- nombre
+- tipo
+- fecha
+- monto
+- si es mensual
+- accion eliminar
+
+---
+
+## Comportamiento esperado
+
+El balance se calcula como:
+
+```
+propinas del mes + ingresos fijos - gastos fijos - gastos del mes
+```
+
+Las propinas no se duplican como movimientos de presupuesto. Se leen desde `tips`.
 
 ---
 

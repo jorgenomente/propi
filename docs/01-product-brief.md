@@ -4,7 +4,9 @@ Proyecto: Propi
 Versión: v0.1
 Fecha: 2026-03-09
 
-Estado actual: MVP implementado y validado al 2026-03-12. A partir de este punto el trabajo pasa a iteracion sobre la base existente.
+Estado actual: MVP implementado y validado al 2026-03-12. A partir de este punto el trabajo pasa a iteracion post-MVP sobre la base existente.
+
+Nota operativa 2026-06-10: el MVP se considera completado. Toda funcionalidad nueva desde esta fecha debe registrarse como post-MVP y mantenerse acotada para no desordenar la experiencia principal.
 
 1. Visión del Producto
 
@@ -177,6 +179,26 @@ lista de propinas registradas
 ordenadas por fecha
 
 con monto y hora
+
+7.1 Funcionalidades Post-MVP
+
+Las funcionalidades posteriores al MVP pueden agregarse si respetan simplicidad, seguridad y foco mobile-first.
+
+Funcionalidad post-MVP actual:
+
+Presupuesto personal
+
+El usuario puede:
+
+registrar ingresos fijos
+
+registrar gastos fijos
+
+registrar gastos variables del mes
+
+ver sus propinas del mes integradas como ingreso automatico
+
+ver un balance simple de cuanto queda este mes
 
 8. Funcionalidades Fuera del MVP
 
