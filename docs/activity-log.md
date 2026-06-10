@@ -244,3 +244,10 @@
 - Archivos afectados: app/auth/callback/route.ts, app/(auth)/reset-password/page.tsx, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `eslint app/auth/callback/route.ts app/(auth)/reset-password/page.tsx` OK; `git diff --check` OK; `next build` OK.
 - Commit hash: pendiente
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-reset-hash-confirm-01 | Tipo: ui
+
+- Descripcion: incorporacion de `/auth/confirm` como pagina cliente para procesar links de recuperacion con `code` o tokens en `#hash`; los nuevos correos de reset apuntan a esa ruta antes de redirigir a `/reset-password`.
+- Archivos afectados: app/auth/confirm/page.tsx, app/(auth)/actions.ts, proxy.ts, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `eslint app/auth/confirm/page.tsx app/(auth)/actions.ts proxy.ts` OK; `git diff --check` OK; `next build` OK.
+- Commit hash: pendiente

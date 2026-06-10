@@ -316,3 +316,12 @@ claro, agregemos en el AGENTS que siempre despues de un push a main o un PR cheq
 ```text
 intente usar el ultimo correo y me trae aqui. la pantalla de restablecer contrasena existe? es distinta a esta? o es la misma?
 ```
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-reset-hash-confirm-01
+
+- Objetivo: corregir el flujo de recuperacion cuando Supabase devuelve tokens en el hash de la URL, para que la app cree sesion de recuperacion y muestre la pantalla de nueva contraseña.
+- Prompt completo:
+
+```text
+acabo de intentar con el link, lo recibi hago click en reset pasword pero me lleva a esta pagina
+```

@@ -11,6 +11,7 @@ export async function proxy(request: NextRequest) {
     pathname === '/register' ||
     pathname === '/forgot-password' ||
     pathname === '/reset-password' ||
+    pathname === '/auth/confirm' ||
     pathname === '/auth/callback';
   const shouldRedirectAuthenticatedUser =
     pathname === '/login' || pathname === '/register';
