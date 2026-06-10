@@ -85,6 +85,10 @@ app/
       page.tsx
    register/
       page.tsx
+   forgot-password/
+      page.tsx
+   reset-password/
+      page.tsx
 
 (private)/
    page.tsx
@@ -104,6 +108,8 @@ Contiene las pantallas públicas relacionadas con autenticación.
 (auth)/
 login/
 register/
+forgot-password/
+reset-password/
 ```
 
 ---
@@ -141,6 +147,39 @@ Responsabilidades:
 - formulario de registro
 - creación de usuario
 - redirección al dashboard
+
+## `/forgot-password`
+
+Pantalla para solicitar recuperacion de contraseña por email.
+
+Archivo principal:
+
+```text
+page.tsx
+```
+
+Responsabilidades:
+
+- capturar correo
+- solicitar email de recuperacion con Supabase Auth
+- mostrar respuesta neutral sin revelar si el correo existe
+
+## `/reset-password`
+
+Pantalla para definir una contraseña nueva despues de abrir el enlace de recuperacion.
+
+Archivo principal:
+
+```text
+page.tsx
+```
+
+Responsabilidades:
+
+- validar sesion de recuperacion
+- capturar y confirmar contraseña nueva
+- actualizar contraseña con Supabase Auth
+- volver al login
 
 ---
 

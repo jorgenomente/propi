@@ -26,6 +26,28 @@ test('login shows a friendly error for invalid credentials', async ({
   ).toBeVisible();
 });
 
+test('password recovery entry points are accessible', async ({ page }) => {
+  await page.goto('/login');
+
+  await page.getByRole('link', { name: 'Olvide mi contraseña' }).click();
+  await expect(page).toHaveURL(/\/forgot-password$/);
+  await expect(
+    page.getByRole('heading', { name: 'Recuperar contraseña' }),
+  ).toBeVisible();
+  await expect(page.getByLabel('Correo electronico')).toBeVisible();
+  await expect(
+    page.getByRole('button', { name: 'Enviar enlace' }),
+  ).toBeVisible();
+
+  await page.goto('/reset-password');
+  await expect(
+    page.getByRole('heading', { name: 'Solicita un enlace nuevo' }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('link', { name: 'Enviar enlace de recuperacion' }),
+  ).toBeVisible();
+});
+
 test('user can sign up, create a tip, sign out and sign back in', async ({
   page,
 }) => {

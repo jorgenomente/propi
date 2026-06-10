@@ -30,6 +30,7 @@ Al 2026-03-12 el repositorio ya tiene cerrada la base de proyecto y quedó sanea
 - Lote 5: dashboard conectado a datos reales
 - Lote 6: historial conectado a datos reales
 - Lote 7: pulido MVP implementado y validado
+- Lote 8: recuperacion de contraseña implementada sobre Supabase Auth
 
 Estado general: MVP completado y listo para iteracion controlada sobre la base actual.
 
@@ -41,6 +42,7 @@ Primera iteracion post-MVP ya implementada:
 - pantalla `/stats` con presets y rango personalizado
 - dashboard, historial y estadisticas calculados sobre fecha real de negocio
 - correccion y eliminacion de propinas desde historial mediante `/edit/[id]`
+- flujo accesible de recuperacion de contraseña con `/forgot-password` y `/reset-password`
 
 ---
 
@@ -136,6 +138,7 @@ Implementar el sistema de autenticación de usuarios.
 6. Manejar sesión activa
 7. Proteger rutas privadas
 8. Implementar logout
+9. Implementar recuperacion de contraseña por email
 
 ---
 
@@ -144,6 +147,8 @@ Implementar el sistema de autenticación de usuarios.
 ```text
 /login
 /register
+/forgot-password
+/reset-password
 ```
 
 ---
@@ -154,12 +159,13 @@ Un usuario debe poder:
 
 - crear una cuenta
 - iniciar sesión
+- recuperar su contraseña
 - cerrar sesión
 - acceder a la app autenticado
 
 ## Estado
 
-Completado. Login, registro, logout, proteccion de rutas y smoke E2E minima ya estan implementados.
+Completado. Login, registro, logout, recuperacion de contraseña, proteccion de rutas y smoke E2E minima ya estan implementados.
 
 ---
 

@@ -259,3 +259,12 @@ agreguemos algun efecto al boton flotante que tiene el + de agregar propina. y a
 ```text
 si eso
 ```
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-password-recovery-01
+
+- Objetivo: chequear si existe un flujo de recuperacion de contraseña y, al no existir, implementarlo de forma accesible y facil de usar.
+- Prompt completo:
+
+```text
+Me gustaria que chequeemos si existe un flujo de recuperear contrasena y si no existe vamos a aplicarlo tengo un usuario que olvido su contrasena y no la puede recuperar que sea accesible y facil de usar
+```

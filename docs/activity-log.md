@@ -32,7 +32,7 @@
 
 - Descripcion: agregue un botón de compartir Propi vía WhatsApp en el dashboard para que el usuario pueda abrir fácilmente WhatsApp y enviar el enlace de la app.
 - Archivos afectados: app/(private)/page.tsx, docs/prompts.md, docs/activity-log.md.
-- Resultado de tests: pendiente.
+- Resultado de tests: `node node_modules/eslint/bin/eslint.js .` OK; `node node_modules/typescript/bin/tsc --noEmit` OK; `prettier --check` OK. `next build` BLOCKED por entorno local: primero no pudo descargar fuentes con red restringida y luego, con red habilitada, fallo por carga nativa faltante/firma de `lightningcss`/SWC y `npm` ausente en PATH.
 - Commit hash: pendiente
 
 ## 2026-03-12 09:29:55 -0300 | Lote: 2026-03-12-git-cierre-01 | Tipo: infra
@@ -194,4 +194,11 @@
 - Descripcion: incorporacion de una microanimacion periodica al CTA flotante de agregar propina para reforzar su prioridad visual sin volverlo invasivo y respetando reduced motion.
 - Archivos afectados: app/globals.css, components/tips/floating-add-tip-button.tsx, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `npm run lint` OK; `npm run build` OK.
+- Commit hash: pendiente
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-password-recovery-01 | Tipo: ui
+
+- Descripcion: incorporacion del flujo de recuperacion de contraseña con enlace desde `/login`, solicitud por email en `/forgot-password`, definicion de contraseña nueva en `/reset-password` y callback existente de Supabase Auth apuntando a la pantalla de reset.
+- Archivos afectados: app/(auth)/actions.ts, app/(auth)/auth-form.tsx, app/(auth)/login/page.tsx, app/(auth)/forgot-password/_, app/(auth)/reset-password/_, e2e/auth.smoke.spec.ts, docs/02-system-architecture.md, docs/05-pantallas-y-flujos.md, docs/06-implementation-roadmap.md, docs/07-repo-structure.md, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: pendiente.
 - Commit hash: pendiente

@@ -154,6 +154,7 @@ Responsable de:
 
 - registro
 - login
+- recuperacion de contraseña
 - sesión
 - obtención del usuario autenticado
 - control de acceso por usuario
@@ -182,6 +183,7 @@ Administra:
 
 - creación de cuentas
 - login por email y password
+- recuperacion de contraseña por email
 - sesión activa
 - identificación del usuario
 
@@ -212,6 +214,7 @@ Responsabilidades:
 
 - registro de usuario
 - login
+- recuperacion de contraseña
 - logout
 - protección de rutas privadas
 - recuperación de sesión

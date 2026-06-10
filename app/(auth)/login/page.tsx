@@ -30,6 +30,8 @@ export default async function LoginPage() {
       alternateHref="/register"
       alternateLabel="Crear cuenta"
       passwordAutoComplete="current-password"
+      recoveryHref="/forgot-password"
+      recoveryLabel="Olvide mi contraseña"
     />
   );
 }

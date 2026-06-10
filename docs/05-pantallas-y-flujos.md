@@ -30,12 +30,14 @@ Registrar una propina debe tomar **menos de 5 segundos**.
 
 # 2. Estructura General de Pantallas
 
-La base actual de **Propi** contiene **7 pantallas principales**.
+La base actual de **Propi** contiene **9 pantallas principales**.
 
 ## Pantallas públicas
 
 - Iniciar sesión
 - Crear cuenta
+- Recuperar contraseña
+- Crear nueva contraseña
 
 ## Pantallas privadas
 
@@ -153,6 +155,18 @@ Navega a:
 /register
 ```
 
+### Enlace de recuperación
+
+```
+Olvide mi contraseña
+```
+
+Navega a:
+
+```
+/forgot-password
+```
+
 ---
 
 ## Comportamiento esperado
@@ -165,7 +179,134 @@ redirigir → /
 
 ---
 
-# 5. Pantalla 2 — Crear cuenta
+# 5. Pantalla 2 — Recuperar contraseña
+
+## Ruta
+
+```
+/forgot-password
+```
+
+---
+
+## Objetivo
+
+Permitir que un usuario que olvido su contraseña solicite un enlace de recuperacion por email.
+
+---
+
+## Elementos
+
+### Título
+
+```
+Recuperar contraseña
+```
+
+### Campo correo electrónico
+
+```
+Correo electrónico
+```
+
+### Botón principal
+
+```
+Enviar enlace
+```
+
+Acción:
+
+- solicitar recuperacion de contraseña usando Supabase Auth
+- enviar al usuario un enlace que redirige a `/reset-password`
+
+### Enlace secundario
+
+```
+Volver a iniciar sesión
+```
+
+Navega a:
+
+```
+/login
+```
+
+---
+
+## Comportamiento esperado
+
+El sistema muestra un mensaje neutral:
+
+```
+Si el correo existe en Propi, te enviamos un enlace para crear una contraseña nueva.
+```
+
+Esto evita revelar si un correo esta registrado o no.
+
+---
+
+# 6. Pantalla 3 — Crear nueva contraseña
+
+## Ruta
+
+```
+/reset-password
+```
+
+---
+
+## Objetivo
+
+Permitir que el usuario cree una contraseña nueva despues de abrir el enlace de recuperacion.
+
+---
+
+## Elementos
+
+### Título
+
+```
+Crear nueva contraseña
+```
+
+### Campo nueva contraseña
+
+```
+Nueva contraseña
+```
+
+### Campo confirmar contraseña
+
+```
+Confirmar contraseña
+```
+
+### Botón principal
+
+```
+Actualizar contraseña
+```
+
+Acción:
+
+- actualizar la contraseña usando Supabase Auth
+- cerrar la sesion temporal de recuperacion
+- permitir volver a iniciar sesion
+
+---
+
+## Comportamiento esperado
+
+Si el usuario abre `/reset-password` sin enlace valido:
+
+```
+Solicita un enlace nuevo
+```
+
+---
+
+# 7. Pantalla 4 — Crear cuenta
 
 ## Ruta
 
@@ -246,7 +387,7 @@ Después del registro:
 
 ---
 
-# 6. Pantalla 3 — Dashboard
+# 8. Pantalla 5 — Dashboard
 
 ## Ruta
 
@@ -380,7 +521,7 @@ navegar → /history
 
 ---
 
-# 7. Pantalla 4 — Registrar propina
+# 9. Pantalla 6 — Registrar propina
 
 ## Ruta
 
@@ -486,7 +627,7 @@ Esto permite que el usuario vea inmediatamente los nuevos totales actualizados.
 
 ---
 
-# 8. Pantalla 5 — Historial
+# 10. Pantalla 7 — Historial
 
 ## Ruta
 
@@ -578,7 +719,7 @@ navegar → /
 
 ---
 
-# 8.3 Pantalla 6 — Estadisticas
+# 11. Pantalla 8 — Estadisticas
 
 ## Ruta
 
@@ -614,7 +755,7 @@ Permitir al usuario explorar sus propinas por rango de fechas y revisar detalle 
 
 ---
 
-# 8.4 Pantalla 7 — Editar propina
+# 12. Pantalla 9 — Editar propina
 
 ## Ruta
 

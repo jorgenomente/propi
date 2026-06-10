@@ -3,7 +3,7 @@
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import Link from 'next/link';
-import { ArrowRight, LockKeyhole, Mail } from 'lucide-react';
+import { ArrowLeft, Mail } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -16,68 +16,45 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-import type { AuthFormState } from './actions';
+import {
+  requestPasswordResetAction,
+  type PasswordResetRequestState,
+} from '../actions';
 
-type AuthFormProps = {
-  action: (
-    state: AuthFormState | void,
-    formData: FormData,
-  ) => Promise<AuthFormState | void>;
-  title: string;
-  description: string;
-  submitLabel: string;
-  alternateHref: string;
-  alternateLabel: string;
-  initialEmail?: string;
-  passwordAutoComplete?: 'current-password' | 'new-password';
-  recoveryHref?: string;
-  recoveryLabel?: string;
-};
+const initialState: PasswordResetRequestState = {};
 
-const initialState: AuthFormState = {};
-
-function SubmitButton({ children }: { children: React.ReactNode }) {
+function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
     <Button className="h-12 w-full text-sm" type="submit" disabled={pending}>
-      {pending ? 'Enviando...' : children}
+      {pending ? 'Enviando...' : 'Enviar enlace'}
     </Button>
   );
 }
 
-export function AuthForm({
-  action,
-  title,
-  description,
-  submitLabel,
-  alternateHref,
-  alternateLabel,
-  initialEmail,
-  passwordAutoComplete = 'current-password',
-  recoveryHref,
-  recoveryLabel,
-}: AuthFormProps) {
-  const [state, formAction] = useActionState(action, {
-    ...initialState,
-    email: initialEmail,
-  });
+export function ForgotPasswordForm() {
+  const [state, formAction] = useActionState(
+    requestPasswordResetAction,
+    initialState,
+  );
   const formState = state ?? initialState;
-  const errorId = formState.error ? 'auth-form-error' : undefined;
-  const successId = formState.success ? 'auth-form-success' : undefined;
-  const emailFieldKey = formState.email ?? initialEmail ?? 'empty';
+  const errorId = formState.error ? 'forgot-password-error' : undefined;
+  const successId = formState.success ? 'forgot-password-success' : undefined;
+  const emailFieldKey = formState.email ?? 'empty';
 
   return (
     <Card className="border-border bg-card w-full max-w-md shadow-[0_20px_60px_-42px_rgba(15,23,42,0.24)]">
       <CardHeader className="space-y-3">
         <div className="bg-muted text-muted-foreground inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-semibold tracking-[0.18em] uppercase">
-          Acceso personal
+          Recuperacion
         </div>
         <CardTitle className="text-2xl" role="heading" aria-level={2}>
-          {title}
+          Recuperar contraseña
         </CardTitle>
         <CardDescription className="text-sm leading-6">
-          {description}
+          Ingresa tu correo y te enviaremos un enlace para crear una contraseña
+          nueva.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -102,35 +79,6 @@ export function AuthForm({
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="password">Contrasena</Label>
-            <div className="relative">
-              <LockKeyhole className="text-muted-foreground pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2" />
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete={passwordAutoComplete}
-                placeholder="Minimo 6 caracteres"
-                aria-invalid={Boolean(formState.error)}
-                aria-describedby={errorId ?? successId}
-                className="pl-11"
-                required
-              />
-            </div>
-          </div>
-
-          {recoveryHref && recoveryLabel ? (
-            <div className="flex justify-end">
-              <Link
-                href={recoveryHref}
-                className="text-muted-foreground hover:text-foreground text-sm font-medium underline-offset-4 hover:underline"
-              >
-                {recoveryLabel}
-              </Link>
-            </div>
-          ) : null}
-
           {formState.error ? (
             <p
               id={errorId}
@@ -151,15 +99,15 @@ export function AuthForm({
             </p>
           ) : null}
 
-          <SubmitButton>{submitLabel}</SubmitButton>
+          <SubmitButton />
 
           <p className="text-muted-foreground text-center text-sm">
             <Link
-              href={alternateHref}
+              href="/login"
               className="text-foreground inline-flex items-center gap-2 font-medium"
             >
-              {alternateLabel}
-              <ArrowRight className="size-4" />
+              <ArrowLeft className="size-4" />
+              Volver a iniciar sesion
             </Link>
           </p>
         </form>

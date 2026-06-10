@@ -3,7 +3,7 @@
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import Link from 'next/link';
-import { ArrowRight, LockKeyhole, Mail } from 'lucide-react';
+import { ArrowRight, LockKeyhole } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -16,120 +16,80 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-import type { AuthFormState } from './actions';
+import { updatePasswordAction, type PasswordUpdateState } from '../actions';
 
-type AuthFormProps = {
-  action: (
-    state: AuthFormState | void,
-    formData: FormData,
-  ) => Promise<AuthFormState | void>;
-  title: string;
-  description: string;
-  submitLabel: string;
-  alternateHref: string;
-  alternateLabel: string;
-  initialEmail?: string;
-  passwordAutoComplete?: 'current-password' | 'new-password';
-  recoveryHref?: string;
-  recoveryLabel?: string;
-};
+const initialState: PasswordUpdateState = {};
 
-const initialState: AuthFormState = {};
-
-function SubmitButton({ children }: { children: React.ReactNode }) {
+function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
     <Button className="h-12 w-full text-sm" type="submit" disabled={pending}>
-      {pending ? 'Enviando...' : children}
+      {pending ? 'Guardando...' : 'Actualizar contraseña'}
     </Button>
   );
 }
 
-export function AuthForm({
-  action,
-  title,
-  description,
-  submitLabel,
-  alternateHref,
-  alternateLabel,
-  initialEmail,
-  passwordAutoComplete = 'current-password',
-  recoveryHref,
-  recoveryLabel,
-}: AuthFormProps) {
-  const [state, formAction] = useActionState(action, {
-    ...initialState,
-    email: initialEmail,
-  });
+export function ResetPasswordForm() {
+  const [state, formAction] = useActionState(
+    updatePasswordAction,
+    initialState,
+  );
   const formState = state ?? initialState;
-  const errorId = formState.error ? 'auth-form-error' : undefined;
-  const successId = formState.success ? 'auth-form-success' : undefined;
-  const emailFieldKey = formState.email ?? initialEmail ?? 'empty';
+  const errorId = formState.error ? 'reset-password-error' : undefined;
+  const successId = formState.success ? 'reset-password-success' : undefined;
+  const feedbackId = errorId ?? successId;
 
   return (
     <Card className="border-border bg-card w-full max-w-md shadow-[0_20px_60px_-42px_rgba(15,23,42,0.24)]">
       <CardHeader className="space-y-3">
         <div className="bg-muted text-muted-foreground inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-semibold tracking-[0.18em] uppercase">
-          Acceso personal
+          Seguridad
         </div>
         <CardTitle className="text-2xl" role="heading" aria-level={2}>
-          {title}
+          Crear nueva contraseña
         </CardTitle>
         <CardDescription className="text-sm leading-6">
-          {description}
+          Elige una contraseña nueva para recuperar el acceso a tu cuenta.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form action={formAction} className="space-y-5" noValidate>
           <div className="space-y-2">
-            <Label htmlFor="email">Correo electronico</Label>
-            <div className="relative">
-              <Mail className="text-muted-foreground pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2" />
-              <Input
-                key={emailFieldKey}
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                defaultValue={formState.email}
-                placeholder="tu@correo.com"
-                aria-invalid={Boolean(formState.error)}
-                aria-describedby={errorId ?? successId}
-                className="pl-11"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="password">Contrasena</Label>
+            <Label htmlFor="password">Nueva contraseña</Label>
             <div className="relative">
               <LockKeyhole className="text-muted-foreground pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2" />
               <Input
                 id="password"
                 name="password"
                 type="password"
-                autoComplete={passwordAutoComplete}
+                autoComplete="new-password"
                 placeholder="Minimo 6 caracteres"
                 aria-invalid={Boolean(formState.error)}
-                aria-describedby={errorId ?? successId}
+                aria-describedby={feedbackId}
                 className="pl-11"
                 required
               />
             </div>
           </div>
 
-          {recoveryHref && recoveryLabel ? (
-            <div className="flex justify-end">
-              <Link
-                href={recoveryHref}
-                className="text-muted-foreground hover:text-foreground text-sm font-medium underline-offset-4 hover:underline"
-              >
-                {recoveryLabel}
-              </Link>
+          <div className="space-y-2">
+            <Label htmlFor="confirmPassword">Confirmar contraseña</Label>
+            <div className="relative">
+              <LockKeyhole className="text-muted-foreground pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2" />
+              <Input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                autoComplete="new-password"
+                placeholder="Repite la contraseña"
+                aria-invalid={Boolean(formState.error)}
+                aria-describedby={feedbackId}
+                className="pl-11"
+                required
+              />
             </div>
-          ) : null}
+          </div>
 
           {formState.error ? (
             <p
@@ -151,14 +111,14 @@ export function AuthForm({
             </p>
           ) : null}
 
-          <SubmitButton>{submitLabel}</SubmitButton>
+          <SubmitButton />
 
           <p className="text-muted-foreground text-center text-sm">
             <Link
-              href={alternateHref}
+              href="/login"
               className="text-foreground inline-flex items-center gap-2 font-medium"
             >
-              {alternateLabel}
+              Iniciar sesion
               <ArrowRight className="size-4" />
             </Link>
           </p>
