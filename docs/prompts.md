@@ -298,3 +298,12 @@ Agregar una función post-MVP de Presupuesto como modal mobile-first desde el da
 ```text
 intente enviarme otro correo pero ya no pude, es que no me queda claro. podemos chequear lo que sucede cuando le doy click al reset pasword porque no me lleva a una pantlla de restablecer contrasena sino de login
 ```
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-agents-post-push-migrations-01
+
+- Objetivo: actualizar AGENTS.md para exigir chequeo de migraciones pendientes despues de push a main o PR, antes de aplicar cambios en base remota.
+- Prompt completo:
+
+```text
+claro, agregemos en el AGENTS que siempre despues de un push a main o un PR chequee si hay migraciones por realizar y pregunte si queremos proceder a aplicarlas en remoto
+```

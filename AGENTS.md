@@ -406,6 +406,32 @@ docs:
 refactor:
 chore:
 
+## 18.1 — Chequeo de migraciones post-push / PR
+
+Después de:
+
+- hacer push a `main`
+- abrir un PR
+- actualizar un PR con cambios nuevos
+
+el agente debe verificar si existen migraciones SQL del repositorio que aún deban aplicarse en la base remota.
+
+Regla:
+
+- revisar cambios en `supabase/migrations/`
+- comparar el estado local/remoto de migraciones cuando haya acceso a Supabase
+- si hay migraciones pendientes o duda razonable, informar el riesgo
+- preguntar explícitamente si se debe proceder a aplicarlas en remoto
+
+El agente NO debe aplicar migraciones remotas sin confirmación explícita del usuario.
+
+Respuesta esperada:
+
+- estado del push o PR
+- si hay o no migraciones pendientes
+- qué migraciones afectan producción
+- pregunta clara para proceder o no con la aplicación remota
+
 ---
 
 # 19 — Estándar de respuesta para debugging

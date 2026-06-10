@@ -223,3 +223,10 @@
 - Archivos afectados: proxy.ts, app/(auth)/actions.ts, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: `eslint proxy.ts app/(auth)/actions.ts` OK; `git diff --check` OK; `next build` OK; `curl -I https://propi-jade.vercel.app/reset-password` 200 OK.
 - Commit hash: pendiente
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-agents-post-push-migrations-01 | Tipo: docs
+
+- Descripcion: incorporacion en AGENTS.md de una regla post-push/PR para revisar migraciones SQL pendientes y pedir confirmacion explicita antes de aplicarlas en base remota.
+- Archivos afectados: AGENTS.md, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `git diff --check` OK.
+- Commit hash: pendiente
