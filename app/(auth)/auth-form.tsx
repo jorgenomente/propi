@@ -124,7 +124,7 @@ export function AuthForm({
             <div className="flex justify-end">
               <Link
                 href={recoveryHref}
-                className="text-muted-foreground hover:text-foreground text-sm font-medium underline-offset-4 hover:underline"
+                className="text-muted-foreground hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/20 relative z-10 -mr-3 inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium underline-offset-4 hover:underline focus-visible:ring-4 focus-visible:outline-none"
               >
                 {recoveryLabel}
               </Link>

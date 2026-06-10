@@ -268,3 +268,12 @@ si eso
 ```text
 Me gustaria que chequeemos si existe un flujo de recuperear contrasena y si no existe vamos a aplicarlo tengo un usuario que olvido su contrasena y no la puede recuperar que sea accesible y facil de usar
 ```
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-password-recovery-tap-01
+
+- Objetivo: corregir la interaccion del enlace "Olvide mi contraseña" en mobile para que navegue de forma confiable a recuperacion de contraseña.
+- Prompt completo:
+
+```text
+el boton de olvide mi contrasena no hace nada si lo clickeo
+```

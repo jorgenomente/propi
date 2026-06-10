@@ -9,6 +9,8 @@ export async function proxy(request: NextRequest) {
   const isPublicRoute =
     pathname === '/login' ||
     pathname === '/register' ||
+    pathname === '/forgot-password' ||
+    pathname === '/reset-password' ||
     pathname === '/auth/callback';
 
   if (!hasSupabasePublicEnv()) {

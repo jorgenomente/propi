@@ -27,6 +27,7 @@ test('login shows a friendly error for invalid credentials', async ({
 });
 
 test('password recovery entry points are accessible', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/login');
 
   await page.getByRole('link', { name: 'Olvide mi contraseña' }).click();

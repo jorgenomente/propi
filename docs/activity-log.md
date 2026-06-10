@@ -202,3 +202,10 @@
 - Archivos afectados: app/(auth)/actions.ts, app/(auth)/auth-form.tsx, app/(auth)/login/page.tsx, app/(auth)/forgot-password/_, app/(auth)/reset-password/_, e2e/auth.smoke.spec.ts, docs/02-system-architecture.md, docs/05-pantallas-y-flujos.md, docs/06-implementation-roadmap.md, docs/07-repo-structure.md, docs/prompts.md, docs/activity-log.md.
 - Resultado de tests: pendiente.
 - Commit hash: pendiente
+
+## 2026-06-10 00:00:00 -0300 | Lote: 2026-06-10-password-recovery-tap-01 | Tipo: ui
+
+- Descripcion: correccion del acceso a recuperacion de contraseña; `/forgot-password` y `/reset-password` vuelven a ser rutas publicas en el proxy, y el enlace `Olvide mi contraseña` tiene area tactil minima con cobertura E2E en viewport mobile.
+- Archivos afectados: proxy.ts, app/(auth)/auth-form.tsx, e2e/auth.smoke.spec.ts, docs/prompts.md, docs/activity-log.md.
+- Resultado de tests: `eslint .` OK; `next build` OK; Playwright directo mobile OK; `playwright test e2e/auth.smoke.spec.ts -g "password recovery entry points are accessible"` OK.
+- Commit hash: pendiente
